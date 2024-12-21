@@ -15,3 +15,7 @@ MonoBehaviour:
   WalkSpeed: 5
   RunSpeed: 10
   JumpForce: 10
+  BaseHealth: 13
+  BaseEnergy: 13
+  StartingLevel: 1
+  LevelMultiplayer: 1.2

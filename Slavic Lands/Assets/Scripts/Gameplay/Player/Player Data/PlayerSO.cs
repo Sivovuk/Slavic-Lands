@@ -13,12 +13,13 @@ namespace Gameplay.Player
         public float JumpForce;
         
         [Header("Health")]
-        public float MaxHealth;
+        public float BaseHealth;
 
         [Header("Energy")] 
-        public float MaxEnergy;
+        public float BaseEnergy;
 
         [Header("Character")] 
         public int StartingLevel = 1;
+        public float LevelMultiplayer = 1.2f;
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, ILoadingStats
     {
         //  Move
         private float _activeSpeed;
@@ -20,8 +20,8 @@ namespace Gameplay.Player
         
         // References
         [Header("References")]
-        [SerializeField] private PlayerSO _playerSo;
         [SerializeField] private Transform _jumpRaycast;
+        private Player _player;
         private PlayerInputSystem _playerInputSystem;
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
@@ -35,20 +35,18 @@ namespace Gameplay.Player
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _boxCollider2D = GetComponent<BoxCollider2D>(); 
-
-            LoadPlayerStats();
         }
 
         private void OnEnable()
         {
-            _playerInputSystem.OnSprintClick.AddListener(Sprint);
-            _playerInputSystem.OnJumpClick.AddListener(Jump);
+            _playerInputSystem.OnSprintClick += Sprint;
+            _playerInputSystem.OnJumpClick += Jump;
         }
 
         private void OnDisable()
         {
-            _playerInputSystem.OnSprintClick.RemoveListener(Sprint);
-            _playerInputSystem.OnJumpClick.RemoveListener(Jump);
+            _playerInputSystem.OnSprintClick -= Sprint;
+            _playerInputSystem.OnJumpClick -= Jump;
         }
 
         private void Update()
@@ -71,6 +69,9 @@ namespace Gameplay.Player
 
         private void Sprint(bool value)
         {
+            if(!_player.PlayerEnergy.Sprint(value && (_playerInputSystem.MovementValue.x != 0)))
+                return;
+            
             if (value)
                 _activeSpeed = _runSpeed;
             else
@@ -91,11 +92,12 @@ namespace Gameplay.Player
                 _isGrounded = false;
         }
 
-        private void LoadPlayerStats()
+        public void LoadPlayerStats(PlayerSO playerSO, Player player)
         {
-            _walkSpeed = _playerSo.WalkSpeed;
-            _runSpeed = _playerSo.RunSpeed;
-            _jumpForce = _playerSo.JumpForce;
+            _player = player;
+            _walkSpeed = playerSO.WalkSpeed;
+            _runSpeed = playerSO.RunSpeed;
+            _jumpForce = playerSO.JumpForce;
             
             _activeSpeed = _walkSpeed;
             _isMoving = true;

@@ -10,10 +10,10 @@ namespace Gameplay.Player
         [field:SerializeField] public Vector2 MovementValue { get; private set; }
     	[field:SerializeField] public Vector2 Look { get; private set; }
 
-        public UnityEvent OnLMBClick;
-        public UnityEvent OnRMBClick;
-        public UnityEvent OnJumpClick;
-        public UnityEvent<bool> OnSprintClick;
+        public Action OnLMBClick;
+        public Action OnRMBClick;
+        public Action OnJumpClick;
+        public Action<bool> OnSprintClick;
 
         private Controls _controls;
     
@@ -23,8 +23,8 @@ namespace Gameplay.Player
             _controls.Player.SetCallbacks(this);
             _controls.Enable();
         
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
         }
 
         private void OnDestroy()
