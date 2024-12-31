@@ -18,8 +18,16 @@ namespace Gameplay.Player
         [Header("Energy")] 
         public float BaseEnergy;
 
+        [Header("Attack & Actions")] 
+        public float AttackDamage;
+        public float ShootDamage;
+        public float CutingDamage;
+        public float MiningDamage;
+
         [Header("Character")] 
         public int StartingLevel = 1;
+        
+        
         public float LevelMultiplayer = 1.2f;
     }
 }

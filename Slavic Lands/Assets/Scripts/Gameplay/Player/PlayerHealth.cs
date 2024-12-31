@@ -1,9 +1,11 @@
 ﻿using System;
+using Gameplay.Resources;
+using Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Player
 {
-    public class PlayerHealth : MonoBehaviour, ILoadingStats
+    public class PlayerHealth : MonoBehaviour, ILoadingStatsPlayer, IHit
     {
         private float _maxHealth;
         private float _currentHealth;
@@ -20,14 +22,14 @@ namespace Gameplay.Player
             ModifyHealth(healAmount);
         }
 
-        public void TakeDamage(float damage)
+        public bool TakeDamage(float damage, Action<ResourceType, int> callback = null)
         {
-            ModifyHealth(-damage);
+            return ModifyHealth(-damage, callback);
         }
 
-        public void ModifyHealth(float amount)
+        private bool ModifyHealth(float amount, Action<ResourceType, int> callback = null)
         {
-            if (_isDead)return;
+            if (_isDead) return false;
             
             _currentHealth += amount;
             OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
@@ -36,7 +38,11 @@ namespace Gameplay.Player
             {
                 _isDead = true;
                 OnDeath?.Invoke();
+                
+                return true;
             }
+            
+            return false;
         }
 
         public void LoadPlayerStats(PlayerSO playerSO, Player player)

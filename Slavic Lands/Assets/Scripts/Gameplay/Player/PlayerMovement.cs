@@ -1,9 +1,10 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Player
 {
-    public class PlayerMovement : MonoBehaviour, ILoadingStats
+    public class PlayerMovement : MonoBehaviour, ILoadingStatsPlayer
     {
         //  Move
         private float _activeSpeed;

@@ -1,9 +1,10 @@
 ﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Player
 {
-    public class PlayerEnergy : MonoBehaviour, ILoadingStats
+    public class PlayerEnergy : MonoBehaviour, ILoadingStatsPlayer
     {
         private float _maxEnergy;
         [SerializeField] private float _currentEnergy;
@@ -51,7 +52,7 @@ namespace Gameplay.Player
             ModifyEnergy(-energy);
         }
 
-        public void ModifyEnergy(float energy)
+        private void ModifyEnergy(float energy)
         {
             _currentEnergy += energy;
             _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);

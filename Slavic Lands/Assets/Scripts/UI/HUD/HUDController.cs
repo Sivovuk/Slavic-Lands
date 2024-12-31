@@ -14,6 +14,19 @@ namespace UI.HUD
         [Header("Energy")]
         [SerializeField] private Image _energyBar;
 
+        [Header("References")]
+        public ResourceDisplay _resourceDisplay;
+        
+        public static HUDController Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this);
+        }
+
         private void Start()
         {
             GameManager.Instance.OnPlayerInit += OnInit;

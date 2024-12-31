@@ -17,5 +17,9 @@ MonoBehaviour:
   JumpForce: 10
   BaseHealth: 13
   BaseEnergy: 13
+  AttackDamage: 5
+  ShootDamage: 5
+  CutingDamage: 5
+  MiningDamage: 5
   StartingLevel: 1
   LevelMultiplayer: 1.2

@@ -1,5 +1,7 @@
 ﻿using System;
+using Gameplay.Resources;
 using Managers;
+using UI.HUD;
 using UnityEngine;
 
 namespace Gameplay.Player
@@ -8,6 +10,8 @@ namespace Gameplay.Player
     {
         public int CurrentLevel {get; private set; }
         public float LevelMultiplayer {get; private set;}
+
+        [SerializeField] private PlayerResource _playerResource;
 
         public Action OnInit;
 
@@ -32,11 +36,24 @@ namespace Gameplay.Player
             PlayerAttack = GetComponent<PlayerAttack>();
             PlayerHealth = GetComponent<PlayerHealth>();
             PlayerEnergy = GetComponent<PlayerEnergy>();
+            
+            _playerResource = new PlayerResource();
         }
 
         private void Start()
         {
             LoadPlayerStats();
+            LoadResource();
+        }
+
+        public void AddResource(int amount, ResourceType resourceType)
+        {
+            _playerResource.AddResource(amount, resourceType);
+        }
+
+        private void LoadResource()
+        {
+            
         }
 
         private void LoadPlayerStats()
