@@ -27,6 +27,11 @@ namespace Gameplay.Player
             return ModifyHealth(-damage, callback);
         }
 
+        public ResourceType GetResourceType()
+        {
+            return ResourceType.Hide;
+        }
+
         private bool ModifyHealth(float amount, Action<ResourceType, int> callback = null)
         {
             if (_isDead) return false;

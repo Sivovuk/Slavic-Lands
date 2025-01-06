@@ -10,9 +10,10 @@ namespace Gameplay.Player
         [field:SerializeField] public Vector2 MovementValue { get; private set; }
     	[field:SerializeField] public Vector2 Look { get; private set; }
 
-        public Action OnLMBClick;
+        public Action<bool> OnLMBClick;
         public Action OnRMBClick;
         public Action OnJumpClick;
+        public Action<bool> OnActionChanged;
         public Action<bool> OnSprintClick;
 
         private Controls _controls;
@@ -22,9 +23,6 @@ namespace Gameplay.Player
             _controls = new Controls();
             _controls.Player.SetCallbacks(this);
             _controls.Enable();
-        
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
         }
 
         private void OnDestroy()
@@ -47,7 +45,11 @@ namespace Gameplay.Player
         {
             if (context.performed)
             {
-                OnLMBClick?.Invoke();
+                OnLMBClick?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                OnLMBClick?.Invoke(false);
             }
         }
 
@@ -76,6 +78,18 @@ namespace Gameplay.Player
             if (context.performed)
             {
                 OnJumpClick?.Invoke();
+            }
+        }
+
+        public void OnSelectAction(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                OnActionChanged?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                OnActionChanged?.Invoke(false);
             }
         }
     }

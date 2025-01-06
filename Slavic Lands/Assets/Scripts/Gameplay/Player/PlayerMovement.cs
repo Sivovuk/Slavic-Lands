@@ -10,6 +10,7 @@ namespace Gameplay.Player
         private float _activeSpeed;
         private float _walkSpeed;
         private float _runSpeed;
+        private bool _goingRight;
         
         // Jump
         [Header("Jump")]
@@ -22,6 +23,7 @@ namespace Gameplay.Player
         // References
         [Header("References")]
         [SerializeField] private Transform _jumpRaycast;
+        [SerializeField] private Transform _playerSetup;
         private Player _player;
         private PlayerInputSystem _playerInputSystem;
         private Rigidbody2D _rigidbody2D;
@@ -66,6 +68,7 @@ namespace Gameplay.Player
         private void Move()
         {
             transform.Translate((Vector2.right * _playerInputSystem.MovementValue.x) * _activeSpeed * Time.deltaTime);
+            SetDirection(_playerInputSystem.MovementValue.x);
         }
 
         private void Sprint(bool value)
@@ -91,6 +94,21 @@ namespace Gameplay.Player
                 _isGrounded = true;
             else
                 _isGrounded = false;
+        }
+
+        private void SetDirection(float direction)
+        {
+            if (direction > 0)
+            {
+                _goingRight = true;
+                _playerSetup.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else if (direction < 0)
+            {
+                _goingRight = false;
+                _playerSetup.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
+
         }
 
         public void LoadPlayerStats(PlayerSO playerSO, Player player)
