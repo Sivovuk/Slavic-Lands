@@ -11,41 +11,15 @@ namespace Gameplay.Resources
         [SerializeField] protected ResourceType _resourceType;
         
         [SerializeField] private ResourceSO _resourceSO;
-        
-        
 
-        private void Start()
-        {
-            Init();
-        }
-
-        public void Init()
+        public override void Init()
         {
             LoadResourceStats(_resourceSO);
         }
 
-        public bool TakeDamage(float damage, Action<ResourceType, int> callback = null)
+        protected override void ResourceCollection(Action<ResourceType, int> callback = null)
         {
-            return ModifyHealth(-damage, callback);
-        }
-
-        private bool ModifyHealth(float amount, Action<ResourceType, int> callback = null)
-        {
-            if (_isDead) return false;
-            
-            _currentHealth += amount;
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
-
-            if (_currentHealth <= 0)
-            {
-                _isDead = true;
-                OnDeath?.Invoke();
-                callback?.Invoke(_resourceType, _resourceAmount);
-                Destroy(gameObject);
-                return true;
-            }
-            
-            return false;
+            callback?.Invoke(_resourceType, _resourceAmount);
         }
 
         public void LoadResourceStats(ResourceSO resourceSO)
@@ -56,6 +30,11 @@ namespace Gameplay.Resources
             _resourceType = resourceSO.ResourceType;
             
             // dodaj ucitavanje iz save-a
+        }
+
+        public ResourceType GetResourceType()
+        {
+            return _resourceType;
         }
     }
 }

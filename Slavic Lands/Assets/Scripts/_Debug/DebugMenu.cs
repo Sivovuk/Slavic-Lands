@@ -18,9 +18,9 @@ public class DebugMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _playerHealth.TakeDamage(_attackDamage);
+            //_playerHealth.TakeDamage(_attackDamage);
         }
     }
 }

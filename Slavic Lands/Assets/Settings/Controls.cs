@@ -80,6 +80,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa432fa7-2dc6-4b58-a72e-e04f8da11c8e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e088537d-c1be-475f-9275-379b5a27964b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SelectAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -267,6 +287,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_RMB = m_Player.FindAction("RMB", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_SelectAction = m_Player.FindAction("SelectAction", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -339,6 +360,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RMB;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_SelectAction;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -349,6 +371,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @RMB => m_Wrapper.m_Player_RMB;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @SelectAction => m_Wrapper.m_Player_SelectAction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -376,6 +399,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @SelectAction.started += instance.OnSelectAction;
+            @SelectAction.performed += instance.OnSelectAction;
+            @SelectAction.canceled += instance.OnSelectAction;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -398,6 +424,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @SelectAction.started -= instance.OnSelectAction;
+            @SelectAction.performed -= instance.OnSelectAction;
+            @SelectAction.canceled -= instance.OnSelectAction;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -468,5 +497,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnRMB(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnSelectAction(InputAction.CallbackContext context);
     }
 }
