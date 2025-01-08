@@ -9,6 +9,7 @@ namespace Gameplay.Player
         public int Wood { get; private set; }
         public int Stone { get; private set; }
         public int Hide { get; private set; }
+        public int Food { get; private set; }
 
         public void AddResource(int amount, ResourceType resourceType)
         {
@@ -18,6 +19,8 @@ namespace Gameplay.Player
                 AddStone(amount);
             else if (resourceType == ResourceType.Hide)
                 AddHide(amount);
+            else if (resourceType == ResourceType.Food)
+                AddFood(amount);
             
             HUDController.Instance._resourceDisplay.UpdateResource(this);
         }
@@ -35,6 +38,11 @@ namespace Gameplay.Player
         public void AddHide(int hide)
         {
             Hide += hide;
+        }
+        
+        public void AddFood(int food)
+        {
+            Hide += food;
         }
     }
 }

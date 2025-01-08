@@ -15,6 +15,7 @@ namespace Gameplay.Player
         public Action OnJumpClick;
         public Action<bool> OnActionChanged;
         public Action<bool> OnSprintClick;
+        public Action<bool> OnTabClicked;
 
         private Controls _controls;
     
@@ -90,6 +91,14 @@ namespace Gameplay.Player
             else if (context.canceled)
             {
                 OnActionChanged?.Invoke(false);
+            }
+        }
+
+        public void OnPlayerUI(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                OnTabClicked?.Invoke(true);
             }
         }
     }

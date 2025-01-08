@@ -89,6 +89,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""99f32532-fdf3-4133-870a-d1b69930447f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""SelectAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f72ec05e-32f1-4a33-9787-8ddde4fa94a4"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3399a34-ba60-443c-8331-934942234c95"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PlayerUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -288,6 +319,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_SelectAction = m_Player.FindAction("SelectAction", throwIfNotFound: true);
+        m_Player_PlayerUI = m_Player.FindAction("PlayerUI", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -361,6 +393,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_SelectAction;
+    private readonly InputAction m_Player_PlayerUI;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -372,6 +405,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @SelectAction => m_Wrapper.m_Player_SelectAction;
+        public InputAction @PlayerUI => m_Wrapper.m_Player_PlayerUI;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -402,6 +436,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @SelectAction.started += instance.OnSelectAction;
             @SelectAction.performed += instance.OnSelectAction;
             @SelectAction.canceled += instance.OnSelectAction;
+            @PlayerUI.started += instance.OnPlayerUI;
+            @PlayerUI.performed += instance.OnPlayerUI;
+            @PlayerUI.canceled += instance.OnPlayerUI;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -427,6 +464,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @SelectAction.started -= instance.OnSelectAction;
             @SelectAction.performed -= instance.OnSelectAction;
             @SelectAction.canceled -= instance.OnSelectAction;
+            @PlayerUI.started -= instance.OnPlayerUI;
+            @PlayerUI.performed -= instance.OnPlayerUI;
+            @PlayerUI.canceled -= instance.OnPlayerUI;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -498,5 +538,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSelectAction(InputAction.CallbackContext context);
+        void OnPlayerUI(InputAction.CallbackContext context);
     }
 }

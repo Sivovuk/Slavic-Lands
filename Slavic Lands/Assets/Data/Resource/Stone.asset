@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  ResourceType: 1
+  Resources:
+  - ResourceType: 1
+    Amount: 1
   Health: 32
-  Amount: 10
+  XPMultiplayer: 1

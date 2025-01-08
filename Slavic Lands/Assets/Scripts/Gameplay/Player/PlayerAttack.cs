@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Resources;
 using Interfaces;
 using UnityEngine;
@@ -50,9 +51,12 @@ namespace Gameplay.Player
         
         public void HandleHit(ActionType actionType, IHit hitObject)
         {
-            if (HandleAttackType(actionType, hitObject.GetResourceType()))
+            foreach (var resource in hitObject.GetResourceType())
             {
-                hitObject.TakeDamage(GetActionDamage(actionType), HandleCollection);
+                if (HandleAttackType(actionType, resource.ResourceType))
+                {
+                    hitObject.TakeDamage(GetActionDamage(actionType), HandleCollection);
+                }
             }
         }
 
@@ -62,6 +66,7 @@ namespace Gameplay.Player
             {
                 if (resourceType == ResourceType.Wood)
                 {
+                    _player.PlayerProfile.CutLevelData.AddXp(_player.XpDataSO.CuttingXP);
                     return true;
                 }
             }
@@ -69,6 +74,7 @@ namespace Gameplay.Player
             {
                 if (resourceType == ResourceType.Stone)
                 {
+                    _player.PlayerProfile.MineLevelData.AddXp(_player.XpDataSO.MiningXP);
                     return true;
                 }
             }
@@ -76,6 +82,7 @@ namespace Gameplay.Player
             {
                 if (resourceType == ResourceType.Hide)
                 {
+                    _player.PlayerProfile.AttackLevelData.AddXp(_player.XpDataSO.AttackXP);
                     return true;
                 }
             }
@@ -83,9 +90,19 @@ namespace Gameplay.Player
             return false;
         }
 
-        private void HandleCollection(ResourceType resourceType, int amount)
+        public void HandleTargetHit(ActionType actionType, IHit hitObject)
         {
-            _player.AddResource(amount, resourceType);
+            _player.PlayerProfile.ShootLevelData.AddXp(_player.XpDataSO.ShootXP);
+        }
+
+        private void HandleCollection(List<ResourceData> resources, ResourceSO resourceData)
+        {
+            foreach (var resource in resources)
+            {
+                _player.AddResource(resource.Amount, resource.ResourceType);
+            }
+            
+            _player.PlayerProfile.PlayerLevelData.AddXp(resourceData.XPReward);
         }
         
         private void HandleAction(bool value)
@@ -156,12 +173,10 @@ namespace Gameplay.Player
             ShowHUD(false);
         }
         
-        
         private void ShowHUD(bool value)
         {
             _actionHUD.SetActive(value);
         }
-
 
         public void LoadPlayerStats(PlayerSO playerSO, Player player)
         {

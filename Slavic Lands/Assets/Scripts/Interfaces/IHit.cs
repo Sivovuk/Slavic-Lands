@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Resources;
 
 namespace Interfaces
 {
     public interface IHit
     {
-        public bool TakeDamage(float damage, Action<ResourceType, int> callback = null);
+        public bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null);
 
-        public ResourceType GetResourceType();
+        public List<ResourceData> GetResourceType();
     }
 }

@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
-  m_Name: Wolf
+  m_Script: {fileID: 11500000, guid: 5f7d2c27bb2f431478b964a76323620f, type: 3}
+  m_Name: XP Data
   m_EditorClassIdentifier: 
-  Resources:
-  - ResourceType: 2
-    Amount: 3
-  - ResourceType: 3
-    Amount: 1
-  Health: 20
-  XPMultiplayer: 1
+  <AttackXP>k__BackingField: 1
+  <ShootXP>k__BackingField: 1
+  <CuttingXP>k__BackingField: 1
+  <MiningXP>k__BackingField: 1

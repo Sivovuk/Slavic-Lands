@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Gameplay.Resources
 {
@@ -7,14 +8,24 @@ namespace Gameplay.Resources
     {
         Wood,
         Stone,
-        Hide
+        Hide,
+        Food
     }
 
     [CreateAssetMenu(fileName = "New Resource", menuName = "Resource Data")]
     public class ResourceSO : ScriptableObject
     {
-        public ResourceType ResourceType;
+        public List<ResourceData> Resources = new List<ResourceData>();
         public float Health;
+        public float XPMultiplayer = 1;
+        public int XPReward = 1;
+    }
+
+    [System.Serializable]
+    public class ResourceData
+    {
+        public ResourceType ResourceType;
         public int Amount;
     }
+
 }

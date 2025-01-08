@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 
@@ -6,9 +7,7 @@ namespace Gameplay.Resources
 {
     public class Resource : Health, IHit, ILoadStatsResource
     {
-        [SerializeField] protected int _resourceAmount;
-        
-        [SerializeField] protected ResourceType _resourceType;
+        [SerializeField] private List<ResourceData> _resourceData = new  List<ResourceData>();
         
         [SerializeField] private ResourceSO _resourceSO;
 
@@ -17,24 +16,23 @@ namespace Gameplay.Resources
             LoadResourceStats(_resourceSO);
         }
 
-        protected override void ResourceCollection(Action<ResourceType, int> callback = null)
+        protected override void ResourceCollection(Action<List<ResourceData>, ResourceSO> callback = null)
         {
-            callback?.Invoke(_resourceType, _resourceAmount);
+            callback?.Invoke(_resourceData, _resourceSO);
         }
 
         public void LoadResourceStats(ResourceSO resourceSO)
         {
             _maxHealth = resourceSO.Health;
             _currentHealth = resourceSO.Health;
-            _resourceAmount = resourceSO.Amount;
-            _resourceType = resourceSO.ResourceType;
+            _resourceData = resourceSO.Resources;
             
             // dodaj ucitavanje iz save-a
         }
 
-        public ResourceType GetResourceType()
+        public List<ResourceData> GetResourceType()
         {
-            return _resourceType;
+            return _resourceData;
         }
     }
 }

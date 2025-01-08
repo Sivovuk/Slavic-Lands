@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27791041e964799885d8dcadcd11550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionType: 0
+  _actionType: 1
   _playerAttack: {fileID: 1739681899460929222}
 --- !u!1 &6007508786909153692
 GameObject:
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27791041e964799885d8dcadcd11550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionType: 2
+  _actionType: 3
   _playerAttack: {fileID: 1739681899460929222}
 --- !u!1 &7975807080658067112
 GameObject:
@@ -1496,7 +1496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9e46c870e143f4a224b8ea356074b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 11400000, guid: 22c607cf95751b343b2c14005bd0d902, type: 2}
+  _playerSO: {fileID: 11400000, guid: 22c607cf95751b343b2c14005bd0d902, type: 2}
+  XpDataSO: {fileID: 11400000, guid: b21733fec9eb6dc4b91d2ed350e4e6c4, type: 2}
+  PlayerProfileSO: {fileID: 11400000, guid: 689682902e2d86a4cb4f293384d14ebd, type: 2}
 --- !u!114 &294103443833829595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,6 +1539,7 @@ MonoBehaviour:
   _cutCollider: {fileID: 7325999530424429459}
   _mineCollider: {fileID: 9057468302111257620}
   _actionHUD: {fileID: 8212780986049568074}
+  _actionType: 0
 --- !u!114 &6676097454191416822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,5 +1791,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27791041e964799885d8dcadcd11550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionType: 3
+  _actionType: 4
   _playerAttack: {fileID: 1739681899460929222}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Resources;
 using UnityEngine;
 
@@ -24,12 +25,12 @@ namespace Gameplay
             
         }
         
-        public virtual bool TakeDamage(float damage, Action<ResourceType, int> callback = null)
+        public virtual bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null)
         {
             return ModifyHealth(-damage, callback);
         }
 
-        protected virtual bool ModifyHealth(float amount, Action<ResourceType, int> callback = null)
+        protected virtual bool ModifyHealth(float amount, Action<List<ResourceData>, ResourceSO> callback = null)
         {
             if (_isDead) return false;
             
@@ -48,7 +49,7 @@ namespace Gameplay
             return false;
         }
 
-        protected virtual void ResourceCollection(Action<ResourceType, int> callback = null)
+        protected virtual void ResourceCollection(Action<List<ResourceData>, ResourceSO> callback = null)
         {
             
         }

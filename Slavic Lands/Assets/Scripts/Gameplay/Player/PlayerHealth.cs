@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Data;
 using Gameplay.Resources;
 using Interfaces;
 using UnityEngine;
@@ -22,17 +24,17 @@ namespace Gameplay.Player
             ModifyHealth(healAmount);
         }
 
-        public bool TakeDamage(float damage, Action<ResourceType, int> callback = null)
+        public bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null)
         {
             return ModifyHealth(-damage, callback);
         }
 
-        public ResourceType GetResourceType()
+        public List<ResourceData> GetResourceType()
         {
-            return ResourceType.Hide;
+            return null;
         }
 
-        private bool ModifyHealth(float amount, Action<ResourceType, int> callback = null)
+        private bool ModifyHealth(float amount, Action<List<ResourceData>, ResourceSO> callback = null)
         {
             if (_isDead) return false;
             
