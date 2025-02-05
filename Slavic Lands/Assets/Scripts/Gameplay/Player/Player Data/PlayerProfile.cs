@@ -11,6 +11,22 @@ namespace Gameplay.Player
         public PlayerLevelData ShootLevelData;
         public PlayerLevelData CutLevelData;
         public PlayerLevelData MineLevelData;
+        
+        [Space(10)]
+        
+        public PlayerAbilityLevelData AbilitySlashData;
+        public PlayerAbilityLevelData AbilityShieldBashData;
+        public PlayerAbilityLevelData AbilityPiercingArrowData;
+
+        public void SaveNewAbilityLevelData(PlayerAbilityLevelData abilityLevelData)
+        {
+            if (abilityLevelData.Name == AbilitySlashData.Name)
+                AbilitySlashData = abilityLevelData;
+            else if (abilityLevelData.Name == AbilityShieldBashData.Name)
+                AbilityShieldBashData = abilityLevelData;
+            else if (abilityLevelData.Name == AbilityPiercingArrowData.Name)
+                AbilityPiercingArrowData = abilityLevelData;
+        }
     }
 
     [System.Serializable]
@@ -54,6 +70,30 @@ namespace Gameplay.Player
             }
             
             OnXpChanged?.Invoke(this);
+        }
+    }
+
+    [System.Serializable]
+    public class PlayerAbilityLevelData
+    {
+        public string Name;
+        public int CurrentLevel;
+        public float LevelMultiplayer;
+        
+        public Action OnLevelChanged;
+
+        public PlayerAbilityLevelData( PlayerAbilityLevelData data, float levelMultiplayer )
+        {
+            Name = data.Name;
+            CurrentLevel = data.CurrentLevel;
+            LevelMultiplayer = levelMultiplayer;
+        }
+        
+        public PlayerAbilityLevelData(string name, int currentLevel, float levelMultiplayer)
+        {
+            Name = name;
+            CurrentLevel = currentLevel;
+            LevelMultiplayer = levelMultiplayer;
         }
     }
 }

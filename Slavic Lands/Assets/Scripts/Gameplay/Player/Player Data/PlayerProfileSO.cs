@@ -10,6 +10,12 @@ namespace Gameplay.Player
         public PlayerLevelData ShootLevelData;
         public PlayerLevelData CutLevelData;
         public PlayerLevelData MineLevelData;
+        
+        [Space(10)]
+        
+        public PlayerAbilityLevelData AbilitySlashData;
+        public PlayerAbilityLevelData AbilityShieldBashData;
+        public PlayerAbilityLevelData AbilityPiercingArrowData;
     }
 
 }

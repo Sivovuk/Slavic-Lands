@@ -96,7 +96,7 @@ namespace Gameplay.Player
                 _isGrounded = false;
         }
 
-        private void SetDirection(float direction)
+        public void SetDirection(float direction)
         {
             if (direction > 0)
             {

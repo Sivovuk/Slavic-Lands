@@ -8,12 +8,12 @@ namespace Gameplay.Player
     {
         [SerializeField] private ActionType _actionType;
         [SerializeField] private PlayerAttack _playerAttack;
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent<IHit>(out IHit hit))
             {
-                Debug.LogError(other.name + " is hit");
+                //Debug.LogError(other.name + " is hit");
                 _playerAttack.HandleHit(_actionType, hit);
             }
         }

@@ -19,7 +19,10 @@ MonoBehaviour:
   BaseEnergy: 13
   AttackDamage: 5
   ShootDamage: 5
-  CutingDamage: 5
+  CuttingDamage: 5
   MiningDamage: 5
+  Slash: 10
+  ShieldBash: 10
+  PiercingArrow: 10
   StartingLevel: 1
   LevelMultiplayer: 1.2

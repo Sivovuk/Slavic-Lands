@@ -19,7 +19,7 @@ namespace Managers
 
         public void PlayerInit()
         {
-            Debug.Log("Player init");
+            //Debug.Log("Player init");
             OnPlayerInit?.Invoke();
         }
     }

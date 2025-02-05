@@ -15,10 +15,10 @@ namespace Gameplay.Player
 
         // References
         [Header("References")]
-        [SerializeField] private PlayerSO _playerSO;
+        [field:SerializeField] public PlayerSO _playerSO {get; private set;}
         public XPDataSO XpDataSO;
-        public PlayerProfileSO PlayerProfileSO;
-        public PlayerProfile PlayerProfile {get; private set;}
+        [SerializeField] private PlayerProfileSO PlayerProfileSO;
+        [field:SerializeField] public PlayerProfile PlayerProfile {get; private set;}
         public PlayerMovement PlayerMovement { get; private set; }
         public PlayerAttack PlayerAttack { get; private set; }
         public PlayerHealth PlayerHealth { get; private set; }
@@ -77,6 +77,11 @@ namespace Gameplay.Player
             PlayerProfile.ShootLevelData = new PlayerLevelData(PlayerProfileSO.ShootLevelData, LevelMultiplayer);
             PlayerProfile.CutLevelData = new PlayerLevelData(PlayerProfileSO.CutLevelData, LevelMultiplayer);
             PlayerProfile.MineLevelData = new PlayerLevelData(PlayerProfileSO.MineLevelData, LevelMultiplayer);
+            
+            PlayerProfile.AbilitySlashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilitySlashData, LevelMultiplayer);
+            PlayerProfile.AbilityShieldBashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityShieldBashData, LevelMultiplayer);
+            PlayerProfile.AbilityPiercingArrowData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityPiercingArrowData, LevelMultiplayer);
+            
             GameManager.Instance.PlayerInit();
         }
     }

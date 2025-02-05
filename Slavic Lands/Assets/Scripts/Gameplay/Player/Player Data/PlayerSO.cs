@@ -21,9 +21,14 @@ namespace Gameplay.Player
         [Header("Attack & Actions")] 
         public float AttackDamage;
         public float ShootDamage;
-        public float CutingDamage;
+        public float CuttingDamage;
         public float MiningDamage;
 
+        [Header("Abilities")] 
+        public float Slash;
+        public float ShieldBash;
+        public float PiercingArrow;
+        
         [Header("Character")] 
         public int StartingLevel = 1;
         

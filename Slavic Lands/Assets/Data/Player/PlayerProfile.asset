@@ -9,36 +9,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Player Leveling Data
+  m_Script: {fileID: 11500000, guid: ddf7bda554794d4487ebad5a09dfdf9a, type: 3}
+  m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp:Gameplay.Player:PlayerProfileSO
   PlayerLevelData:
     CurrentXp: 0
-    CurrentLevel: 0
+    CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
-    LevelMultiplayer: 1.2
+    LevelMultiplayer: 1.5
   AttackLevelData:
     CurrentXp: 0
-    CurrentLevel: 0
+    CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
-    LevelMultiplayer: 1.2
+    LevelMultiplayer: 1.5
   ShootLevelData:
     CurrentXp: 0
-    CurrentLevel: 0
+    CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
-    LevelMultiplayer: 1.2
+    LevelMultiplayer: 1.5
   CutLevelData:
     CurrentXp: 0
-    CurrentLevel: 0
+    CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
-    LevelMultiplayer: 1.2
+    LevelMultiplayer: 1.5
   MineLevelData:
     CurrentXp: 0
-    CurrentLevel: 0
+    CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
-    LevelMultiplayer: 1.2
+    LevelMultiplayer: 1.5
+  AbilitySlashData:
+    Name: Slash
+    CurrentLevel: 1
+    LevelMultiplayer: 1.5
+  AbilityShieldBashData:
+    Name: Shield Bash
+    CurrentLevel: 1
+    LevelMultiplayer: 1.5
+  AbilityPiercingArrowData:
+    Name: Piercing Arrow
+    CurrentLevel: 1
+    LevelMultiplayer: 1.5

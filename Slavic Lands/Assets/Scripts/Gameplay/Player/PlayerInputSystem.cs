@@ -11,7 +11,7 @@ namespace Gameplay.Player
     	[field:SerializeField] public Vector2 Look { get; private set; }
 
         public Action<bool> OnLMBClick;
-        public Action OnRMBClick;
+        public Action<bool> OnRMBClick;
         public Action OnJumpClick;
         public Action<bool> OnActionChanged;
         public Action<bool> OnSprintClick;
@@ -58,7 +58,11 @@ namespace Gameplay.Player
         {
             if (context.performed)
             {
-                OnRMBClick?.Invoke();
+                OnRMBClick?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                OnRMBClick?.Invoke(false);
             }
         }
 
