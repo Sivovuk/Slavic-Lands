@@ -2,7 +2,7 @@
 
 namespace UI.Game
 {
-    public class PanelAction : MonoBehaviour
+    public class TabController : MonoBehaviour
     {
         public void OpenPanel()
         {

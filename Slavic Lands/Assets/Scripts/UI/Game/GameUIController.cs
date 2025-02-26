@@ -11,6 +11,7 @@ namespace UI.Game
         [SerializeField] private GameObject _playerProfileUI;
 
         private GameObject _activePanel;
+        //private PlayerProfileUI _playerProfileUI;
 
         private void OnEnable()
         {
