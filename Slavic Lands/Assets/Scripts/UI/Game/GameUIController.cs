@@ -10,8 +10,8 @@ namespace UI.Game
 
         [SerializeField] private GameObject _playerProfileUI;
 
-        private GameObject _activePanel;
-        //private PlayerProfileUI _playerProfileUI;
+        [SerializeField] private GameObject _activePanel;
+        [SerializeField] private GameObject _activeTab;
 
         private void OnEnable()
         {
@@ -25,7 +25,8 @@ namespace UI.Game
 
         public void OpenMenu(bool isActive)
         {
-            OpenPanel(_playerProfileUI, isActive);
+            OpenPanel(_activePanel != null ? _activePanel : _playerProfileUI, isActive);
+            //OpenTab();
         }
 
 
@@ -44,6 +45,23 @@ namespace UI.Game
             _activePanel = panel;
             
             _activePanel.SetActive(isActive);
+        }
+
+        public void OpenTab(GameObject tab, bool isActive)
+        {
+            if (tab == null)
+            {
+                return;
+            }
+
+            if (_activeTab != null)
+            {
+                _activeTab.SetActive(false);
+            }
+            
+            _activeTab = tab;
+            
+            _activeTab.SetActive(isActive);
         }
     }
 }
