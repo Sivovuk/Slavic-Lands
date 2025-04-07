@@ -9,7 +9,8 @@ namespace Gameplay.Player
     {
         private float _maxEnergy;
         [SerializeField] private float _currentEnergy;
-        
+        public float GetCurrentEnergy () => _currentEnergy;
+
         private float _timePassed;
         
         [SerializeField] private bool _isSprinting;

@@ -6,10 +6,10 @@ namespace Gameplay.Player
     public class PlayerProfileSO : ScriptableObject
     {
         public PlayerLevelData PlayerLevelData;
-        public PlayerLevelData AttackLevelData;
-        public PlayerLevelData ShootLevelData;
-        public PlayerLevelData CutLevelData;
-        public PlayerLevelData MineLevelData;
+        public LevelData AttackLevelData;
+        public LevelData ShootLevelData;
+        public LevelData CutLevelData;
+        public LevelData MineLevelData;
         
         [Space(10)]
         

@@ -17,3 +17,4 @@ MonoBehaviour:
     Amount: 1
   Health: 32
   XPMultiplayer: 1
+  XPReward: 5

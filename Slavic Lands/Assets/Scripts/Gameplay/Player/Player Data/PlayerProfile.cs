@@ -7,10 +7,10 @@ namespace Gameplay.Player
     public class PlayerProfile
     {
         public PlayerLevelData PlayerLevelData;
-        public PlayerLevelData AttackLevelData;
-        public PlayerLevelData ShootLevelData;
-        public PlayerLevelData CutLevelData;
-        public PlayerLevelData MineLevelData;
+        public LevelData AttackLevelData;
+        public LevelData ShootLevelData;
+        public LevelData CutLevelData;
+        public LevelData MineLevelData;
         
         [Space(10)]
         
@@ -30,26 +30,70 @@ namespace Gameplay.Player
     }
 
     [System.Serializable]
-    public class PlayerLevelData
+    public class PlayerLevelData : LevelData
+    {
+        public int LevelPointsAvailable;
+        
+        public Action OnPointsChanged;
+        
+        public PlayerLevelData(PlayerLevelData levelData, float levelMultiplayer)
+        {
+            CurrentXp = levelData.CurrentXp;
+            CurrentLevel = levelData.CurrentLevel;
+            XpToNextLevel = levelData.XpToNextLevel;
+            FirstLevelXp = levelData.FirstLevelXp;
+            LevelMultiplayer = levelMultiplayer;
+            LevelPointsAvailable = levelData.LevelPointsAvailable;
+        }
+
+        public override void AddXp(int xpToAdd)
+        {
+            int level = CurrentLevel;
+            base.AddXp(xpToAdd);
+
+            if (CurrentLevel > level)
+            {
+                LevelPointsAvailable++;
+                OnPointsChanged?.Invoke();
+            }
+        }
+
+        public bool CanUsePoints()
+        {
+            if (LevelPointsAvailable > 0)
+            {
+                return true;
+            }
+            
+            return false;
+        }
+    }
+
+    [System.Serializable]
+    public class LevelData
     {
         public int CurrentXp;
         public int CurrentLevel;
         public int XpToNextLevel;
         public int FirstLevelXp;
         public float LevelMultiplayer;
-        
-        public Action<PlayerLevelData> OnXpChanged;
+        public int MaxLevel;
 
-        public PlayerLevelData(PlayerLevelData playerLevelData, float levelMultiplayer)
+        public Action<LevelData> OnXpChanged;
+        public Action OnLevelChanged;
+
+        public LevelData() { }
+
+        public LevelData(LevelData levelData, float levelMultiplayer)
         {
-            CurrentXp = playerLevelData.CurrentXp;
-            CurrentLevel = playerLevelData.CurrentLevel;
-            XpToNextLevel = playerLevelData.XpToNextLevel;
-            FirstLevelXp = playerLevelData.FirstLevelXp;
+            CurrentXp = levelData.CurrentXp;
+            CurrentLevel = levelData.CurrentLevel;
+            XpToNextLevel = levelData.XpToNextLevel;
+            FirstLevelXp = levelData.FirstLevelXp;
             LevelMultiplayer = levelMultiplayer;
         }
         
-        public PlayerLevelData(int firstLevelXp, float levelMultiplayer)
+        public LevelData(int firstLevelXp, float levelMultiplayer)
         {
             CurrentXp = 0;
             CurrentLevel = 0;
@@ -58,8 +102,10 @@ namespace Gameplay.Player
             LevelMultiplayer = levelMultiplayer;
         }
 
-        public void AddXp(int xpToAdd)
+        public virtual void AddXp(int xpToAdd)
         {
+            if (CurrentLevel == MaxLevel) return;
+            
             CurrentXp += xpToAdd;
 
             if (CurrentXp >= XpToNextLevel)
@@ -67,10 +113,12 @@ namespace Gameplay.Player
                 CurrentLevel++;
                 XpToNextLevel = Mathf.CeilToInt(XpToNextLevel * LevelMultiplayer);
                 CurrentXp = 0;
+                OnLevelChanged?.Invoke();
             }
             
             OnXpChanged?.Invoke(this);
         }
+
     }
 
     [System.Serializable]

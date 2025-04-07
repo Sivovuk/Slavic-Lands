@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Data;
 using Gameplay.Resources;
 using Managers;
@@ -15,7 +16,7 @@ namespace Gameplay.Player
 
         // References
         [Header("References")]
-        [field:SerializeField] public PlayerSO _playerSO {get; private set;}
+        [field:SerializeField] public PlayerSO PlayerSO {get; private set;}
         public XPDataSO XpDataSO;
         [SerializeField] private PlayerProfileSO PlayerProfileSO;
         [field:SerializeField] public PlayerProfile PlayerProfile {get; private set;}
@@ -42,11 +43,13 @@ namespace Gameplay.Player
             PlayerProfile = new PlayerProfile();
         }
 
-        private void Start()
+        private async void Start()
         {
-            LoadPlayerStats();
-            LoadResource();
-            LoadPlayerProfile();
+            await LoadPlayerProfile();
+            await LoadPlayerStats();
+            await LoadResource();
+            
+            GameManager.Instance.PlayerInit();
         }
 
         public void AddResource(int amount, ResourceType resourceType)
@@ -54,35 +57,34 @@ namespace Gameplay.Player
             _playerResource.AddResource(amount, resourceType);
         }
 
-        private void LoadResource()
+        private async Task LoadResource()
         {
             
         }
 
-        private void LoadPlayerStats()
+        private async Task LoadPlayerStats()
+        {
+            PlayerMovement.LoadPlayerStats(PlayerSO, this);
+            PlayerAttack.LoadPlayerStats(PlayerSO, this);
+            PlayerHealth.LoadPlayerStats(PlayerSO, this);
+            PlayerEnergy.LoadPlayerStats(PlayerSO, this);
+        }
+
+        private async Task LoadPlayerProfile()
         {
             CurrentLevel = PlayerPrefs.GetInt(Constants.PlayerLevel, 1);
-            LevelMultiplayer = _playerSO.LevelMultiplayer;
+            LevelMultiplayer = PlayerSO.LevelMultiplayer;
             
-            PlayerMovement.LoadPlayerStats(_playerSO, this);
-            PlayerAttack.LoadPlayerStats(_playerSO, this);
-            PlayerHealth.LoadPlayerStats(_playerSO, this);
-            PlayerEnergy.LoadPlayerStats(_playerSO, this);
-        }
-
-        private void LoadPlayerProfile()
-        {
             PlayerProfile.PlayerLevelData = new PlayerLevelData(PlayerProfileSO.PlayerLevelData, LevelMultiplayer);
-            PlayerProfile.AttackLevelData = new PlayerLevelData(PlayerProfileSO.AttackLevelData, LevelMultiplayer);
-            PlayerProfile.ShootLevelData = new PlayerLevelData(PlayerProfileSO.ShootLevelData, LevelMultiplayer);
-            PlayerProfile.CutLevelData = new PlayerLevelData(PlayerProfileSO.CutLevelData, LevelMultiplayer);
-            PlayerProfile.MineLevelData = new PlayerLevelData(PlayerProfileSO.MineLevelData, LevelMultiplayer);
+            PlayerProfile.AttackLevelData = new LevelData(PlayerProfileSO.AttackLevelData, LevelMultiplayer);
+            PlayerProfile.ShootLevelData = new LevelData(PlayerProfileSO.ShootLevelData, LevelMultiplayer);
+            PlayerProfile.CutLevelData = new LevelData(PlayerProfileSO.CutLevelData, LevelMultiplayer);
+            PlayerProfile.MineLevelData = new LevelData(PlayerProfileSO.MineLevelData, LevelMultiplayer);
             
             PlayerProfile.AbilitySlashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilitySlashData, LevelMultiplayer);
             PlayerProfile.AbilityShieldBashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityShieldBashData, LevelMultiplayer);
             PlayerProfile.AbilityPiercingArrowData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityPiercingArrowData, LevelMultiplayer);
             
-            GameManager.Instance.PlayerInit();
         }
     }
 }

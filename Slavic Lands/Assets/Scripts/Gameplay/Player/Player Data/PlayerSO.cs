@@ -12,6 +12,12 @@ namespace Gameplay.Player
         [Header("Jump")]
         public float JumpForce;
         
+        [Header("Dash")]
+        public float DashCost;
+        public float DashingPower;
+        public float DashingTime;
+        public float DashCooldown;
+        
         [Header("Health")]
         public float BaseHealth;
 

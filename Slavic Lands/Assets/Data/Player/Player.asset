@@ -15,6 +15,10 @@ MonoBehaviour:
   WalkSpeed: 5
   RunSpeed: 10
   JumpForce: 10
+  DashCost: 2
+  DashingPower: 50
+  DashingTime: 0.1
+  DashCooldown: 1
   BaseHealth: 13
   BaseEnergy: 13
   AttackDamage: 5

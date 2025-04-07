@@ -6,12 +6,19 @@ namespace UI.Game
 {
     public class GameUIController : MonoBehaviour
     {
-        [SerializeField] private PlayerInputSystem _playerInputSystem;
+        private PlayerInputSystem _playerInputSystem;
+        private PlayerProfileUI _playerProfileUI;
 
-        [SerializeField] private GameObject _playerProfileUI;
+        [SerializeField] private GameObject _playerProfilePanel;
 
         [SerializeField] private GameObject _activePanel;
         [SerializeField] private GameObject _activeTab;
+
+        private void Awake()
+        {
+            _playerProfileUI = GetComponent<PlayerProfileUI>();
+            _playerInputSystem = GetComponent<PlayerInputSystem>();
+        }
 
         private void OnEnable()
         {
@@ -25,7 +32,7 @@ namespace UI.Game
 
         public void OpenMenu(bool isActive)
         {
-            OpenPanel(_activePanel != null ? _activePanel : _playerProfileUI, isActive);
+            OpenPanel(_activePanel != null ? _activePanel : _playerProfilePanel, isActive);
             //OpenTab();
         }
 
@@ -45,6 +52,8 @@ namespace UI.Game
             _activePanel = panel;
             
             _activePanel.SetActive(isActive);
+            
+            _playerProfileUI.OnTabChange?.Invoke(_activePanel);
         }
 
         public void OpenTab(GameObject tab, bool isActive)
@@ -62,6 +71,8 @@ namespace UI.Game
             _activeTab = tab;
             
             _activeTab.SetActive(isActive);
+            
+            _playerProfileUI.OnTabChange?.Invoke(_activeTab);
         }
     }
 }

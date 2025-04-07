@@ -7,8 +7,8 @@ namespace Gameplay.Player
 {
     public class PlayerInputSystem : MonoBehaviour, Controls.IPlayerActions
     {
-        [field:SerializeField] public Vector2 MovementValue { get; private set; }
-    	[field:SerializeField] public Vector2 Look { get; private set; }
+        [field: SerializeField] public Vector2 MovementValue { get; private set; }
+        [field: SerializeField] public Vector2 Look { get; private set; }
 
         public Action<bool> OnLMBClick;
         public Action<bool> OnRMBClick;
@@ -16,9 +16,10 @@ namespace Gameplay.Player
         public Action<bool> OnActionChanged;
         public Action<bool> OnSprintClick;
         public Action<bool> OnTabClicked;
+        public Action OnDashClicked;
 
         private Controls _controls;
-    
+
         private void Start()
         {
             _controls = new Controls();
@@ -80,10 +81,13 @@ namespace Gameplay.Player
 
         public void OnJump(InputAction.CallbackContext context)
         {
+            var shift = Keyboard.current.leftShiftKey.isPressed;
+            var moveKey = Keyboard.current.dKey.isPressed || Keyboard.current.aKey.isPressed;
+            
+            if ( shift && moveKey) return;
+
             if (context.performed)
-            {
                 OnJumpClick?.Invoke();
-            }
         }
 
         public void OnSelectAction(InputAction.CallbackContext context)
@@ -104,6 +108,12 @@ namespace Gameplay.Player
             {
                 OnTabClicked?.Invoke(true);
             }
+        }
+
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                OnDashClicked?.Invoke();
         }
     }
 }

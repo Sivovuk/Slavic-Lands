@@ -43,6 +43,7 @@ namespace Gameplay.Player
         
         [SerializeField] private GameObject _actionHUD;
         private Player _player;
+        private PlayerSO _playerSO;
         private PlayerMovement _playerMovement;
         private PlayerInputSystem _playerInputSystem;
         
@@ -68,6 +69,11 @@ namespace Gameplay.Player
             _playerInputSystem.OnRMBClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             GameManager.Instance.OnPlayerInit -= LoadAbilities;
+            
+            _player.PlayerProfile.CutLevelData.OnLevelChanged -= UpdatePlayerStats;
+            _player.PlayerProfile.MineLevelData.OnLevelChanged -= UpdatePlayerStats;
+            _player.PlayerProfile.AttackLevelData.OnLevelChanged -= UpdatePlayerStats;
+            _player.PlayerProfile.ShootLevelData.OnLevelChanged -= UpdatePlayerStats;
         }
         
         public void HandleHit(ActionType actionType, IHit hitObject)
@@ -206,18 +212,32 @@ namespace Gameplay.Player
         public void LoadPlayerStats(PlayerSO playerSO, Player player)
         {
             _player = player;
+            _playerSO = playerSO;
             
-            _cutDamage = playerSO.CuttingDamage + (_player.CurrentLevel * playerSO.LevelMultiplayer);
-            _mineDamage = playerSO.MiningDamage + (_player.CurrentLevel * playerSO.LevelMultiplayer);
-            _attackDamage = playerSO.AttackDamage + (_player.CurrentLevel * playerSO.LevelMultiplayer);
-            _shootDamage = playerSO.ShootDamage + (_player.CurrentLevel * playerSO.LevelMultiplayer);
+            UpdatePlayerStats();
+        }
+
+        public void UpdatePlayerStats()
+        {
+            if (_player == null) return;
+            if (_playerSO == null) return;
+            
+            _cutDamage = _playerSO.CuttingDamage + (_player.PlayerProfile.CutLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
+            _mineDamage = _playerSO.MiningDamage + (_player.PlayerProfile.MineLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
+            _attackDamage = _playerSO.AttackDamage + (_player.PlayerProfile.AttackLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
+            _shootDamage = _playerSO.ShootDamage + (_player.PlayerProfile.ShootLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
+
+            _player.PlayerProfile.CutLevelData.OnLevelChanged += UpdatePlayerStats;
+            _player.PlayerProfile.MineLevelData.OnLevelChanged += UpdatePlayerStats;
+            _player.PlayerProfile.AttackLevelData.OnLevelChanged += UpdatePlayerStats;
+            _player.PlayerProfile.ShootLevelData.OnLevelChanged += UpdatePlayerStats;
         }
 
         private void LoadAbilities()
         {
-            _slashAbility = _player._playerSO.Slash + (_player.PlayerProfile.AbilitySlashData.CurrentLevel * _player._playerSO.LevelMultiplayer);
-            _shieldAbility = _player._playerSO.ShieldBash + (_player.PlayerProfile.AbilityShieldBashData.CurrentLevel * _player._playerSO.LevelMultiplayer);
-            _piercingArrowAbility = _player._playerSO.PiercingArrow + (_player.PlayerProfile.AbilityPiercingArrowData.CurrentLevel * _player._playerSO.LevelMultiplayer);
+            _slashAbility = _player.PlayerSO.Slash + (_player.PlayerProfile.AbilitySlashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            _shieldAbility = _player.PlayerSO.ShieldBash + (_player.PlayerProfile.AbilityShieldBashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            _piercingArrowAbility = _player.PlayerSO.PiercingArrow + (_player.PlayerProfile.AbilityPiercingArrowData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
         }
     }
 }
