@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Gameplay.NPC;
+using UnityEngine;
 
 namespace Gameplay.Animal
 {
-    public class AnimalAttack : MonoBehaviour
+    public class AnimalAttack : NPCAttack
     {
         
     }

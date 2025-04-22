@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.NPC;
+using UnityEngine;
 
 namespace Gameplay.Animal
 {

@@ -12,7 +12,7 @@ namespace Gameplay.Player
         private float _maxHealth;
         private float _currentHealth;
         
-        private bool _isDead;
+        [SerializeField] private bool _isDead;
         
         public Action OnDeath;
         public Action<float, float> OnHealthChanged;
@@ -26,6 +26,7 @@ namespace Gameplay.Player
 
         public bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null)
         {
+            Debug.Log("Player hit");
             return ModifyHealth(-damage, callback);
         }
 
@@ -41,6 +42,7 @@ namespace Gameplay.Player
             _currentHealth += amount;
             OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
+            Debug.Log("Player health changed : " + _currentHealth);
             if (_currentHealth <= 0)
             {
                 _isDead = true;
