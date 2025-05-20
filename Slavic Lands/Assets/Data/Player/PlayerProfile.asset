@@ -18,39 +18,48 @@ MonoBehaviour:
     XpToNextLevel: 10
     FirstLevelXp: 10
     LevelMultiplayer: 1.5
+    MaxLevel: 0
+    LevelPointsAvailable: 0
   AttackLevelData:
     CurrentXp: 0
     CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
     LevelMultiplayer: 1.5
+    MaxLevel: 0
   ShootLevelData:
     CurrentXp: 0
     CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
     LevelMultiplayer: 1.5
+    MaxLevel: 0
   CutLevelData:
     CurrentXp: 0
     CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
     LevelMultiplayer: 1.5
+    MaxLevel: 0
   MineLevelData:
     CurrentXp: 0
     CurrentLevel: 1
     XpToNextLevel: 10
     FirstLevelXp: 10
     LevelMultiplayer: 1.5
+    MaxLevel: 0
   AbilitySlashData:
+    AbilityID: 0
     Name: Slash
     CurrentLevel: 1
     LevelMultiplayer: 1.5
   AbilityShieldBashData:
+    AbilityID: 1
     Name: Shield Bash
     CurrentLevel: 1
     LevelMultiplayer: 1.5
   AbilityPiercingArrowData:
+    AbilityID: 2
     Name: Piercing Arrow
     CurrentLevel: 1
     LevelMultiplayer: 1.5

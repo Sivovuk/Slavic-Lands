@@ -119,6 +119,39 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &6370527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3353696933984935147, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
+  m_PrefabInstance: {fileID: 2099747664031954523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4907dd59629b4b1ca845f99ff725a68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6370528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8141658672264528855, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
+  m_PrefabInstance: {fileID: 2099747664031954523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4907dd59629b4b1ca845f99ff725a68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6370529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4750686702085648364, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
+  m_PrefabInstance: {fileID: 2099747664031954523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4907dd59629b4b1ca845f99ff725a68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!96 &91001467 stripped
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 6350652842560496896, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
@@ -676,21 +709,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &596035982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5601306057629289918, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
-  m_PrefabInstance: {fileID: 2099747664031954523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &596035983 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1426960296870646402, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
-  m_PrefabInstance: {fileID: 2099747664031954523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &596035984 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2512089245024091833, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
-  m_PrefabInstance: {fileID: 2099747664031954523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,14 +849,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760f9450be64417987db9095dd24dc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerProfileUI: {fileID: 1039286022}
   _playerLevel: {fileID: 450015363}
   _xpPlayer: {fileID: 450015361}
   _levelBarPlayer: {fileID: 450015362}
   _levelPoints: {fileID: 450015360}
   _savePoints: {fileID: 1765436603}
-  _abilitySlash: {fileID: 596035984}
-  _abilityShieldBash: {fileID: 596035983}
-  _abilityPiercingArrow: {fileID: 596035982}
+  _abilitySlash: {fileID: 6370529}
+  _abilityShieldBash: {fileID: 6370528}
+  _abilityPiercingArrow: {fileID: 6370527}
   _attackLevel: {fileID: 2099747664031954526}
   _xpAttack: {fileID: 2099747664031954524}
   _levelBarAttack: {fileID: 2099747664031954525}
@@ -851,6 +870,8 @@ MonoBehaviour:
   _mineLevel: {fileID: 1034185534}
   _xpMine: {fileID: 1034185532}
   _levelBarMine: {fileID: 1034185533}
+  _pointsUsed: 0
+  _currentAbilities: []
 --- !u!114 &698496761
 MonoBehaviour:
   m_ObjectHideFlags: 0

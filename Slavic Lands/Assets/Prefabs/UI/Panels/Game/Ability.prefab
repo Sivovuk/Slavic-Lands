@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 807676052207180983}
   - component: {fileID: 8109837323240363956}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PlusBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7384581412586113784}
+  - component: {fileID: 6718430613857490818}
   m_Layer: 5
   m_Name: Ability
   m_TagString: Untagged
@@ -159,6 +160,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6718430613857490818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471448487255606999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4907dd59629b4b1ca845f99ff725a68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _plusBtn: {fileID: 8109837323240363956}
+  _minusBtn: {fileID: 53763167694955512}
+  _abilityLevel: {fileID: 7463938663527346781}
 --- !u!1 &5003287894769860714
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +324,7 @@ GameObject:
   - component: {fileID: 6167949194700192550}
   - component: {fileID: 53763167694955512}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: MinusBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +580,7 @@ GameObject:
   - component: {fileID: 7770977473337004512}
   - component: {fileID: 7463938663527346781}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AbilityLevelTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.Player;
+using UI.Game.PlayerProfile;
 using UnityEngine;
 
 namespace UI.Game
@@ -46,6 +47,7 @@ namespace UI.Game
 
             if (_activePanel != null)
             {
+                _playerProfileUI.OnTabChange?.Invoke(_activePanel);
                 _activePanel.SetActive(false);
             }
             

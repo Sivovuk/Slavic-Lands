@@ -29,13 +29,13 @@ namespace UI.HUD
 
         private void Start()
         {
-            Debug.LogError("!!! Start HUDController");
+            //Debug.LogError("!!! Start HUDController");
             GameManager.Instance.OnPlayerInit += OnInit;
         }
 
         public void OnInit()
         {
-            Debug.LogError("!!! OnInit HUDController");
+            //Debug.LogError("!!! OnInit HUDController");
             Player.Instance.PlayerHealth.OnHealthChanged += UpdateHealthBar;
             Player.Instance.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
         }
@@ -54,7 +54,7 @@ namespace UI.HUD
 
         public void UpdateHealthBar(float current, float max)
         {
-            Debug.LogError("!!! UpdateHealthBar");
+            //Debug.LogError("!!! UpdateHealthBar");
             _healthBar.fillAmount = current / max;
         }
 

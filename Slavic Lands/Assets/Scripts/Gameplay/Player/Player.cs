@@ -56,20 +56,7 @@ namespace Gameplay.Player
         {
             _playerResource.AddResource(amount, resourceType);
         }
-
-        private async Task LoadResource()
-        {
-            
-        }
-
-        private async Task LoadPlayerStats()
-        {
-            PlayerMovement.LoadPlayerStats(PlayerSO, this);
-            PlayerAttack.LoadPlayerStats(PlayerSO, this);
-            PlayerHealth.LoadPlayerStats(PlayerSO, this);
-            PlayerEnergy.LoadPlayerStats(PlayerSO, this);
-        }
-
+        
         private async Task LoadPlayerProfile()
         {
             CurrentLevel = PlayerPrefs.GetInt(Constants.PlayerLevel, 1);
@@ -86,5 +73,19 @@ namespace Gameplay.Player
             PlayerProfile.AbilityPiercingArrowData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityPiercingArrowData, LevelMultiplayer);
             
         }
+
+        private async Task LoadPlayerStats()
+        {
+            PlayerMovement.LoadPlayerStats(PlayerSO, this);
+            PlayerAttack.LoadPlayerStats(PlayerSO, this);
+            PlayerHealth.LoadPlayerStats(PlayerSO, this);
+            PlayerEnergy.LoadPlayerStats(PlayerSO, this);
+        }
+        
+        private async Task LoadResource()
+        {
+            
+        }
+
     }
 }

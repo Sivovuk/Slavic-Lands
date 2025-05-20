@@ -1,23 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Player;
 using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Game
+namespace UI.Game.PlayerProfile
 {
     public class PlayerProfileUI : MonoBehaviour
     {
+        [SerializeField] private GameObject _playerProfileUI;
+        
         [Header("Profile")]
         [SerializeField] private TMP_Text _playerLevel;
         [SerializeField] private TMP_Text _xpPlayer;
         [SerializeField] private Image _levelBarPlayer;
         [SerializeField] private TMP_Text _levelPoints;
         [SerializeField] private Button _savePoints;
-        [SerializeField] private GameObject _abilitySlash;
-        [SerializeField] private GameObject _abilityShieldBash;
-        [SerializeField] private GameObject _abilityPiercingArrow;
+        
+        [Header("Abilities")]
+        [SerializeField] private PlayerProfileAbilityUIElement _abilitySlash;
+        [SerializeField] private PlayerProfileAbilityUIElement _abilityShieldBash;
+        [SerializeField] private PlayerProfileAbilityUIElement _abilityPiercingArrow;
         
         [Header("Skills")]
         [Header("Attack")]
@@ -56,8 +61,8 @@ namespace UI.Game
             
             Player.Instance.PlayerProfile.PlayerLevelData.OnPointsChanged += UpdateLevelPoints;
 
-            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged += UpdateAbilityUI;
-            UpdateAbilityUI();
+            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged += UpdateAbilitiesUI;
+            UpdateAbilitiesUI();
             
             _savePoints.onClick.AddListener(delegate { SavePoints(); });
             _levelPoints.text = "Points : " + Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable;
@@ -72,9 +77,11 @@ namespace UI.Game
             Player.Instance.PlayerProfile.PlayerLevelData.OnXpChanged -= UpdatePlayerBar;
             GameManager.Instance.OnPlayerInit -= OnPlayerInit;
             
-            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged -= UpdateAbilityUI;
+            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged -= UpdateAbilitiesUI;
             
             _savePoints.onClick.RemoveListener(delegate { SavePoints(); });
+            
+            ResetCurrentAbility();
         }
 
         private void UpdateSkillsUI(TMP_Text level, TMP_Text xp, Image levelBar, LevelData levelData)
@@ -109,87 +116,102 @@ namespace UI.Game
             UpdateSkillsUI(_playerLevel, _xpPlayer, _levelBarPlayer, levelData);
         }
 
-        private int _pointsUsed;
-        private PlayerAbilityLevelData _currentAbilityLevel;
-
-        public void UpdateAbilityUI()
+        public void UpdateAbilitiesUI()
         {
-            UpdateAbilityUI(Player.Instance.PlayerProfile.AbilitySlashData, _abilitySlash );
-            UpdateAbilityUI(Player.Instance.PlayerProfile.AbilityShieldBashData, _abilityShieldBash );
-            UpdateAbilityUI(Player.Instance.PlayerProfile.AbilityPiercingArrowData, _abilityPiercingArrow );
-        }
-
-        private void UpdateAbilityUI(PlayerAbilityLevelData playerAbilityLevelData, GameObject abilityUI)
-        {
-            Button plusButton = abilityUI.transform.GetChild(1).gameObject.GetComponent<Button>();
-            Button minusButton = abilityUI.transform.GetChild(2).gameObject.GetComponent<Button>();
-            
-            plusButton.onClick.RemoveAllListeners();
-            minusButton.onClick.RemoveAllListeners();
-            
-            abilityUI.GetComponentInChildren<TMP_Text>().text = playerAbilityLevelData.Name + " : " + playerAbilityLevelData.CurrentLevel;
-            abilityUI.transform.GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(delegate { AddPoint(playerAbilityLevelData, abilityUI.GetComponentInChildren<TMP_Text>()); });
-            abilityUI.transform.GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(delegate { RemovePoint(playerAbilityLevelData, abilityUI.GetComponentInChildren<TMP_Text>()); });
+            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilitySlashData, this);
+            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
+            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
         }
         
+        [SerializeField] private int _pointsUsed;
+        [SerializeField] private List<PlayerAbilityLevelData> _currentAbilities = new List<PlayerAbilityLevelData>();
+
         private void UpdateLevelPoints()
         {
-            //Debug.LogError("UpdateLevelPoints");
-            _levelPoints.text = "Points : " + Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable;
+            _levelPoints.text = "Points : " + (Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed);
         }
 
         private void SavePoints()
         {
-            _currentAbilityLevel.CurrentLevel = _pointsUsed;
-            Player.Instance.PlayerProfile.SaveNewAbilityLevelData(_currentAbilityLevel);
-            ResetCurrentAbility();
+            foreach (var ability in _currentAbilities)
+            {
+                Player.Instance.PlayerProfile.SaveNewAbilityLevelData(ability);
+                Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable -= _pointsUsed;
+                _pointsUsed = 0;
+                UpdateLevelPoints();
+            }
         }
 
-        private void AddPoint(PlayerAbilityLevelData playerAbilityLevelData, TMP_Text pointText)
+        public PlayerAbilityLevelData AddPoint(PlayerAbilityLevelData playerAbilityLevelData)
         {
-            if ( _currentAbilityLevel == null || playerAbilityLevelData != _currentAbilityLevel)
-            {
-                _pointsUsed = 0;
-                _currentAbilityLevel = playerAbilityLevelData;
-            }
+            if (Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed <= 0) return playerAbilityLevelData;
 
-            if (Player.Instance.PlayerProfile.PlayerLevelData.CanUsePoints())
+            if (_currentAbilities == null)
+                _currentAbilities = new List<PlayerAbilityLevelData>();
+
+            if (_currentAbilities.Count > 0)
             {
-                if (_pointsUsed < Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable)
+                foreach (var ability in _currentAbilities)
                 {
-                    _pointsUsed++;
+                    if (ability.Name == playerAbilityLevelData.Name)
+                    {
+                        ability.CurrentLevel++;
+                        _pointsUsed++;
+                        UpdateLevelPoints();
+                        Debug.Log("existing ability update");
+                        return ability;
+                    }
                 }
             }
             
-            pointText.text = playerAbilityLevelData.Name + " : " + _pointsUsed + playerAbilityLevelData.CurrentLevel;
+            _currentAbilities.Add(new PlayerAbilityLevelData(playerAbilityLevelData, playerAbilityLevelData.LevelMultiplayer));
+            _currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
+            _pointsUsed++;
+            UpdateLevelPoints();
+            Debug.Log("new ability update");
+            return _currentAbilities[_currentAbilities.Count - 1];
         }
 
-        private void RemovePoint(PlayerAbilityLevelData playerAbilityLevelData, TMP_Text pointText)
+        public PlayerAbilityLevelData RemovePoint(PlayerAbilityLevelData playerAbilityLevelData)
         {
-            
-            if ( _currentAbilityLevel == null || playerAbilityLevelData != _currentAbilityLevel)
-            {
-                _pointsUsed = 0;
-                _currentAbilityLevel = playerAbilityLevelData;
-            }
+            if (_currentAbilities == null || _currentAbilities.Count <= 0)
+                return playerAbilityLevelData;
 
-            if (_pointsUsed <= 0) return;
+            if (_pointsUsed <= 0) return playerAbilityLevelData;
             
-            _pointsUsed--;
-            pointText.text = playerAbilityLevelData.Name + " : " + _pointsUsed;
+            foreach (var ability in _currentAbilities)
+            {
+                if (ability.AbilityID == playerAbilityLevelData.AbilityID)
+                {
+                    ability.CurrentLevel--;
+                    ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
+                    _pointsUsed--;
+                    UpdateLevelPoints();
+                    Debug.Log("Remove Point 1");
+                    //UpdateAbilityUI(ability);
+                    return ability;
+                }
+            }
+            return playerAbilityLevelData;
         }
 
         public void ResetCurrentAbility()
         {
+            Debug.Log("Reset Current Ability");
             _pointsUsed = 0;
-            _currentAbilityLevel = null;
+            UpdateLevelPoints();
+            _currentAbilities = new List<PlayerAbilityLevelData>();
+            _abilitySlash.OnClose();
+            _abilityShieldBash.OnClose();
+            _abilityPiercingArrow.OnClose();
         }
         
         
         private void TabChanged(GameObject panel)
         {
-            if (panel != gameObject)
-                ResetCurrentAbility();
+            ResetCurrentAbility();
+            UpdateAbilitiesUI();
+            
         }
     }
 }
