@@ -138,10 +138,6 @@ namespace Gameplay.Player
             _cutCollider.SetActive(false);
             _mineCollider.SetActive(false);
             
-            Debug.LogError(_actionType);
-            Debug.LogError((int)_actionType);
-            Debug.LogError((int)ActionType.AbilitySlash);
-            
             if (_actionType == ActionType.Attack)
                 _attackCollider.SetActive(value);
             else if (_actionType == ActionType.Cut)
@@ -206,11 +202,11 @@ namespace Gameplay.Player
                 return _cutDamage;
             else if (actionType == ActionType.Mine)
                 return _mineDamage;
-            else if(_actionType == ActionType.AbilitySlash)
+            else if(actionType == ActionType.AbilitySlash)
                 return _slashAbility;
-            else if(_actionType == ActionType.AbilitySlash)
+            else if(actionType == ActionType.AbilityShieldBash)
                 return _shieldAbility;
-            else if(_actionType == ActionType.AbilitySlash)
+            else if(actionType == ActionType.AbilityPiercedArrow)
                 return _piercingArrowAbility;
             else
             {
