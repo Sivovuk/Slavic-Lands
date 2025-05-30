@@ -152,11 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4907dd59629b4b1ca845f99ff725a68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!96 &91001467 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 6350652842560496896, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-  m_PrefabInstance: {fileID: 6286490905410016067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &98439793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2025,26 +2020,6 @@ PrefabInstance:
       propertyPath: Velocity
       value: 
       objectReference: {fileID: 360385398}
-    - target: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _dashingCost
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _dashingTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _dashCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _dashingPower
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _trailRenderer
-      value: 
-      objectReference: {fileID: 91001467}
     - target: {fileID: 6135717079960541633, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.29

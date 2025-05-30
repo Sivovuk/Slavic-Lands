@@ -119,8 +119,8 @@ namespace UI.Game.PlayerProfile
         public void UpdateAbilitiesUI()
         {
             _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilitySlashData, this);
-            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
-            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
+            _abilityShieldBash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
+            _abilityPiercingArrow.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
         }
         
         [SerializeField] private int _pointsUsed;
@@ -158,7 +158,7 @@ namespace UI.Game.PlayerProfile
                         ability.CurrentLevel++;
                         _pointsUsed++;
                         UpdateLevelPoints();
-                        Debug.Log("existing ability update");
+                        //Debug.Log("existing ability update");
                         return ability;
                     }
                 }
@@ -168,7 +168,7 @@ namespace UI.Game.PlayerProfile
             _currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
             _pointsUsed++;
             UpdateLevelPoints();
-            Debug.Log("new ability update");
+            //Debug.Log("new ability update");
             return _currentAbilities[_currentAbilities.Count - 1];
         }
 
@@ -187,7 +187,7 @@ namespace UI.Game.PlayerProfile
                     ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
                     _pointsUsed--;
                     UpdateLevelPoints();
-                    Debug.Log("Remove Point 1");
+                    //Debug.Log("Remove Point 1");
                     //UpdateAbilityUI(ability);
                     return ability;
                 }
@@ -197,7 +197,7 @@ namespace UI.Game.PlayerProfile
 
         public void ResetCurrentAbility()
         {
-            Debug.Log("Reset Current Ability");
+            //Debug.Log("Reset Current Ability");
             _pointsUsed = 0;
             UpdateLevelPoints();
             _currentAbilities = new List<PlayerAbilityLevelData>();
@@ -211,7 +211,6 @@ namespace UI.Game.PlayerProfile
         {
             ResetCurrentAbility();
             UpdateAbilitiesUI();
-            
         }
     }
 }

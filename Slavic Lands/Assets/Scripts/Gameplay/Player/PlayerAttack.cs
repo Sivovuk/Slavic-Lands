@@ -13,11 +13,16 @@ namespace Gameplay.Player
         Attack = 1,
         Shoot = 2,
         Cut = 3,
-        Mine = 4
+        Mine = 4,
+        AbilitySlash = 5,
+        AbilityShieldBash = 6,
+        AbilityPiercedArrow = 7
     }
 
     public class PlayerAttack : MonoBehaviour, ILoadingStatsPlayer
     {
+        [Header("Setup")]
+        
         [SerializeField] private float _cutDamage;
         [SerializeField] private float _mineDamage;
         [SerializeField] private float _attackDamage;
@@ -30,16 +35,20 @@ namespace Gameplay.Player
         [SerializeField] private float _shieldAbility;
         [SerializeField] private float _piercingArrowAbility;
         
-        [Space(10)]
+        [Header("References")]
         
-        [SerializeField] private GameObject _attackCollider; 
+        [SerializeField] private GameObject _attackCollider;
+        [SerializeField] private GameObject _abilitySlashCollider;
+        [SerializeField] private GameObject _abilityShieldCollider;
+        
         [SerializeField] private GameObject _cutCollider;
         [SerializeField] private GameObject _mineCollider;
         [SerializeField] private Transform _shootPoint;
-        [SerializeField] private GameObject _arrow;
+        [SerializeField] private GameObject _arrowPrefab;
+        [SerializeField] private GameObject _piercingArrowPrefab;
         [SerializeField] private GameObject _shield;
 
-        [Space(10)]
+        [Space(15)]
         
         [SerializeField] private GameObject _actionHUD;
         private Player _player;
@@ -60,6 +69,7 @@ namespace Gameplay.Player
             _playerInputSystem.OnLMBClick += HandleAction;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnRMBClick += ActiveShield;
+            _playerInputSystem.OnAbilitySelect += SelectAction;
             GameManager.Instance.OnPlayerInit += LoadAbilities;
         }
 
@@ -81,7 +91,6 @@ namespace Gameplay.Player
             hitObject.TakeDamage(GetActionDamage(actionType), HandleCollection);
         
             HandleActionXp(actionType);
-        
         }
 
         private bool HandleActionXp(ActionType actionType)
@@ -97,12 +106,12 @@ namespace Gameplay.Player
                 return true;
                 
             }
-            else if (actionType == ActionType.Attack)
+            else if (actionType == ActionType.Attack || actionType == ActionType.AbilitySlash || actionType == ActionType.AbilityShieldBash)
             {
                 _player.PlayerProfile.AttackLevelData.AddXp(_player.XpDataSO.AttackXP);
                 return true;
             }
-            else if (actionType == ActionType.Shoot)
+            else if (actionType == ActionType.Shoot || actionType == ActionType.AbilityPiercedArrow)
             {
                 _player.PlayerProfile.ShootLevelData.AddXp(_player.XpDataSO.ShootXP);
                 return true;
@@ -129,6 +138,10 @@ namespace Gameplay.Player
             _cutCollider.SetActive(false);
             _mineCollider.SetActive(false);
             
+            Debug.LogError(_actionType);
+            Debug.LogError((int)_actionType);
+            Debug.LogError((int)ActionType.AbilitySlash);
+            
             if (_actionType == ActionType.Attack)
                 _attackCollider.SetActive(value);
             else if (_actionType == ActionType.Cut)
@@ -136,6 +149,18 @@ namespace Gameplay.Player
             else if (_actionType == ActionType.Mine)
                 _mineCollider.SetActive(value);
             else if (_actionType == ActionType.Shoot)
+                Shoot();
+            else if (_actionType == ActionType.AbilitySlash)
+            {
+                _abilitySlashCollider.SetActive(true);
+                _actionType = ActionType.Attack;
+            }
+            else if (_actionType == ActionType.AbilityShieldBash)
+            {
+                _abilityShieldCollider.SetActive(true);
+                _actionType = ActionType.Attack;
+            }
+            else if(_actionType == ActionType.AbilityPiercedArrow)
                 Shoot();
             else
                 Debug.LogWarning("Action is not defined!");
@@ -157,7 +182,13 @@ namespace Gameplay.Player
             _playerMovement.SetDirection(direction.x > 0 ? 1f : -1f);
             _shootPoint.right = direction;
 
-            GameObject spawn = Instantiate(_arrow, _shootPoint.position, _shootPoint.rotation);
+            GameObject spawn;
+            if (_actionType ==  ActionType.AbilityPiercedArrow)
+                spawn = Instantiate(_piercingArrowPrefab, _shootPoint.position, _shootPoint.rotation);
+            else
+                spawn = Instantiate(_arrowPrefab, _shootPoint.position, _shootPoint.rotation);
+
+            _actionType = ActionType.Shoot;
             Physics2D.IgnoreCollision(spawn.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
             Arrow arrow = spawn.GetComponent<Arrow>();
             
@@ -175,6 +206,12 @@ namespace Gameplay.Player
                 return _cutDamage;
             else if (actionType == ActionType.Mine)
                 return _mineDamage;
+            else if(_actionType == ActionType.AbilitySlash)
+                return _slashAbility;
+            else if(_actionType == ActionType.AbilitySlash)
+                return _shieldAbility;
+            else if(_actionType == ActionType.AbilitySlash)
+                return _piercingArrowAbility;
             else
             {
                 Debug.LogWarning("Unknown action type! Action type : " + actionType);
@@ -192,6 +229,12 @@ namespace Gameplay.Player
                 _actionType = ActionType.Cut;
             else if (actionTypeIndex == (int)ActionType.Mine)
                 _actionType = ActionType.Mine;
+            else if (actionTypeIndex == (int)ActionType.AbilitySlash)
+                _actionType = ActionType.AbilitySlash;
+            else if (actionTypeIndex == (int)ActionType.AbilityShieldBash)
+                _actionType = ActionType.AbilityShieldBash;
+            else if (actionTypeIndex == (int)ActionType.AbilityPiercedArrow)
+                _actionType = ActionType.AbilityPiercedArrow;
             else
                 Debug.LogWarning("Unknown action type! Action type : " + actionTypeIndex);
             

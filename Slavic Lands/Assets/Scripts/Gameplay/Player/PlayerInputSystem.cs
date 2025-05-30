@@ -17,6 +17,7 @@ namespace Gameplay.Player
         public Action<bool> OnSprintClick;
         public Action<bool> OnTabClicked;
         public Action OnDashClicked;
+        public Action<int> OnAbilitySelect;
 
         private Controls _controls;
 
@@ -114,6 +115,21 @@ namespace Gameplay.Player
         {
             if (context.performed)
                 OnDashClicked?.Invoke();
+        }
+
+        public void OnAbility1(InputAction.CallbackContext context)
+        {
+            OnAbilitySelect?.Invoke((int)ActionType.AbilitySlash);
+        }
+
+        public void OnAbility2(InputAction.CallbackContext context)
+        {
+            OnAbilitySelect?.Invoke((int)ActionType.AbilityShieldBash);
+        }
+
+        public void OnAbility3(InputAction.CallbackContext context)
+        {
+            OnAbilitySelect?.Invoke((int)ActionType.AbilityPiercedArrow);
         }
     }
 }
