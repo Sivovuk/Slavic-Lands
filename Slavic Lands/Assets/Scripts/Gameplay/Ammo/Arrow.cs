@@ -38,7 +38,7 @@ public class Arrow : MonoBehaviour
     {
         if (other.TryGetComponent<IHit>(out IHit hit) && !_alreadyHit)
         {
-            _playerAttack.HandleHit(_actionType, hit);
+            _playerAttack.HandleHit(_actionType, hit, false);
             
             _isFlying = false;
             Rigidbody2D.bodyType = RigidbodyType2D.Kinematic;

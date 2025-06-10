@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.NPC;
 using Interfaces;
 using UnityEngine;
 
@@ -28,6 +29,11 @@ namespace Gameplay.Resources
             _resourceData = resourceSO.Resources;
             
             // dodaj ucitavanje iz save-a
+        }
+
+        public virtual void ApplyForce(float force, Vector2 direction)
+        {
+            
         }
 
         public List<ResourceData> GetResourceType()

@@ -15,6 +15,7 @@ namespace Gameplay.NPC
         [SerializeField] protected bool _isIdle = true;
         [SerializeField] protected bool _isRunning;
         [SerializeField] protected bool _goRight = true;
+        public bool IsStunned;
 
         [SerializeField] protected float _minWalkRange;
         [SerializeField] protected float _maxWalkRange;
@@ -57,14 +58,14 @@ namespace Gameplay.NPC
         protected void FixedUpdate()
         {
             if (_npcAttack.IsAttacking) return;
-            
-            if (_isIdle) return;
+            //Debug.LogError("IsStunned " + IsStunned);
+            if (_isIdle || IsStunned) return;
             
             Move();
 
             if (IsArrived())
             {
-                Debug.Log("Idle");
+                //Debug.Log("Idle");
                 _isIdle = true;
                 GetNewWalkPoint(_npcAttack.IsChasing);
             }
@@ -74,12 +75,12 @@ namespace Gameplay.NPC
         {
             if (_goRight)
             {
-                Debug.Log("Moving right --->");
+                //Debug.Log("Moving right --->");
                 transform.Translate(Vector2.right * _activeSpeed * Time.deltaTime);
             }
             else
             {
-                Debug.Log("Moving right <---");
+                //Debug.Log("Moving right <---");
                 transform.Translate(Vector2.left * _activeSpeed * Time.deltaTime);
             }
         }
@@ -98,12 +99,12 @@ namespace Gameplay.NPC
 
             if (isChasing)
             {
-                Debug.Log("New Point chasing");
+                //Debug.Log("New Point chasing");
                 newPoint = _npcAttack.Target.position.x;
             }
             else
             {
-                Debug.Log("New Point");
+                //Debug.Log("New Point");
                 newPoint = Random.Range(_minWalkRange, _maxWalkRange);
             }
 
@@ -152,14 +153,14 @@ namespace Gameplay.NPC
 
         private void OnStartAttacking(bool isAttacking)
         {
-            Debug.Log("On START Attacking");
+            //Debug.Log("On START Attacking");
             _isIdle = isAttacking;
             
         }
 
         private void OnStopAttacking(bool isAttacking = false)
         {
-            Debug.Log("On STOP Attacking");
+            //Debug.Log("On STOP Attacking");
             GetNewWalkPoint(_npcAttack.IsChasing);
         }
     }

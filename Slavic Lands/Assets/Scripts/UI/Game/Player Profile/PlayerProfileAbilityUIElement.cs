@@ -12,7 +12,7 @@ namespace UI.Game.PlayerProfile
         [SerializeField] private Button _minusBtn;
         [SerializeField] private TMP_Text _abilityLevel;
         
-        private AbilityID _abilityID;
+        private ActionType _actionType;
         private PlayerAbilityLevelData _playerAbilityLevelData;
         private PlayerProfileUI _playerProfileUI;
 

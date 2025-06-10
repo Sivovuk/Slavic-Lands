@@ -30,6 +30,12 @@ namespace Gameplay.Player
             return ModifyHealth(-damage, callback);
         }
 
+        public void ApplyForce(float force, Vector2 direction)
+        {
+            TryGetComponent<Rigidbody2D>(out Rigidbody2D rg);
+            rg.AddForce(direction *  force, ForceMode2D.Force);
+        }
+
         public List<ResourceData> GetResourceType()
         {
             return null;
@@ -42,7 +48,6 @@ namespace Gameplay.Player
             _currentHealth += amount;
             OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
-            Debug.Log("Player health changed : " + _currentHealth);
             if (_currentHealth <= 0)
             {
                 _isDead = true;

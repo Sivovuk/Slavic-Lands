@@ -60,15 +60,17 @@ namespace Gameplay.NPC
         {
             _attackIndicator.SetActive(false);
         }
+        
+        
 
         public void CheckDetectCollider(Collider2D other, bool isEntered)
         {
             //if (other != _boxCollider) return;
-            Debug.Log("CheckDetectCollider called");
+            //Debug.Log("CheckDetectCollider called");
             if (isEntered)
             {
                 if (Target != null) return;
-                Debug.Log(other.tag + " " + other.name);
+                //Debug.Log(other.tag + " " + other.name);
                 if (other.CompareTag("Player"))
                 {
                     IsChasing = true;
@@ -90,7 +92,7 @@ namespace Gameplay.NPC
         public void CheckAttackCollider(Collider2D other, bool isEntered)
         {
             if (Target == null && other != _boxCollider) return;
-            Debug.Log("CheckAttackCollider called");
+            //Debug.Log("CheckAttackCollider called");
             
             if (isEntered)
             {

@@ -181,7 +181,7 @@ namespace UI.Game.PlayerProfile
             
             foreach (var ability in _currentAbilities)
             {
-                if (ability.AbilityID == playerAbilityLevelData.AbilityID)
+                if (ability.ActionType == playerAbilityLevelData.ActionType)
                 {
                     ability.CurrentLevel--;
                     ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);

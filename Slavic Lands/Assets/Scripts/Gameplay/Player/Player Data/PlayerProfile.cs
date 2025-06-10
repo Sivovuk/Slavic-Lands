@@ -20,11 +20,11 @@ namespace Gameplay.Player
 
         public void SaveNewAbilityLevelData(PlayerAbilityLevelData abilityLevelData)
         {
-            if (abilityLevelData.AbilityID == AbilitySlashData.AbilityID)
+            if (abilityLevelData.ActionType == AbilitySlashData.ActionType)
                 AbilitySlashData = abilityLevelData;
-            else if (abilityLevelData.AbilityID == AbilityShieldBashData.AbilityID)
+            else if (abilityLevelData.ActionType == AbilityShieldBashData.ActionType)
                 AbilityShieldBashData = abilityLevelData;
-            else if (abilityLevelData.AbilityID == AbilityPiercingArrowData.AbilityID)
+            else if (abilityLevelData.ActionType == AbilityPiercingArrowData.ActionType)
                 AbilityPiercingArrowData = abilityLevelData;
         }
     }
@@ -124,7 +124,7 @@ namespace Gameplay.Player
     [System.Serializable]
     public class PlayerAbilityLevelData
     {
-        public AbilityID AbilityID;
+        public ActionType ActionType;
         public string Name;
         public int CurrentLevel;
         public float LevelMultiplayer;
@@ -133,7 +133,7 @@ namespace Gameplay.Player
 
         public PlayerAbilityLevelData( PlayerAbilityLevelData data, float levelMultiplayer )
         {
-            AbilityID = data.AbilityID;
+            ActionType = data.ActionType;
             Name = data.Name;
             CurrentLevel = data.CurrentLevel;
             LevelMultiplayer = levelMultiplayer;
@@ -146,12 +146,4 @@ namespace Gameplay.Player
             LevelMultiplayer = levelMultiplayer;
         }
     }
-}
-
-[System.Serializable]
-public enum AbilityID
-{
-    Slash,
-    ShieldBash,
-    PiercingArrow
 }

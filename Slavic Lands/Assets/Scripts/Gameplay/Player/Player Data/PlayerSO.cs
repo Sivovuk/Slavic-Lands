@@ -32,8 +32,11 @@ namespace Gameplay.Player
 
         [Header("Abilities")] 
         public float Slash;
+        public float SlashPushForce;
         public float ShieldBash;
+        public float ShieldBashPushForce;
         public float PiercingArrow;
+        public float PiercingPushForce;
         
         [Header("Character")] 
         public int StartingLevel = 1;

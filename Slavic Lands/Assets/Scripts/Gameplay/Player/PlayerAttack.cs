@@ -31,15 +31,15 @@ namespace Gameplay.Player
         [SerializeField] private bool _isShooted = false;
         [SerializeField] private bool _isShieldActive = false;
         
-        [SerializeField] private float _slashAbility;
-        [SerializeField] private float _shieldAbility;
-        [SerializeField] private float _piercingArrowAbility;
+        [SerializeField] private float _slashAbilityDamage;
+        [SerializeField] private float _shieldAbilityDamage;
+        [SerializeField] private float _piercingArrowAbilityDamage;
         
         [Header("References")]
         
-        [SerializeField] private GameObject _attackCollider;
-        [SerializeField] private GameObject _abilitySlashCollider;
-        [SerializeField] private GameObject _abilityShieldCollider;
+        [SerializeField] private PlayerActionHandler _attackCollider;
+        [SerializeField] private PlayerActionHandler _abilitySlashCollider;
+        [SerializeField] private PlayerActionHandler _abilityShieldCollider;
         
         [SerializeField] private GameObject _cutCollider;
         [SerializeField] private GameObject _mineCollider;
@@ -67,6 +67,7 @@ namespace Gameplay.Player
         private void OnEnable()
         {
             _playerInputSystem.OnLMBClick += HandleAction;
+            _playerInputSystem.OnLMBRelease += HandleRelease;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnRMBClick += ActiveShield;
             _playerInputSystem.OnAbilitySelect += SelectAction;
@@ -76,6 +77,7 @@ namespace Gameplay.Player
         private void OnDisable()
         {
             _playerInputSystem.OnLMBClick -= HandleAction;
+            _playerInputSystem.OnLMBRelease -= HandleRelease;
             _playerInputSystem.OnRMBClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             GameManager.Instance.OnPlayerInit -= LoadAbilities;
@@ -86,9 +88,14 @@ namespace Gameplay.Player
             _player.PlayerProfile.ShootLevelData.OnLevelChanged -= UpdatePlayerStats;
         }
         
-        public void HandleHit(ActionType actionType, IHit hitObject)
+        public void HandleHit(ActionType actionType, IHit hitObject, bool applyForce, float pushForce = 0, Vector2  direction = new Vector2())
         {
             hitObject.TakeDamage(GetActionDamage(actionType), HandleCollection);
+
+            if (applyForce)
+            {
+                hitObject.ApplyForce(pushForce, direction);
+            }
         
             HandleActionXp(actionType);
         }
@@ -134,12 +141,8 @@ namespace Gameplay.Player
         {
             if (_isShieldActive ) return;
             
-            _attackCollider.SetActive(false);
-            _cutCollider.SetActive(false);
-            _mineCollider.SetActive(false);
-            
             if (_actionType == ActionType.Attack)
-                _attackCollider.SetActive(value);
+                _attackCollider.gameObject.SetActive(value);
             else if (_actionType == ActionType.Cut)
                 _cutCollider.SetActive(value);
             else if (_actionType == ActionType.Mine)
@@ -148,18 +151,27 @@ namespace Gameplay.Player
                 Shoot();
             else if (_actionType == ActionType.AbilitySlash)
             {
-                _abilitySlashCollider.SetActive(true);
+                _abilitySlashCollider.gameObject.SetActive(true);
                 _actionType = ActionType.Attack;
             }
             else if (_actionType == ActionType.AbilityShieldBash)
             {
-                _abilityShieldCollider.SetActive(true);
+                ShieldBash(value);
                 _actionType = ActionType.Attack;
             }
             else if(_actionType == ActionType.AbilityPiercedArrow)
                 Shoot();
             else
                 Debug.LogWarning("Action is not defined!");
+        }
+
+        private void HandleRelease(bool value)
+        {
+            _attackCollider.gameObject.SetActive(false);
+            _cutCollider.SetActive(false);
+            _mineCollider.SetActive(false);
+            _abilitySlashCollider.gameObject.SetActive(false);
+            _abilityShieldCollider.gameObject.SetActive(false);
         }
 
         private void Shoot()
@@ -203,11 +215,11 @@ namespace Gameplay.Player
             else if (actionType == ActionType.Mine)
                 return _mineDamage;
             else if(actionType == ActionType.AbilitySlash)
-                return _slashAbility;
+                return _slashAbilityDamage;
             else if(actionType == ActionType.AbilityShieldBash)
-                return _shieldAbility;
+                return _shieldAbilityDamage;
             else if(actionType == ActionType.AbilityPiercedArrow)
-                return _piercingArrowAbility;
+                return _piercingArrowAbilityDamage;
             else
             {
                 Debug.LogWarning("Unknown action type! Action type : " + actionType);
@@ -243,6 +255,12 @@ namespace Gameplay.Player
             _isShieldActive = value;
         }
 
+        private void ShieldBash(bool value)
+        {
+            _abilityShieldCollider.gameObject.SetActive(true);
+            _playerMovement.Dash();
+        }
+
         private void ShowHUD(bool value)
         {
             _actionHUD.SetActive(value);
@@ -274,9 +292,13 @@ namespace Gameplay.Player
 
         private void LoadAbilities()
         {
-            _slashAbility = _player.PlayerSO.Slash + (_player.PlayerProfile.AbilitySlashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
-            _shieldAbility = _player.PlayerSO.ShieldBash + (_player.PlayerProfile.AbilityShieldBashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
-            _piercingArrowAbility = _player.PlayerSO.PiercingArrow + (_player.PlayerProfile.AbilityPiercingArrowData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            _slashAbilityDamage = _player.PlayerSO.Slash + (_player.PlayerProfile.AbilitySlashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            _shieldAbilityDamage = _player.PlayerSO.ShieldBash + (_player.PlayerProfile.AbilityShieldBashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            _piercingArrowAbilityDamage = _player.PlayerSO.PiercingArrow + (_player.PlayerProfile.AbilityPiercingArrowData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
+            
+            _attackCollider.LoadActionHandler(ActionType.Attack, this, 0);
+            _abilitySlashCollider.LoadActionHandler(_player.PlayerProfile.AbilitySlashData.ActionType, this, _playerSO.SlashPushForce);
+            _abilityShieldCollider.LoadActionHandler(_player.PlayerProfile.AbilityShieldBashData.ActionType, this, _playerSO.ShieldBashPushForce);
         }
     }
 }

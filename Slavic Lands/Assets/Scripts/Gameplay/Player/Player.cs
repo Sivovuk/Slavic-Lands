@@ -57,7 +57,7 @@ namespace Gameplay.Player
             _playerResource.AddResource(amount, resourceType);
         }
         
-        private async Task LoadPlayerProfile()
+        private Task LoadPlayerProfile()
         {
             CurrentLevel = PlayerPrefs.GetInt(Constants.PlayerLevel, 1);
             LevelMultiplayer = PlayerSO.LevelMultiplayer;
@@ -71,20 +71,21 @@ namespace Gameplay.Player
             PlayerProfile.AbilitySlashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilitySlashData, LevelMultiplayer);
             PlayerProfile.AbilityShieldBashData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityShieldBashData, LevelMultiplayer);
             PlayerProfile.AbilityPiercingArrowData = new PlayerAbilityLevelData(PlayerProfileSO.AbilityPiercingArrowData, LevelMultiplayer);
-            
+            return Task.CompletedTask;
         }
 
-        private async Task LoadPlayerStats()
+        private Task LoadPlayerStats()
         {
             PlayerMovement.LoadPlayerStats(PlayerSO, this);
             PlayerAttack.LoadPlayerStats(PlayerSO, this);
             PlayerHealth.LoadPlayerStats(PlayerSO, this);
             PlayerEnergy.LoadPlayerStats(PlayerSO, this);
+            return Task.CompletedTask;
         }
         
-        private async Task LoadResource()
+        private Task LoadResource()
         {
-            
+            return Task.CompletedTask;
         }
 
     }
