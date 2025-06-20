@@ -144,7 +144,11 @@ namespace UI.Game.PlayerProfile
 
         public PlayerAbilityLevelData AddPoint(PlayerAbilityLevelData playerAbilityLevelData)
         {
-            if (Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed <= 0) return playerAbilityLevelData;
+            if (
+                Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed <= 0 || 
+                playerAbilityLevelData.CurrentLevel >= 10
+                ) 
+                return playerAbilityLevelData;
 
             if (_currentAbilities == null)
                 _currentAbilities = new List<PlayerAbilityLevelData>();
