@@ -9,7 +9,11 @@ namespace Gameplay.Resources
         Wood,
         Stone,
         Hide,
-        Food
+        Food,
+        Coal,
+        Iron,
+        Gold,
+        Crystal
     }
 
     [CreateAssetMenu(fileName = "New Resource", menuName = "Resource Data")]

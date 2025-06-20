@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
-  m_Name: Tree
+  m_Name: Crystal
   m_EditorClassIdentifier: 
   Resources:
-  - ResourceType: 0
+  - ResourceType: 7
     Amount: 1
   Health: 32
   XPMultiplayer: 1

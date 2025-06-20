@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
-  m_Name: Wolf
+  m_Name: Bear
   m_EditorClassIdentifier: 
   Resources:
   - ResourceType: 2
-    Amount: 1
+    Amount: 3
   - ResourceType: 3
-    Amount: 1
-  Health: 20
+    Amount: 5
+  Health: 30
   XPMultiplayer: 1
-  XPReward: 3
+  XPReward: 5
