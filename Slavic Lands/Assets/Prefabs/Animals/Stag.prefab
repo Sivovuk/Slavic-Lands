@@ -427,8 +427,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 0
   _currentHealth: 0
-  _resourceData: []
-  _resourceSO: {fileID: 11400000, guid: 9b6ccc8a81f82ee41ab99470c40e1314, type: 2}
+  _resourceData:
+  - ResourceType: 0
+    Amount: 0
+  ResourceDungeonLevels: []
+  <_resourceSO>k__BackingField: {fileID: 0}
 --- !u!114 &7372261290817162431
 MonoBehaviour:
   m_ObjectHideFlags: 0

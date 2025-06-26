@@ -13,6 +13,7 @@ namespace Gameplay.Player
         public Action<bool> OnLMBClick;
         public Action<bool> OnLMBRelease;
         public Action<bool> OnRMBClick;
+        public Action OnInteractionClick;
         public Action OnJumpClick;
         public Action<bool> OnActionChanged;
         public Action<bool> OnSprintClick;
@@ -131,6 +132,11 @@ namespace Gameplay.Player
         public void OnAbility3(InputAction.CallbackContext context)
         {
             OnAbilitySelect?.Invoke((int)ActionType.AbilityPiercedArrow);
+        }
+
+        public void OnInteraction(InputAction.CallbackContext context)
+        {
+            OnInteractionClick?.Invoke();
         }
     }
 }

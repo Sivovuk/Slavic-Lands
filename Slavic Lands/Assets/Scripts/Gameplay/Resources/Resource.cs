@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.Dungeon;
 using Gameplay.NPC;
 using Interfaces;
 using UnityEngine;
@@ -10,7 +11,9 @@ namespace Gameplay.Resources
     {
         [SerializeField] private List<ResourceData> _resourceData = new  List<ResourceData>();
         
-        [SerializeField] private ResourceSO _resourceSO;
+        [field:SerializeField] public List<DungeonData>  DungeonData = new  List<DungeonData>();
+
+        [field: SerializeField] public ResourceSO _resourceSO { get; private set; }
 
         public override void Init()
         {
@@ -40,5 +43,12 @@ namespace Gameplay.Resources
         {
             return _resourceData;
         }
+    }
+
+    [System.Serializable]
+    public class DungeonData
+    {
+        public DungeonLevels DungeonLevels;
+        public int MaxNodeAmount;
     }
 }

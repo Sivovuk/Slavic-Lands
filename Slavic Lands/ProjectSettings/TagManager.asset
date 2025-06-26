@@ -47,6 +47,9 @@ TagManager:
   - name: Background
     uniqueID: 3322420895
     locked: 0
+  - name: Nature
+    uniqueID: 3001477125
+    locked: 0
   - name: Animals
     uniqueID: 300383343
     locked: 0

@@ -616,7 +616,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 300383343
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 100
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -809,5 +809,11 @@ MonoBehaviour:
   _maxHealth: 0
   _currentHealth: 0
   _resourceData: []
-  ResourceDungeonLevels: []
-  <_resourceSO>k__BackingField: {fileID: 0}
+  DungeonData:
+  - DungeonLevels: 0
+    MaxNodeAmount: 2
+  - DungeonLevels: 1
+    MaxNodeAmount: 2
+  - DungeonLevels: 2
+    MaxNodeAmount: 2
+  <_resourceSO>k__BackingField: {fileID: 11400000, guid: 93cce0a6d1430784fad42bb6d7281979, type: 2}

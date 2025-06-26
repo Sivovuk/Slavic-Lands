@@ -137,9 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 0
   _currentHealth: 0
-  _resourceAmount: 0
-  _resourceType: 0
-  _resourceSO: {fileID: 11400000, guid: 2caea9d63f04a0a4d9b301461a22574a, type: 2}
+  _resourceData: []
+  ResourceDungeonLevels: []
+  <_resourceSO>k__BackingField: {fileID: 11400000, guid: 2caea9d63f04a0a4d9b301461a22574a, type: 2}
 --- !u!61 &9070383001835806142
 BoxCollider2D:
   m_ObjectHideFlags: 0
