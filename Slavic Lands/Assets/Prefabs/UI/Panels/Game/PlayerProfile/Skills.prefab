@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 8474160922403333751, guid: f98f9f60bcaacac4096592c6315662ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

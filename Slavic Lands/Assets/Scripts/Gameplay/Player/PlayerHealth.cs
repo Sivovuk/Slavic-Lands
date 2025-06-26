@@ -26,7 +26,6 @@ namespace Gameplay.Player
 
         public bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null)
         {
-            Debug.Log("Player hit");
             return ModifyHealth(-damage, callback);
         }
 
