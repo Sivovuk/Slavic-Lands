@@ -136,7 +136,8 @@ namespace Gameplay.Player
 
         public void OnInteraction(InputAction.CallbackContext context)
         {
-            OnInteractionClick?.Invoke();
+            if (context.performed)
+                OnInteractionClick?.Invoke();
         }
     }
 }

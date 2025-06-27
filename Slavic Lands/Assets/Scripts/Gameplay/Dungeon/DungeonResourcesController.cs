@@ -11,7 +11,6 @@ namespace Gameplay.Dungeon
 
         public void UpdateDungeonResources()
         {
-            Debug.Log("UpdateDungeonResources");
             for (int i = 0; i < _dungeonLevel.Count; i++)
             {
                 for (int j = 0; j < _dungeonLevel[i].Parent.childCount; j++)

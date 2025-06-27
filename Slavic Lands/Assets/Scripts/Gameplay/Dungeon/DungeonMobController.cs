@@ -10,7 +10,6 @@ namespace Gameplay.Dungeon
 
         public void UpdateDungeonMobs()
         {
-            Debug.Log("UpdateDungeonMOBS");
             for (int i = 0; i < _dungeonLevel.Count; i++)
             {
                 for (int j = 0; j < _dungeonLevel[i].Parent.childCount; j++)
