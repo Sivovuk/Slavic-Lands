@@ -30,6 +30,6 @@ MonoBehaviour:
   ShieldBash: 2
   ShieldBashPushForce: 3
   PiercingArrow: 7
-  PiercingPushForce: 3
+  PiercingArrowPushForce: 5
   StartingLevel: 1
   LevelMultiplayer: 1.2

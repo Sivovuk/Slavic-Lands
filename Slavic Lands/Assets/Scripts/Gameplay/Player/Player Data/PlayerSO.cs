@@ -38,7 +38,7 @@ namespace Gameplay.Player
         public float ShieldBashPushForce;
         [Space(10)]
         public float PiercingArrow;
-        public float PiercingPushForce;
+        public float PiercingArrowPushForce;
         
         [Header("Character")] 
         public int StartingLevel = 1;

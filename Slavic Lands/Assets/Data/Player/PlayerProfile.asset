@@ -49,17 +49,17 @@ MonoBehaviour:
     LevelMultiplayer: 1.5
     MaxLevel: 0
   AbilitySlashData:
-    AbilityID: 0
+    ActionType: 5
     Name: Slash
     CurrentLevel: 1
     LevelMultiplayer: 1.5
   AbilityShieldBashData:
-    AbilityID: 1
+    ActionType: 6
     Name: Shield Bash
     CurrentLevel: 1
     LevelMultiplayer: 1.5
   AbilityPiercingArrowData:
-    AbilityID: 2
+    ActionType: 7
     Name: Piercing Arrow
     CurrentLevel: 1
     LevelMultiplayer: 1.5

@@ -10,6 +10,9 @@ public class Arrow : MonoBehaviour
     private Collider2D _collider2D;
     private PlayerAttack _playerAttack;
     
+    private float _pushForce;
+    
+    [SerializeField] private bool _applyForce;
     private bool _isFlying = false;
     private bool _alreadyHit = false;
 
@@ -28,17 +31,22 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    public void Init(PlayerAttack playerAttack)
+    public void Init(PlayerAttack playerAttack, float pushForce)
     {
         _playerAttack = playerAttack;
         _isFlying = true;
+        _pushForce = pushForce;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<IHit>(out IHit hit) && !_alreadyHit)
         {
-            _playerAttack.HandleHit(_actionType, hit, false);
+            Vector2 direction = other.transform.position - _playerAttack.transform.position;
+            direction.x = direction.x > 0 ? 1 : -1;
+            direction.y = direction.y > 0 ? 1 : -1;
+            Debug.Log(_applyForce + " : " + _pushForce);
+            _playerAttack.HandleHit(_actionType, hit, _applyForce, _pushForce, direction);
             
             _isFlying = false;
             Rigidbody2D.bodyType = RigidbodyType2D.Kinematic;

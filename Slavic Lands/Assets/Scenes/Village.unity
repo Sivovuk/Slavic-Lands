@@ -1543,7 +1543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8353007644685208510, guid: 6cb5c770ffed37347995424fd9bb2e64, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2578,11 +2578,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3762711167018038680, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -49.999992
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 5489299943006437508, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -49.999992
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6422776527150189097, guid: 9a605a64fc551654f83039fa605fbbd1, type: 3}
       propertyPath: m_Pivot.x
@@ -3102,9 +3102,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 360385398}
     - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: _arrowPrefab
+      value: 
+      objectReference: {fileID: 1014592148951892034, guid: 5596a1d62514092498456882b05d72b6, type: 3}
+    - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: _attackCollider
       value: 
       objectReference: {fileID: 6286490905410016070}
+    - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: _piercingArrowPrefab
+      value: 
+      objectReference: {fileID: 1014592148951892034, guid: 4f9dd688b47fd58468071c34d3868b8c, type: 3}
     - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: _abilitySlashCollider
       value: 

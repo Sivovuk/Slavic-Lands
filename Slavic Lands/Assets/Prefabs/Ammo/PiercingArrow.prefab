@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionType: 2
+  _applyForce: 1
 --- !u!1 &1883965758860084953
 GameObject:
   m_ObjectHideFlags: 0

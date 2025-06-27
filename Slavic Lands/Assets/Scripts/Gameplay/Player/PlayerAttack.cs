@@ -44,8 +44,8 @@ namespace Gameplay.Player
         [SerializeField] private GameObject _cutCollider;
         [SerializeField] private GameObject _mineCollider;
         [SerializeField] private Transform _shootPoint;
-        [SerializeField] private GameObject _arrowPrefab;
-        [SerializeField] private GameObject _piercingArrowPrefab;
+        [SerializeField] private Arrow _arrowPrefab;
+        [SerializeField] private Arrow _piercingArrowPrefab;
         [SerializeField] private GameObject _shield;
 
         [Space(15)]
@@ -191,16 +191,23 @@ namespace Gameplay.Player
             _shootPoint.right = direction;
 
             GameObject spawn;
-            if (_actionType ==  ActionType.AbilityPiercedArrow)
-                spawn = Instantiate(_piercingArrowPrefab, _shootPoint.position, _shootPoint.rotation);
+            Arrow arrow;
+            if (_actionType == ActionType.AbilityPiercedArrow)
+            {
+                spawn = Instantiate(_piercingArrowPrefab.gameObject, _shootPoint.position, _shootPoint.rotation);
+                arrow = spawn.GetComponent<Arrow>();
+                arrow.Init(this, _playerSO.PiercingArrowPushForce);
+            }
             else
-                spawn = Instantiate(_arrowPrefab, _shootPoint.position, _shootPoint.rotation);
+            {
+                spawn = Instantiate(_arrowPrefab.gameObject, _shootPoint.position, _shootPoint.rotation);
+                arrow = spawn.GetComponent<Arrow>();
+                arrow.Init(this, 0);
+            }
 
             _actionType = ActionType.Shoot;
             Physics2D.IgnoreCollision(spawn.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-            Arrow arrow = spawn.GetComponent<Arrow>();
             
-            arrow.Init(this);
             arrow.Rigidbody2D.linearVelocity = _shootPoint.right * _shootForce;
         }
 
