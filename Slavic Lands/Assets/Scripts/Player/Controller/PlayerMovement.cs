@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Interfaces;
+using Core.Interfaces;
 using TMPro;
 using UnityEngine;
 

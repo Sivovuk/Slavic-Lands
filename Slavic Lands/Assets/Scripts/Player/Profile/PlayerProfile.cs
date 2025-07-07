@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Interfaces;
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Player

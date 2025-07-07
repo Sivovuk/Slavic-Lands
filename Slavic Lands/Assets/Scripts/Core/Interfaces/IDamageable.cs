@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Gameplay.Resources;
 using UnityEngine;
 
-namespace Interfaces
+namespace Core.Interfaces
 {
     public interface IDamageable
     {

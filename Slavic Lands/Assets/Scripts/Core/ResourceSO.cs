@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay.Resources
+namespace Core
 {
     
     public enum ResourceType

@@ -1,6 +1,6 @@
 ﻿using Gameplay.Resources;
 
-namespace Interfaces
+namespace Core.Interfaces
 {
     public interface ILoadStatsResource
     {

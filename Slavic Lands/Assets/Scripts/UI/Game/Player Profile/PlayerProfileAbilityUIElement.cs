@@ -1,6 +1,6 @@
 ﻿using System;
+using Core.Interfaces;
 using Gameplay.Player;
-using Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +24,7 @@ namespace UI.Game.PlayerProfile
             _plusBtn.onClick.RemoveAllListeners();
             _minusBtn.onClick.RemoveAllListeners();
             
-            _abilityLevel.text = playerAbilityLevelData.ToolType + " : " + playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = playerAbilityLevelData.ToolType + " : " + playerAbilityLevelData.CurrentLevel.ToString();
             _plusBtn.onClick.AddListener(delegate { PlusBtnOnClick(); });
             _minusBtn.onClick.AddListener(delegate { MinusBtnOnClick(); });
         }
@@ -39,14 +39,14 @@ namespace UI.Game.PlayerProfile
         {
             _playerAbilityLevelData = _playerProfileUI.AddPoint(_playerAbilityLevelData);
             
-            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel.ToString();
         }
 
         private void MinusBtnOnClick()
         {
             _playerAbilityLevelData = _playerProfileUI.RemovePoint(_playerAbilityLevelData);
             
-            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel.ToString();
         }
     }
 }

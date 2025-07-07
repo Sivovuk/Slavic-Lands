@@ -1,5 +1,5 @@
 ﻿
-namespace Data
+namespace Core.Constants
 {
     public class Constants
     {

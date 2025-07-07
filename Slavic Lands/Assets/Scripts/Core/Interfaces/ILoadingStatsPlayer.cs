@@ -1,7 +1,7 @@
 ﻿
 using Gameplay.Player;
 
-namespace Interfaces
+namespace Core.Interfaces
 {
     public interface ILoadingStatsPlayer
     {

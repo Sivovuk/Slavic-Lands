@@ -1,6 +1,6 @@
 using System;
+using Core.Interfaces;
 using Gameplay.Player;
-using Interfaces;
 using UnityEngine;
 
 public class ArrowProjectile : MonoBehaviour

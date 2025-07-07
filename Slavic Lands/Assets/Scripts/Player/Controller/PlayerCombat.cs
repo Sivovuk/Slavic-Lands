@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gameplay.Resources;
-using Interfaces;
+using Core;
+using Core.Interfaces;
 using Managers;
 using UnityEngine;
 

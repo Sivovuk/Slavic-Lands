@@ -1,5 +1,4 @@
 ﻿using System;
-using Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Player

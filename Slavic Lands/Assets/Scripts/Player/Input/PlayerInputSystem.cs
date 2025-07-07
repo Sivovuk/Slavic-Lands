@@ -1,5 +1,5 @@
 ﻿using System;
-using Interfaces;
+using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Core;
+using Core.Interfaces;
 using Gameplay.Dungeon;
-using Gameplay.NPC;
-using Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Resources
@@ -20,10 +20,10 @@ namespace Gameplay.Resources
             LoadResourceStats(_resourceSO);
         }
 
-        protected override void ResourceCollection(Action<List<ResourceData>, ResourceSO> callback = null)
-        {
-            callback?.Invoke(_resourceData, _resourceSO);
-        }
+        // protected override void ResourceCollection(Action<List<ResourceData>, ResourceSO> callback = null)
+        // {
+        //     callback?.Invoke(_resourceData, _resourceSO);
+        // }
 
         public void LoadResourceStats(ResourceSO resourceSO)
         {

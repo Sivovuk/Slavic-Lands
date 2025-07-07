@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Core;
 using Data;
-using Gameplay.Resources;
 using Managers;
 using UnityEngine;
 
