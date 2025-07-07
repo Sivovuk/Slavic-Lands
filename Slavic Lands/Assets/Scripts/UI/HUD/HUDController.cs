@@ -36,8 +36,8 @@ namespace UI.HUD
         public void OnInit()
         {
             //Debug.LogError("!!! OnInit HUDController");
-            Player.Instance.PlayerHealth.OnHealthChanged += UpdateHealthBar;
-            Player.Instance.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
+            PlayerController.Instance.PlayerHealth.OnHealthChanged += UpdateHealthBar;
+            PlayerController.Instance.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
         }
 
         private void OnEnable()
@@ -48,8 +48,8 @@ namespace UI.HUD
 
         private void OnDisable()
         {
-            Player.Instance.PlayerHealth.OnHealthChanged -= UpdateHealthBar;
-            Player.Instance.PlayerEnergy.OnEnergyChanged -= UpdateEnergyBar;
+            PlayerController.Instance.PlayerHealth.OnHealthChanged -= UpdateHealthBar;
+            PlayerController.Instance.PlayerEnergy.OnEnergyChanged -= UpdateEnergyBar;
         }
 
         public void UpdateHealthBar(float current, float max)

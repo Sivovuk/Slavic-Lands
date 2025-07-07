@@ -2293,9 +2293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27791041e964799885d8dcadcd11550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionType: 5
-  _playerAttack: {fileID: 0}
-  _pushForce: 0
 --- !u!1 &1387895105
 GameObject:
   m_ObjectHideFlags: 0
@@ -4050,6 +4047,14 @@ PrefabInstance:
       propertyPath: _abilityShieldCollider
       value: 
       objectReference: {fileID: 6286490905410016069}
+    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: <PlayerProfile>k__BackingField._skillXPEntries.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: <PlayerProfile>k__BackingField._skillXPEntries.Array.data[0].ToolType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4926945500878392668, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: _pushForce
       value: 5

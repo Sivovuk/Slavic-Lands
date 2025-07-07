@@ -13,53 +13,10 @@ MonoBehaviour:
   m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp:Gameplay.Player:PlayerProfileSO
   PlayerLevelData:
-    CurrentXp: 0
-    CurrentLevel: 1
-    XpToNextLevel: 10
-    FirstLevelXp: 10
-    LevelMultiplayer: 1.5
-    MaxLevel: 0
-    LevelPointsAvailable: 0
-  AttackLevelData:
-    CurrentXp: 0
-    CurrentLevel: 1
-    XpToNextLevel: 10
-    FirstLevelXp: 10
-    LevelMultiplayer: 1.5
-    MaxLevel: 0
-  ShootLevelData:
-    CurrentXp: 0
-    CurrentLevel: 1
-    XpToNextLevel: 10
-    FirstLevelXp: 10
-    LevelMultiplayer: 1.5
-    MaxLevel: 0
-  CutLevelData:
-    CurrentXp: 0
-    CurrentLevel: 1
-    XpToNextLevel: 10
-    FirstLevelXp: 10
-    LevelMultiplayer: 1.5
-    MaxLevel: 0
-  MineLevelData:
-    CurrentXp: 0
-    CurrentLevel: 1
-    XpToNextLevel: 10
-    FirstLevelXp: 10
-    LevelMultiplayer: 1.5
-    MaxLevel: 0
-  AbilitySlashData:
-    ActionType: 5
-    Name: Slash
-    CurrentLevel: 1
-    LevelMultiplayer: 1.5
-  AbilityShieldBashData:
-    ActionType: 6
-    Name: Shield Bash
-    CurrentLevel: 1
-    LevelMultiplayer: 1.5
-  AbilityPiercingArrowData:
-    ActionType: 7
-    Name: Piercing Arrow
-    CurrentLevel: 1
-    LevelMultiplayer: 1.5
+    <CurrentXp>k__BackingField: 0
+    <CurrentLevel>k__BackingField: 0
+    <XPToNextLevel>k__BackingField: 0
+    <MaxLevel>k__BackingField: 0
+    <FirstLevelXp>k__BackingField: 0
+    <LevelMultiplier>k__BackingField: 0
+    <LevelPointsAvailable>k__BackingField: 0

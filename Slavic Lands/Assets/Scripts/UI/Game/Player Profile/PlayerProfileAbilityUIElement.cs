@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.Player;
+using Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ namespace UI.Game.PlayerProfile
         [SerializeField] private Button _minusBtn;
         [SerializeField] private TMP_Text _abilityLevel;
         
-        private ActionType _actionType;
+        private ToolType _toolType;
         private PlayerAbilityLevelData _playerAbilityLevelData;
         private PlayerProfileUI _playerProfileUI;
 
@@ -23,7 +24,7 @@ namespace UI.Game.PlayerProfile
             _plusBtn.onClick.RemoveAllListeners();
             _minusBtn.onClick.RemoveAllListeners();
             
-            _abilityLevel.text = playerAbilityLevelData.Name + " : " + playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = playerAbilityLevelData.ToolType + " : " + playerAbilityLevelData.CurrentLevel;
             _plusBtn.onClick.AddListener(delegate { PlusBtnOnClick(); });
             _minusBtn.onClick.AddListener(delegate { MinusBtnOnClick(); });
         }
@@ -38,14 +39,14 @@ namespace UI.Game.PlayerProfile
         {
             _playerAbilityLevelData = _playerProfileUI.AddPoint(_playerAbilityLevelData);
             
-            _abilityLevel.text = _playerAbilityLevelData.Name + " : " + _playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel;
         }
 
         private void MinusBtnOnClick()
         {
             _playerAbilityLevelData = _playerProfileUI.RemovePoint(_playerAbilityLevelData);
             
-            _abilityLevel.text = _playerAbilityLevelData.Name + " : " + _playerAbilityLevelData.CurrentLevel;
+            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel;
         }
     }
 }

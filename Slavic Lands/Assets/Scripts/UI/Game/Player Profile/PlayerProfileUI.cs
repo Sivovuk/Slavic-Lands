@@ -53,74 +53,74 @@ namespace UI.Game.PlayerProfile
 
         private void OnPlayerInit()
         {
-            Player.Instance.PlayerProfile.AttackLevelData.OnXpChanged += UpdateAttackBar;
-            Player.Instance.PlayerProfile.ShootLevelData.OnXpChanged += UpdateShootBar;
-            Player.Instance.PlayerProfile.CutLevelData.OnXpChanged += UpdateCutBar;
-            Player.Instance.PlayerProfile.MineLevelData.OnXpChanged += UpdateMineBar;
-            Player.Instance.PlayerProfile.PlayerLevelData.OnXpChanged += UpdatePlayerBar;
+            // Player.Instance.PlayerProfile.AttackLevelData.OnXpChanged += UpdateAttackBar;
+            // Player.Instance.PlayerProfile.ShootLevelData.OnXpChanged += UpdateShootBar;
+            // Player.Instance.PlayerProfile.CutLevelData.OnXpChanged += UpdateCutBar;
+            // Player.Instance.PlayerProfile.MineLevelData.OnXpChanged += UpdateMineBar;
+            PlayerController.Instance.PlayerProfile.PlayerLevelData.OnXpChanged += UpdatePlayerBar;
             
-            Player.Instance.PlayerProfile.PlayerLevelData.OnPointsChanged += UpdateLevelPoints;
+            PlayerController.Instance.PlayerProfile.PlayerLevelData.OnPointsChanged += UpdateLevelPoints;
 
-            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged += UpdateAbilitiesUI;
+            // Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged += UpdateAbilitiesUI;
             UpdateAbilitiesUI();
             
             _savePoints.onClick.AddListener(delegate { SavePoints(); });
-            _levelPoints.text = "Points : " + Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable;
+            _levelPoints.text = "Points : " + PlayerController.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable;
         }
 
         private void OnDisable()
         {
-            Player.Instance.PlayerProfile.AttackLevelData.OnXpChanged -= UpdateAttackBar;
-            Player.Instance.PlayerProfile.ShootLevelData.OnXpChanged -= UpdateShootBar;
-            Player.Instance.PlayerProfile.CutLevelData.OnXpChanged -= UpdateCutBar;
-            Player.Instance.PlayerProfile.MineLevelData.OnXpChanged -= UpdateMineBar;
-            Player.Instance.PlayerProfile.PlayerLevelData.OnXpChanged -= UpdatePlayerBar;
+            // Player.Instance.PlayerProfile.AttackLevelData.OnXpChanged -= UpdateAttackBar;
+            // Player.Instance.PlayerProfile.ShootLevelData.OnXpChanged -= UpdateShootBar;
+            // Player.Instance.PlayerProfile.CutLevelData.OnXpChanged -= UpdateCutBar;
+            // Player.Instance.PlayerProfile.MineLevelData.OnXpChanged -= UpdateMineBar;
+            PlayerController.Instance.PlayerProfile.PlayerLevelData.OnXpChanged -= UpdatePlayerBar;
             GameManager.Instance.OnPlayerInit -= OnPlayerInit;
             
-            Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged -= UpdateAbilitiesUI;
+            // Player.Instance.PlayerProfile.AbilitySlashData.OnLevelChanged -= UpdateAbilitiesUI;
             
             _savePoints.onClick.RemoveListener(delegate { SavePoints(); });
             
             ResetCurrentAbility();
         }
 
-        private void UpdateSkillsUI(TMP_Text level, TMP_Text xp, Image levelBar, LevelData levelData)
+        private void UpdateSkillsUI(TMP_Text level, TMP_Text xp, Image levelBar, LevelDataBase levelData)
         {
             level.text = levelData.CurrentLevel.ToString();
-            xp.text = levelData.CurrentXp + " / " + levelData.XpToNextLevel;
-            levelBar.fillAmount = (float)levelData.CurrentXp / (float)levelData.XpToNextLevel;
+            xp.text = levelData.CurrentXp + " / " + levelData.XPToNextLevel;
+            levelBar.fillAmount = (float)levelData.CurrentXp / (float)levelData.XPToNextLevel;
         }
 
-        public void UpdateAttackBar(LevelData levelData)
+        public void UpdateAttackBar(LevelDataBase levelData)
         {
             UpdateSkillsUI(_attackLevel, _xpAttack, _levelBarAttack, levelData);
         }
         
-        public void UpdateShootBar(LevelData levelData)
+        public void UpdateShootBar(LevelDataBase levelData)
         {
             UpdateSkillsUI(_shootLevel, _xpShoot, _levelBarShoot, levelData);
         }
         
-        public void UpdateCutBar(LevelData levelData)
+        public void UpdateCutBar(LevelDataBase levelData)
         {
             UpdateSkillsUI(_cutLevel, _xpCut, _levelBarCut, levelData);
         }
         
-        public void UpdateMineBar(LevelData levelData)
+        public void UpdateMineBar(LevelDataBase levelData)
         {
             UpdateSkillsUI(_mineLevel, _xpMine, _levelBarMine, levelData);
         }
         
-        public void UpdatePlayerBar(LevelData levelData)
+        public void UpdatePlayerBar(LevelDataBase levelData)
         {
             UpdateSkillsUI(_playerLevel, _xpPlayer, _levelBarPlayer, levelData);
         }
 
         public void UpdateAbilitiesUI()
         {
-            _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilitySlashData, this);
-            _abilityShieldBash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
-            _abilityPiercingArrow.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
+            // _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilitySlashData, this);
+            // _abilityShieldBash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
+            // _abilityPiercingArrow.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
         }
         
         [SerializeField] private int _pointsUsed;
@@ -128,15 +128,15 @@ namespace UI.Game.PlayerProfile
 
         private void UpdateLevelPoints()
         {
-            _levelPoints.text = "Points : " + (Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed);
+            _levelPoints.text = "Points : " + (PlayerController.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed);
         }
 
         private void SavePoints()
         {
             foreach (var ability in _currentAbilities)
             {
-                Player.Instance.PlayerProfile.SaveNewAbilityLevelData(ability);
-                Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable -= _pointsUsed;
+                PlayerController.Instance.PlayerProfile.SaveNewAbilityLevelData(ability);
+                //Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable -= _pointsUsed;
                 _pointsUsed = 0;
                 UpdateLevelPoints();
             }
@@ -145,7 +145,7 @@ namespace UI.Game.PlayerProfile
         public PlayerAbilityLevelData AddPoint(PlayerAbilityLevelData playerAbilityLevelData)
         {
             if (
-                Player.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed <= 0 || 
+                PlayerController.Instance.PlayerProfile.PlayerLevelData.LevelPointsAvailable - _pointsUsed <= 0 || 
                 playerAbilityLevelData.CurrentLevel >= 10
                 ) 
                 return playerAbilityLevelData;
@@ -157,9 +157,9 @@ namespace UI.Game.PlayerProfile
             {
                 foreach (var ability in _currentAbilities)
                 {
-                    if (ability.Name == playerAbilityLevelData.Name)
+                    if (ability.ToolType == playerAbilityLevelData.ToolType)
                     {
-                        ability.CurrentLevel++;
+                        //ability.CurrentLevel++;
                         _pointsUsed++;
                         UpdateLevelPoints();
                         //Debug.Log("existing ability update");
@@ -168,8 +168,8 @@ namespace UI.Game.PlayerProfile
                 }
             }
             
-            _currentAbilities.Add(new PlayerAbilityLevelData(playerAbilityLevelData, playerAbilityLevelData.LevelMultiplayer));
-            _currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
+            //_currentAbilities.Add(new PlayerAbilityLevelData(playerAbilityLevelData, playerAbilityLevelData.LevelMultiplier));
+            //_currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
             _pointsUsed++;
             UpdateLevelPoints();
             //Debug.Log("new ability update");
@@ -185,10 +185,10 @@ namespace UI.Game.PlayerProfile
             
             foreach (var ability in _currentAbilities)
             {
-                if (ability.ActionType == playerAbilityLevelData.ActionType)
+                if (ability.ToolType == playerAbilityLevelData.ToolType)
                 {
-                    ability.CurrentLevel--;
-                    ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
+                    //ability.CurrentLevel--;
+                    //ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
                     _pointsUsed--;
                     UpdateLevelPoints();
                     //Debug.Log("Remove Point 1");
