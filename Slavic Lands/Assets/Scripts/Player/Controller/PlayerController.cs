@@ -67,7 +67,7 @@ namespace Gameplay.Player
                     ToolType = entry.ToolType,
                     LevelData = new LevelData(entry.LevelData, PlayerSO.LevelMultiplayer)
                 };
-                PlayerProfile.SkillXPEntries.Add(newData);
+                PlayerProfile.SkillXpEntries.Add(newData);
             }
 
             // Initialize ability levels
