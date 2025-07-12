@@ -8,7 +8,7 @@ namespace Gameplay.Player
     {
         public PlayerLevelData PlayerLevelData;
         [Header("Tool Skill Levels")]
-        public List<SkillLevelEntry> SkillXPEntries;
+        public List<SkillLevelEntry> SkillXpEntries;
 
         [Header("Ability Levels")]
         public List<PlayerAbilityLevelData> AbilityLevelDataList;
