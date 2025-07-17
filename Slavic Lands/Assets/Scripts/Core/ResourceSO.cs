@@ -11,7 +11,6 @@ namespace Core
         public List<ResourceData> Resources = new List<ResourceData>();
         public ToolType ToolType;
         public float Health;
-        public float XPMultiplayer = 1;
         public int XPReward = 1;
     }
 

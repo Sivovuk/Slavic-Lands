@@ -52,8 +52,8 @@ namespace Gameplay.Player
 
         private void OnEnable()
         {
-            _playerInputSystem.OnLMBClick += UseEquippedTool;
-            _playerInputSystem.OnRMBClick += ActiveShield;
+            _playerInputSystem.OnLmbClick += UseEquippedTool;
+            _playerInputSystem.OnRmbClick += ActiveShield;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnAbilitySelect += SelectAction;
             GameManager.Instance.OnPlayerInit += LoadAbilities;
@@ -61,8 +61,8 @@ namespace Gameplay.Player
 
         private void OnDisable()
         {
-            _playerInputSystem.OnLMBClick -= UseEquippedTool;
-            _playerInputSystem.OnRMBClick -= ActiveShield;
+            _playerInputSystem.OnLmbClick -= UseEquippedTool;
+            _playerInputSystem.OnRmbClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             _playerInputSystem.OnAbilitySelect -= SelectAction;
             GameManager.Instance.OnPlayerInit -= LoadAbilities;

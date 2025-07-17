@@ -1,7 +1,6 @@
 ﻿using System;
 using Core.Interfaces;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Player
@@ -11,20 +10,20 @@ namespace Gameplay.Player
         [field: SerializeField] public Vector2 MovementValue { get; private set; }
         [field: SerializeField] public Vector2 Look { get; private set; }
 
-        public Action OnLMBClick;
-        public Action OnLMBRelease;
-        public Action<bool> OnRMBClick;
-        public Action OnInteractionClick;
-        public Action OnJumpClick;
-        public Action<bool> OnActionChanged;
-        public Action<bool> OnSprintClick;
-        public Action<bool> OnTabClicked;
-        public Action OnDashClicked;
-        public Action<int> OnAbilitySelect;
+        public event Action OnLmbClick;
+        public event  Action OnLmbRelease;
+        public event  Action<bool> OnRmbClick;
+        public event  Action OnInteractionClick;
+        public event  Action OnJumpClick;
+        public event  Action<bool> OnActionChanged;
+        public event  Action<bool> OnSprintClick;
+        public event  Action<bool> OnTabClicked;
+        public event  Action OnDashClicked;
+        public event  Action<int> OnAbilitySelect;
 
         private Controls _controls;
 
-        private void Start()
+        private void Awake()
         {
             _controls = new Controls();
             _controls.Player.SetCallbacks(this);
@@ -50,68 +49,43 @@ namespace Gameplay.Player
         public void OnLMB(InputAction.CallbackContext context)
         {
             if (context.performed)
-            {
-                OnLMBClick?.Invoke();
-            }
+                OnLmbClick?.Invoke();
             else if (context.canceled)
-            {
-                OnLMBRelease?.Invoke();
-            }
+                OnLmbRelease?.Invoke();
         }
 
         public void OnRMB(InputAction.CallbackContext context)
         {
-            if (context.performed)
-            {
-                OnRMBClick?.Invoke(true);
-            }
-            else if (context.canceled)
-            {
-                OnRMBClick?.Invoke(false);
-            }
+            OnRmbClick?.Invoke(context.performed);
         }
 
         public void OnSprint(InputAction.CallbackContext context)
         {
-            if (context.started)
-            {
-                OnSprintClick?.Invoke(true);
-            }
-            else if (context.canceled)
-            {
-                OnSprintClick?.Invoke(false);
-            }
+            OnSprintClick?.Invoke(context.started || context.performed);
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            var shift = Keyboard.current.leftShiftKey.isPressed;
-            var moveKey = Keyboard.current.dKey.isPressed || Keyboard.current.aKey.isPressed;
-            
-            if ( shift && moveKey) return;
-
             if (context.performed)
+            {
+                var keyboard = Keyboard.current;
+                if (keyboard != null && keyboard.leftShiftKey.isPressed &&
+                    (keyboard.dKey.isPressed || keyboard.aKey.isPressed))
+                    return;
+
                 OnJumpClick?.Invoke();
+            }
         }
 
         public void OnSelectAction(InputAction.CallbackContext context)
         {
-            if (context.performed)
-            {
-                OnActionChanged?.Invoke(true);
-            }
-            else if (context.canceled)
-            {
-                OnActionChanged?.Invoke(false);
-            }
+            OnActionChanged?.Invoke(context.performed);
         }
 
         public void OnPlayerUI(InputAction.CallbackContext context)
         {
             if (context.performed)
-            {
                 OnTabClicked?.Invoke(true);
-            }
         }
 
         public void OnDash(InputAction.CallbackContext context)
@@ -122,17 +96,20 @@ namespace Gameplay.Player
 
         public void OnAbility1(InputAction.CallbackContext context)
         {
-            OnAbilitySelect?.Invoke((int)ToolType.Slashed);
+            if (context.performed)
+                OnAbilitySelect?.Invoke((int)ToolType.Slashed);
         }
 
         public void OnAbility2(InputAction.CallbackContext context)
         {
-            OnAbilitySelect?.Invoke((int)ToolType.ShieldBash);
+            if (context.performed)
+                OnAbilitySelect?.Invoke((int)ToolType.ShieldBash);
         }
 
         public void OnAbility3(InputAction.CallbackContext context)
         {
-            OnAbilitySelect?.Invoke((int)ToolType.PiercingArrow);
+            if (context.performed)
+                OnAbilitySelect?.Invoke((int)ToolType.PiercingArrow);
         }
 
         public void OnInteraction(InputAction.CallbackContext context)

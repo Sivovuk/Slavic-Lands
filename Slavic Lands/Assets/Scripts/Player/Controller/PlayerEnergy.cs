@@ -8,88 +8,79 @@ namespace Gameplay.Player
     public class PlayerEnergy : MonoBehaviour, ILoadingStatsPlayer
     {
         private float _maxEnergy;
-        [SerializeField] private float _currentEnergy;
-        public float GetCurrentEnergy () => _currentEnergy;
-
+        private float _currentEnergy;
         private float _timePassed;
-        
-        [SerializeField] private bool _isSprinting;
-        [SerializeField] private bool _isPaused;
-        
-        public Action<float, float> OnEnergyChanged;
+        private bool _isSprinting;
+        private bool _isPaused;
         
         private PlayerController _playerController;
         
+        public float GetCurrentEnergy () => _currentEnergy;
+        
+        public Action<float, float> OnEnergyChanged;
+        
+        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
+        {
+            _playerController = playerController;
+            _maxEnergy = playerSO.BaseEnergy + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
+            ModifyEnergy(PlayerPrefs.GetFloat(Constants.SavedEnergy, _maxEnergy));
+        }
         
         private void Update()
         {
             if (_isSprinting && _currentEnergy > 0 && !_isPaused)
             {
-                _timePassed += Time.deltaTime;
-                if (_timePassed >= 0.05f)
-                {
-                    _timePassed = 0;
-                    ModifyEnergy(-0.2f);
-                }
+                DrainEnergy(0.2f);
             }
             else if (_currentEnergy < _maxEnergy)
             {
-                _isPaused = true;
-                _timePassed += Time.deltaTime;
-                if (_timePassed >= 0.05f)
-                {
-                    _timePassed = 0;
-                    ModifyEnergy(0.1f);
-                }
+                RegenerateEnergy(0.1f);
+            }
+        }
+        
+        private void DrainEnergy(float amount)
+        {
+            _timePassed += Time.deltaTime;
+            if (_timePassed >= 0.05f)
+            {
+                _timePassed = 0f;
+                ModifyEnergy(-amount);
             }
         }
 
-        public void BoostEnergy(float energy)
+        private void RegenerateEnergy(float amount)
         {
-            ModifyEnergy(energy);
+            _isPaused = true;
+            _timePassed += Time.deltaTime;
+            if (_timePassed >= 0.05f)
+            {
+                _timePassed = 0f;
+                ModifyEnergy(amount);
+            }
         }
 
-        public void UseEnergy(float energy)
-        {
-            ModifyEnergy(-energy);
-        }
+        public void UseEnergy(float amount) => ModifyEnergy(-amount);
 
-        private void ModifyEnergy(float energy)
+        private void ModifyEnergy(float amount)
         {
-            _currentEnergy += energy;
-            _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);
+            _currentEnergy += amount;
+            _currentEnergy = Mathf.Clamp(_currentEnergy, 0f, _maxEnergy);
             OnEnergyChanged?.Invoke(_currentEnergy, _maxEnergy);
         }
 
         public bool Sprint(bool isSprinting)
         {
             _isSprinting = isSprinting;
-            
+
             if (_currentEnergy >= _maxEnergy * 0.2f && _isPaused)
             {
                 _isPaused = false;
                 return true;
             }
-            else if (_currentEnergy > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            return _currentEnergy > 0;
         }
 
-        public bool CanSprint()
-        {
-            return _currentEnergy > 0 && !_isPaused;
-        }
-
-        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
-        {
-            _playerController = playerController;
-            _maxEnergy = playerSO.BaseEnergy + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
-            ModifyEnergy(PlayerPrefs.GetFloat(Constants.SavedHealth, _maxEnergy));
-        }
+        public bool CanSprint() => _currentEnergy > 0f && !_isPaused;
     }
 }

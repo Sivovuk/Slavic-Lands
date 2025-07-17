@@ -11,70 +11,55 @@ namespace Gameplay.Player
     {
         private float _maxHealth;
         private float _currentHealth;
+        private bool _isDead;
         
-        [SerializeField] private bool _isDead;
+        public bool IsDead => _isDead;
         
         public Action OnDeath;
         public Action<float, float> OnHealthChanged;
         
         private PlayerController _playerController;
 
+        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
+        {
+            _playerController = playerController;
+            _maxHealth = playerSO.BaseHealth + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
+            _currentHealth = PlayerPrefs.GetFloat(Constants.SavedHealth, _maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+        
         public void Heal(float healAmount)
         {
             ModifyHealth(healAmount);
         }
 
-        public bool TakeDamage(float damage, Action<List<ResourceData>, ResourceSO> callback = null)
+        public void TakeDamage(float damage)
         {
-            return ModifyHealth(-damage, callback);
+            ModifyHealth(-damage);
         }
 
-        public void ApplyForce(float force, Vector2 direction)
-        {
-            TryGetComponent<Rigidbody2D>(out Rigidbody2D rg);
-            rg.AddForce(direction *  force, ForceMode2D.Force);
-        }
-
-        public List<ResourceData> GetResourceType()
-        {
-            return null;
-        }
-
-        private bool ModifyHealth(float amount, Action<List<ResourceData>, ResourceSO> callback = null)
+        private bool ModifyHealth(float amount)
         {
             if (_isDead) return false;
-            
+
             _currentHealth += amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
             OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
             if (_currentHealth <= 0)
             {
                 _isDead = true;
                 OnDeath?.Invoke();
-                
                 return true;
             }
-            
+
             return false;
-        }
-
-        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
-        {
-            _playerController = playerController;
-            _maxHealth = playerSO.BaseHealth + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
-            ModifyHealth(PlayerPrefs.GetFloat(Constants.SavedHealth, _maxHealth));
-        }
-
-        public void TakeDamage(float amount)
-        {
-            throw new NotImplementedException();
         }
 
         public void ApplyKnockback(Vector2 direction, float force)
         {
-            throw new NotImplementedException();
+            if (TryGetComponent<Rigidbody2D>(out var rb))
+                rb.AddForce(direction * force, ForceMode2D.Force);
         }
-
-        public bool IsDead { get; }
     }
 }
