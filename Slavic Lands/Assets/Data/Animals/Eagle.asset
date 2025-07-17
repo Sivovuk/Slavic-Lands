@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Eagle
   m_EditorClassIdentifier: 
   Resources: []
+  ToolType: 3
   Health: 10
   XPMultiplayer: 1
   XPReward: 5

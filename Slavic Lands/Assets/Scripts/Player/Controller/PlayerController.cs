@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core;
 using Core.Interfaces;
 using Data;
+using Gameplay.Resources;
 using Managers;
 using SaveSystem;
 using UnityEngine;
@@ -46,6 +47,8 @@ namespace Gameplay.Player
 
         private async void Start()
         {
+            SaveManager.DeleteSave();
+            
             if (!LoadFromSaveFile())
             {
                 LoadFromDefaults();

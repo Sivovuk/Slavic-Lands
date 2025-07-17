@@ -51,6 +51,12 @@ namespace Gameplay.Player
             EnsureInitialized();
             return AbilityMap.TryGetValue(toolType, out var data) ? data : null;
         }
+        
+        public LevelDataBase GetLevelData(ToolType toolType)
+        {
+            EnsureInitialized();
+            return _skillMap.TryGetValue(toolType, out var data) ? data : null;
+        }
 
         public PlayerProfileSaveData ToSaveData()
         {
@@ -90,12 +96,12 @@ namespace Gameplay.Player
 
         public void LoadFromSaveData(PlayerProfileSaveData saveData, float levelMultiplier)
         {
-            PlayerLevelData = new PlayerLevelData(saveData.PlayerLevel, saveData.PlayerXp, saveData.PlayerXpToNext, saveData.LevelPointsAvailable, levelMultiplier);
+            PlayerLevelData = new PlayerLevelData(saveData.PlayerLevel, saveData.PlayerXp, saveData.PlayerXpToNext, saveData.MaxLevel, saveData.LevelPointsAvailable, levelMultiplier);
 
             SkillXpEntries.Clear();
             foreach (var skill in saveData.Skills)
             {
-                var levelData = new LevelData(skill.CurrentLevel, skill.CurrentXp, skill.XpToNextLevel, levelMultiplier);
+                var levelData = new LevelData(skill.CurrentLevel, skill.CurrentXp, skill.XpToNextLevel, skill.MaxLevel,  levelMultiplier);
                 SkillXpEntries.Add(new SkillLevelEntry { ToolType = skill.ToolType, LevelData = levelData });
             }
 
@@ -105,6 +111,16 @@ namespace Gameplay.Player
                 AbilityLevelDataList.Add(new PlayerAbilityLevelData(ability.ToolType, ability.CurrentLevel, levelMultiplier));
             }
         }
+        
+        public bool TryAddXp(ToolType tool, int amount)
+        {
+            if (_skillMap.TryGetValue(tool, out var level))
+            {
+                level.AddXp(amount);
+                return true;
+            }
+            return false;
+        }
     }
 
     [Serializable]
@@ -113,7 +129,7 @@ namespace Gameplay.Player
         [SerializeField] private int _currentXp;
         [SerializeField] private int _currentLevel;
         [SerializeField] private int _xpToNextLevel;
-        [SerializeField] private int _maxLevel = 99;
+        [SerializeField] private int _maxLevel;
         [SerializeField] private int _firstLevelXp;
         [SerializeField] private float _levelMultiplier;
 
@@ -137,7 +153,7 @@ namespace Gameplay.Player
             _maxLevel = copyFrom._maxLevel;
         }
 
-        protected LevelDataBase(int baseXp, float multiplier, int maxLvl = 99)
+        protected LevelDataBase(int baseXp, float multiplier, int maxLvl)
         {
             _firstLevelXp = baseXp;
             _xpToNextLevel = baseXp;
@@ -145,14 +161,14 @@ namespace Gameplay.Player
             _maxLevel = maxLvl;
         }
 
-        protected LevelDataBase(int level, int xp, int xpToNext, float multiplier, int maxLvl = 99)
+        protected LevelDataBase(int level, int xp, int xpToNext, int maxLvl, int firstLevelXp, float multiplier)
         {
             _currentLevel = level;
             _currentXp = xp;
             _xpToNextLevel = xpToNext;
             _levelMultiplier = multiplier;
             _maxLevel = maxLvl;
-            _firstLevelXp = 10; // default or configurable value
+            _firstLevelXp = firstLevelXp; // default or configurable value
         }
 
         public virtual void AddXp(int xp)
@@ -179,11 +195,11 @@ namespace Gameplay.Player
         public LevelData(LevelDataBase copyFrom, float multiplier)
             : base(copyFrom, multiplier) { }
 
-        public LevelData(int baseXp, float multiplier, int maxLvl = 99)
+        public LevelData(int baseXp, float multiplier, int maxLvl)
             : base(baseXp, multiplier, maxLvl) { }
 
-        public LevelData(int level, int xp, int xpToNext, float multiplier)
-            : base(level, xp, xpToNext, multiplier) { }
+        public LevelData(int level, int xp, int xpToNext, int maxLevel, float multiplier)
+            : base(level, xp, xpToNext, maxLevel, maxLevel, multiplier) { }
     }
 
     [Serializable]
@@ -201,8 +217,8 @@ namespace Gameplay.Player
             _levelPointsAvailable = copyFrom._levelPointsAvailable;
         }
 
-        public PlayerLevelData(int level, int xp, int xpToNext, int points, float multiplier)
-            : base(level, xp, xpToNext, multiplier)
+        public PlayerLevelData(int level, int xp, int xpToNext, int maxLevel, int points, float multiplier)
+            : base(level, xp, xpToNext, maxLevel, points, multiplier)
         {
             _levelPointsAvailable = points;
         }

@@ -6,8 +6,40 @@
   <component name="ChangeListManager">
     <list default="true" id="d14917f0-711c-4181-9b4f-2b943daaed29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Slavic Lands/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Slavic Lands/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Bear.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Animals/Bear.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Eagle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Animals/Eagle.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Rabbit.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Animals/Rabbit.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Stag.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Animals/Stag.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Wolf.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Animals/Wolf.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/PlayerProfile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Player/PlayerProfile.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/XP Data.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Player/XP Data.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Coal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Coal.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Crystal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Crystal.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Gold.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Gold.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Iron.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Iron.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Rock.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Rock.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Beech.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Beech.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Birch.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Birch.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Oak.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Oak.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Pine.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Pine.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enviroment/Trees/Beech.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enviroment/Trees/Beech.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enviroment/Trees/Birch.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enviroment/Trees/Birch.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Village.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Village.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IDamageable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/ResourceSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/ResourceSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/XPDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/XPDataSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/Resource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/ResourceTree.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/ResourceTree.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerCombat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerCombat.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Profile/PlayerProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Profile/PlayerProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/PlayerSaveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/PlayerSaveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Dungeon/DungeonLevelsUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Dungeon/DungeonLevelsUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Player Profile/PlayerProfileUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Player Profile/PlayerProfileUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +241,9 @@
       <workItem from="1752320359277" duration="1790000" />
       <workItem from="1752329281280" duration="2441000" />
       <workItem from="1752331945259" duration="2701000" />
-      <workItem from="1752334944245" duration="297000" />
+      <workItem from="1752334944245" duration="7660000" />
+      <workItem from="1752498596238" duration="1788000" />
+      <workItem from="1752779254651" duration="3092000" />
     </task>
     <servers />
   </component>

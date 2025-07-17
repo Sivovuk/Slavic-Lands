@@ -9,22 +9,25 @@ namespace Gameplay.Player
 {
     public class PlayerCombat : MonoBehaviour, ILoadingStatsPlayer
     {
-        [Header("Setup")]
-        
-        [SerializeField] private float _cutDamage;
-        [SerializeField] private float _mineDamage;
-        [SerializeField] private float _attackDamage;
-        [SerializeField] private float _shootDamage;
-        [SerializeField] private float _shootForce = 50;
-        [SerializeField] private bool _isShooted = false;
-        [SerializeField] private bool _isShieldActive = false;
-        
-        [SerializeField] private float _slashAbilityDamage;
-        [SerializeField] private float _shieldAbilityDamage;
-        [SerializeField] private float _piercingArrowAbilityDamage;
-        
+        [Header("Base Damage")]
+        private float _cutDamage;
+        private float _mineDamage;
+        private float _attackDamage;
+        private float _shootDamage;
+
+        [Header("Ability Damage")]
+        private float _slashAbilityDamage;
+        private float _shieldAbilityDamage;
+        private float _piercingArrowAbilityDamage;
+
+        [Header("Shooting")]
+        [SerializeField] private float _shootForce = 50f;
+        private bool _isShooted;
+
+        [Header("Shield")]
+        private bool _isShieldActive;
+
         [Header("References")]
-        
         [SerializeField] private Transform _attackPoint;
         [SerializeField] private float _attackRange;
         [SerializeField] private Transform _shootPoint;
@@ -32,16 +35,14 @@ namespace Gameplay.Player
         [SerializeField] private ArrowProjectile _piercingArrowProjectilePrefab;
         [SerializeField] private GameObject _shield;
         [SerializeField] private LayerMask _enemyLayer;
-
-        [Space(15)]
-        
         [SerializeField] private GameObject _actionHUD;
+
         private PlayerController _playerController;
         private PlayerSO _playerSO;
         private PlayerMovement _playerMovement;
         private PlayerInputSystem _playerInputSystem;
-        
-        [SerializeField] private ToolType _equippedTool = ToolType.None;
+
+        private ToolType _equippedTool = ToolType.None;
 
         private void Awake()
         {
@@ -52,8 +53,8 @@ namespace Gameplay.Player
         private void OnEnable()
         {
             _playerInputSystem.OnLMBClick += UseEquippedTool;
-            _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnRMBClick += ActiveShield;
+            _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnAbilitySelect += SelectAction;
             GameManager.Instance.OnPlayerInit += LoadAbilities;
         }
@@ -63,122 +64,75 @@ namespace Gameplay.Player
             _playerInputSystem.OnLMBClick -= UseEquippedTool;
             _playerInputSystem.OnRMBClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
+            _playerInputSystem.OnAbilitySelect -= SelectAction;
             GameManager.Instance.OnPlayerInit -= LoadAbilities;
-
-            // foreach (var VARIABLE in _player)
-            // {
-            //     
-            // }
-            // _player.PlayerProfile.CutLevelData.OnLevelChanged -= UpdatePlayerStats;
-            // _player.PlayerProfile.MineLevelData.OnLevelChanged -= UpdatePlayerStats;
-            // _player.PlayerProfile.AttackLevelData.OnLevelChanged -= UpdatePlayerStats;
-            // _player.PlayerProfile.ShootLevelData.OnLevelChanged -= UpdatePlayerStats;
         }
-        
-        void UseEquippedTool()
+
+        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
+        {
+            _playerController = playerController;
+            _playerSO = playerSO;
+            UpdatePlayerStats();
+        }
+
+        public void UpdatePlayerStats()
+        {
+            if (_playerController == null || _playerSO == null) return;
+
+            _cutDamage = _playerSO.CuttingDamage + GetScaledDamage(ToolType.Axe);
+            _mineDamage = _playerSO.MiningDamage + GetScaledDamage(ToolType.Pickaxe);
+            _attackDamage = _playerSO.AttackDamage + GetScaledDamage(ToolType.BattleAxe);
+            _shootDamage = _playerSO.ShootDamage + GetScaledDamage(ToolType.Bow);
+        }
+
+        private float GetScaledDamage(ToolType tool)
+        {
+            var levelData = _playerController.PlayerProfile.GetLevelData(tool);
+            return levelData != null ? levelData.CurrentLevel * _playerSO.LevelMultiplayer : 0f;
+        }
+
+        private void LoadAbilities()
+        {
+            _slashAbilityDamage = _playerSO.Slash + GetScaledDamage(ToolType.Slashed);
+            _shieldAbilityDamage = _playerSO.ShieldBash + GetScaledDamage(ToolType.ShieldBash);
+            _piercingArrowAbilityDamage = _playerSO.PiercingArrow + GetScaledDamage(ToolType.PiercingArrow);
+        }
+
+        private void UseEquippedTool()
         {
             switch (_equippedTool)
             {
                 case ToolType.BattleAxe:
-                    PerformMeleeAttack(30, _shootForce);
+                    PerformMeleeAttack((int)_attackDamage, _shootForce);
                     break;
                 case ToolType.Bow:
-                    //ShootArrow();
+                case ToolType.PiercingArrow:
+                    Shoot();
                     break;
                 default:
-                    PerformMeleeAttack(15, _shootForce); // Axe, Pickaxe default
+                    PerformMeleeAttack((int)_cutDamage, _shootForce);
                     break;
             }
         }
-        
-        void PerformMeleeAttack(int damage, float pushForce)
+
+        private void PerformMeleeAttack(int damage, float pushForce)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
+            var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
             foreach (var hit in hits)
             {
                 if (hit.TryGetComponent(out IDamageable damageable))
                 {
-                    //damageable.TakeDamage(damage, HandleCollection());
-
                     if (hit.TryGetComponent(out Rigidbody2D rb))
                     {
-                        Vector2 dir = (hit.transform.position - transform.position).normalized;
-                        damageable.ApplyKnockback(dir, pushForce);
-                        HandleActionXp();
+                        Vector2 direction = (hit.transform.position - transform.position).normalized;
+                        damageable.ApplyKnockback(direction, pushForce);
                     }
+                    
+                    damageable.TakeDamage(damage);
+
+                    HandleActionXp();
                 }
             }
-        }
-        
-        // public void HandleHit(ToolType ToolType, IHit hitObject, bool applyForce, float pushForce = 0, Vector2  direction = new Vector2())
-        // {
-        //     hitObject.TakeDamage(GetActionDamage(ToolType), HandleCollection);
-        //
-        //     if (applyForce)
-        //     {
-        //         hitObject.ApplyForce(pushForce, direction);
-        //     }
-        //
-        //     HandleActionXp(ToolType);
-        // }
-
-        public void SelectAction(int ToolTypeIndex)
-        {
-            if (ToolTypeIndex == (int)(ToolType.BattleAxe))
-                _equippedTool = ToolType.BattleAxe;
-            else if (ToolTypeIndex == (int)ToolType.Bow)
-                _equippedTool = ToolType.Bow;
-            else if (ToolTypeIndex == (int)ToolType.Axe)
-                _equippedTool = ToolType.Axe;
-            else if (ToolTypeIndex == (int)ToolType.Pickaxe)
-                _equippedTool = ToolType.Pickaxe;
-            else if (ToolTypeIndex == (int)ToolType.Slashed)
-                _equippedTool = ToolType.Slashed;
-            else if (ToolTypeIndex == (int)ToolType.ShieldBash)
-                _equippedTool = ToolType.ShieldBash;
-            else if (ToolTypeIndex == (int)ToolType.PiercingArrow)
-                _equippedTool = ToolType.PiercingArrow;
-            else
-                Debug.LogWarning("Unknown action type! Action type : " + ToolTypeIndex);
-            
-            ShowHUD(false);
-        }
-        
-        private bool HandleActionXp()
-        {
-            // if (_equippedTool == ToolType.Axe)
-            // {
-            //     _player.PlayerProfile.CutLevelData.AddXp(_player.XpDataSO.CuttingXP);
-            //     return true;
-            // }
-            // else if (_equippedTool == ToolType.Pickaxe)
-            // {
-            //     _player.PlayerProfile.MineLevelData.AddXp(_player.XpDataSO.MiningXP);
-            //     return true;
-            //     
-            // }
-            // else if (_equippedTool == ToolType.BattleAxe)
-            // {
-            //     _player.PlayerProfile.AttackLevelData.AddXp(_player.XpDataSO.AttackXP);
-            //     return true;
-            // }
-            // else if (_equippedTool == ToolType.Bow)
-            // {
-            //     _player.PlayerProfile.ShootLevelData.AddXp(_player.XpDataSO.ShootXP);
-            //     return true;
-            // }
-
-            Debug.LogWarning("Unknown action type! Action type : " + _equippedTool);
-            
-            return false;
-        }
-
-        private void HandleCollection(List<ResourceData> resources, ResourceSO resourceData)
-        {
-            foreach (var resource in resources)
-                _playerController.AddResource(resource.Amount, resource.ResourceType);
-            
-            _playerController.PlayerProfile.PlayerLevelData.AddXp(resourceData.XPReward);
         }
 
         private void Shoot()
@@ -190,32 +144,16 @@ namespace Gameplay.Player
             }
 
             _isShooted = true;
-            
-            Vector2 bowPosition = transform.position;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = mousePosition - bowPosition;
-            _playerMovement.SetDirection(direction.x > 0 ? 1f : -1f);
-            _shootPoint.right = direction;
 
-            GameObject spawn;
-            ArrowProjectile arrowProjectile;
-            if (_equippedTool == ToolType.PiercingArrow)
-            {
-                spawn = Instantiate(_piercingArrowProjectilePrefab.gameObject, _shootPoint.position, _shootPoint.rotation);
-                arrowProjectile = spawn.GetComponent<ArrowProjectile>();
-                arrowProjectile.Init(this, _playerSO.PiercingArrowPushForce);
-            }
-            else
-            {
-                spawn = Instantiate(_arrowProjectilePrefab.gameObject, _shootPoint.position, _shootPoint.rotation);
-                arrowProjectile = spawn.GetComponent<ArrowProjectile>();
-                arrowProjectile.Init(this, 0);
-            }
+            Vector2 shootDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            _playerMovement.SetDirection(shootDir.x > 0 ? 1f : -1f);
+            _shootPoint.right = shootDir;
 
-            _equippedTool = ToolType.Bow;
-            Physics2D.IgnoreCollision(spawn.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-            
-            arrowProjectile.Rigidbody2D.linearVelocity = _shootPoint.right * _shootForce;
+            var prefab = _equippedTool == ToolType.PiercingArrow ? _piercingArrowProjectilePrefab : _arrowProjectilePrefab;
+            var arrow = Instantiate(prefab, _shootPoint.position, _shootPoint.rotation);
+            arrow.Init(this, _equippedTool == ToolType.PiercingArrow ? _playerSO.PiercingArrowPushForce : 0);
+            Physics2D.IgnoreCollision(arrow.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+            arrow.Rigidbody2D.linearVelocity = _shootPoint.right * _shootForce;
         }
 
         private void ActiveShield(bool value)
@@ -224,50 +162,37 @@ namespace Gameplay.Player
             _isShieldActive = value;
         }
 
-        private void ShieldBash(bool value)
+        public void SelectAction(int toolIndex)
         {
-            //_abilityShieldCollider.gameObject.SetActive(true);
-            _playerMovement.Dash();
+            _equippedTool = Enum.IsDefined(typeof(ToolType), toolIndex)
+                ? (ToolType)toolIndex
+                : ToolType.None;
+
+            ShowHUD(false);
+        }
+
+        private bool HandleActionXp()
+        {
+            int xp = _playerController.XpDataSO.GetXpForTool(_equippedTool);
+            bool success = _playerController.PlayerProfile.TryAddXp(_equippedTool, xp);
+
+            if (!success)
+                Debug.LogWarning($"Unknown XP target for ToolType: {_equippedTool}");
+
+            return success;
         }
 
         private void ShowHUD(bool value)
         {
             _actionHUD.SetActive(value);
         }
-
-        public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
+        
+        private void OnDrawGizmosSelected()
         {
-            _playerController = playerController;
-            _playerSO = playerSO;
-            
-            UpdatePlayerStats();
-        }
+            if (_attackPoint == null) return;
 
-        public void UpdatePlayerStats()
-        {
-            if (_playerController == null) return;
-            if (_playerSO == null) return;
-            
-            // _cutDamage = _playerSO.CuttingDamage + (_player.PlayerProfile.CutLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
-            // _mineDamage = _playerSO.MiningDamage + (_player.PlayerProfile.MineLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
-            // _attackDamage = _playerSO.AttackDamage + (_player.PlayerProfile.AttackLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
-            // _shootDamage = _playerSO.ShootDamage + (_player.PlayerProfile.ShootLevelData.CurrentLevel * _playerSO.LevelMultiplayer);
-            //
-            // _player.PlayerProfile.CutLevelData.OnLevelChanged += UpdatePlayerStats;
-            // _player.PlayerProfile.MineLevelData.OnLevelChanged += UpdatePlayerStats;
-            // _player.PlayerProfile.AttackLevelData.OnLevelChanged += UpdatePlayerStats;
-            // _player.PlayerProfile.ShootLevelData.OnLevelChanged += UpdatePlayerStats;
-        }
-
-        private void LoadAbilities()
-        {
-            // _slashAbilityDamage = _player.PlayerSO.Slash + (_player.PlayerProfile.AbilitySlashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
-            // _shieldAbilityDamage = _player.PlayerSO.ShieldBash + (_player.PlayerProfile.AbilityShieldBashData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
-            // _piercingArrowAbilityDamage = _player.PlayerSO.PiercingArrow + (_player.PlayerProfile.AbilityPiercingArrowData.CurrentLevel * _player.PlayerSO.LevelMultiplayer);
-            
-            //_attackCollider.LoadActionHandler(ToolType.Attack, this, 0);
-            //_abilitySlashCollider.LoadActionHandler(_player.PlayerProfile.AbilitySlashData.ToolType, this, _playerSO.SlashPushForce);
-            //_abilityShieldCollider.LoadActionHandler(_player.PlayerProfile.AbilityShieldBashData.ToolType, this, _playerSO.ShieldBashPushForce);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
         }
     }
 }

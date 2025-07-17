@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Resources:
   - ResourceType: 3
-    Amount: 1
+    DropAmount: 1
+  ToolType: 3
   Health: 5
   XPMultiplayer: 1
   XPReward: 1

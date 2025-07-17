@@ -11,6 +11,7 @@ namespace SaveSystem
         public int PlayerXp;
         public int PlayerXpToNext;
         public int LevelPointsAvailable;
+        public int MaxLevel;
 
         public List<SkillXpSaveData> Skills = new();
         public List<AbilitySaveData> Abilities = new();
@@ -23,6 +24,7 @@ namespace SaveSystem
         public int CurrentXp;
         public int CurrentLevel;
         public int XpToNextLevel;
+        public int MaxLevel;
     }
 
     [Serializable]

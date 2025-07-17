@@ -8,50 +8,48 @@ namespace Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour, ILoadingStatsPlayer
     {
-        //  Move
+        // Movement
         private float _activeSpeed;
         private float _walkSpeed;
         private float _runSpeed;
         private bool _goingRight;
-        
-        [Header("Jump")]
+
+        // Jump
         private float _jumpForce;
         [SerializeField] private float _jumpRaycastDistance;
-        
-        [Header("Dash")]
-        [SerializeField]private float _dashingCost;
-        [SerializeField]private float _dashingPower;
-        [SerializeField]private float _dashingTime;
-        [SerializeField]private float _dashCooldown;
-        [SerializeField] private TrailRenderer _trailRenderer;
+
+        // Dash
+        private float _dashingCost;
+        private float _dashingPower;
+        private float _dashingTime;
+        private float _dashCooldown;
         private bool _canDash = true;
         private bool _isDashing;
 
-        [SerializeField] private bool _isMoving;
-        [SerializeField] private bool _isGrounded;
-        
-        [Header("References")]
+        // State
+        private bool _isMoving;
+        private bool _isGrounded;
+
+        // References
+        [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private Transform _jumpRaycast;
         [SerializeField] private Transform _playerSetup;
-        
+        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private TMP_Text _velocityText;
+
         private PlayerController _playerController;
         private PlayerInputSystem _playerInputSystem;
         private PlayerEnergy _playerEnergy;
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
         private BoxCollider2D _boxCollider2D;
-        
-        [SerializeField] private LayerMask _groundLayer;
-        
-        [Header("DEBUG")]
-        [SerializeField] private TMP_Text Velocity;
-        
+
         private void Awake()
         {
             _playerInputSystem = GetComponent<PlayerInputSystem>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _boxCollider2D = GetComponent<BoxCollider2D>(); 
+            _boxCollider2D = GetComponent<BoxCollider2D>();
             _playerEnergy = GetComponent<PlayerEnergy>();
         }
 
@@ -71,9 +69,11 @@ namespace Gameplay.Player
 
         private void Update()
         {
-            IsGrounded();
-            
-            Velocity.text = $"Velocity : {_rigidbody2D.linearVelocity.x}";
+            CheckIfGrounded();
+
+            //delete this
+            if (_velocityText != null)
+                _velocityText.text = $"Velocity : {_rigidbody2D.linearVelocity.x:F2}";
         }
 
         private void FixedUpdate()
@@ -84,33 +84,28 @@ namespace Gameplay.Player
 
         private void Move()
         {
-            transform.Translate((Vector2.right * _playerInputSystem.MovementValue.x) * _activeSpeed * Time.deltaTime);
-            SetDirection(_playerInputSystem.MovementValue.x);
+            var direction = _playerInputSystem.MovementValue.x;
+            transform.Translate(Vector2.right * direction * _activeSpeed * Time.deltaTime);
+            SetDirection(direction);
         }
 
-        private void Sprint(bool value)
+        private void Sprint(bool isSprinting)
         {
-            if(!_playerController.PlayerEnergy.Sprint(value && (_playerInputSystem.MovementValue.x != 0)) || _isDashing)
+            if (!_playerController.PlayerEnergy.Sprint(isSprinting && _playerInputSystem.MovementValue.x != 0f) || _isDashing)
                 return;
-            
-            if (value)
-                _activeSpeed = _runSpeed;
-            else
-                _activeSpeed = _walkSpeed;
+
+            _activeSpeed = isSprinting ? _runSpeed : _walkSpeed;
         }
 
         private void Jump()
         {
-            if (!_isGrounded) return;
-            _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            if (_isGrounded)
+                _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
 
-        private void IsGrounded()
+        private void CheckIfGrounded()
         {
-            if (Physics2D.Raycast(_jumpRaycast.position, Vector3.down, 0.1f, _groundLayer))
-                _isGrounded = true;
-            else
-                _isGrounded = false;
+            _isGrounded = Physics2D.Raycast(_jumpRaycast.position, Vector3.down, _jumpRaycastDistance, _groundLayer);
         }
 
         public void SetDirection(float direction)
@@ -125,64 +120,63 @@ namespace Gameplay.Player
                 _goingRight = false;
                 _playerSetup.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
-
         }
 
         public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
         {
             _playerController = playerController;
+
             _walkSpeed = playerSO.WalkSpeed;
             _runSpeed = playerSO.RunSpeed;
             _jumpForce = playerSO.JumpForce;
+
             _dashingCost = playerSO.DashCost;
             _dashingPower = playerSO.DashingPower;
             _dashingTime = playerSO.DashingTime;
             _dashCooldown = playerSO.DashCooldown;
-            
+
             _activeSpeed = _walkSpeed;
             _isMoving = true;
         }
 
         public void Dash()
         {
-            if (_dashingCost <= _playerEnergy.GetCurrentEnergy())
-                if (!_isDashing)
-                {
-                    StartCoroutine(DashCorutine());
-                    _playerEnergy.UseEnergy(_dashingCost);
-                }
+            if (_dashingCost <= _playerEnergy.GetCurrentEnergy() && !_isDashing)
+            {
+                StartCoroutine(DashRoutine());
+                _playerEnergy.UseEnergy(_dashingCost);
+            }
         }
 
-        private IEnumerator DashCorutine()
+        private IEnumerator DashRoutine()
         {
             _canDash = false;
             _isDashing = true;
-            
-            float originalGrabity = _rigidbody2D.gravityScale;
+
+            float originalGravity = _rigidbody2D.gravityScale;
             _rigidbody2D.gravityScale = 0f;
-            
-            float direction = _goingRight ? transform.localScale.x : -transform.localScale.x;
-            _rigidbody2D.linearVelocity = new Vector2(direction * _dashingPower, _rigidbody2D.linearVelocity.y);
-            
+
+            float direction = _goingRight ? 1f : -1f;
+            _rigidbody2D.linearVelocity  = new Vector2(direction * _dashingPower, _rigidbody2D.linearVelocity .y);
+
             _trailRenderer.emitting = true;
-            
+
             yield return new WaitForSeconds(_dashingTime);
-            
+
             _trailRenderer.emitting = false;
-            _rigidbody2D.linearVelocity = new Vector2(0f, _rigidbody2D.linearVelocity.y);
-            _rigidbody2D.gravityScale = originalGrabity;
+            _rigidbody2D.linearVelocity  = new Vector2(0f, _rigidbody2D.linearVelocity .y);
+            _rigidbody2D.gravityScale = originalGravity;
             _isDashing = false;
-            
+
             yield return new WaitForSeconds(_dashCooldown);
-            
+
             _canDash = true;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            //Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - (_playerHeight * 0.5f + 0.2f), transform.position.z));
-            Gizmos.DrawLine(_jumpRaycast.position, new Vector3(_jumpRaycast.position.x , _jumpRaycast.position.y - _jumpRaycastDistance, _jumpRaycast.position.z));
+            Gizmos.DrawLine(_jumpRaycast.position, _jumpRaycast.position + Vector3.down * _jumpRaycastDistance);
         }
     }
 }

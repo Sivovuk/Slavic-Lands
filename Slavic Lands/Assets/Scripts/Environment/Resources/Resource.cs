@@ -3,27 +3,44 @@ using System.Collections.Generic;
 using Core;
 using Core.Interfaces;
 using Gameplay.Dungeon;
+using Gameplay.Player;
 using UnityEngine;
 
 namespace Gameplay.Resources
 {
-    public class Resource : Health, IDamageable, ILoadStatsResource
+    
+    public enum ResourceType
     {
+        Wood,
+        Stone,
+        Hide,
+        Food,
+        Coal,
+        Iron,
+        Gold,
+        Crystal
+    }
+    
+    public class Resource : MonoBehaviour, IDamageable, ILoadStatsResource
+    {
+        private float _maxHealth;
+        private float _currentHealth;
+        
         [SerializeField] private List<ResourceData> _resourceData = new  List<ResourceData>();
         
         [field:SerializeField] public List<DungeonData>  DungeonData = new  List<DungeonData>();
 
         [field: SerializeField] public ResourceSO _resourceSO { get; private set; }
 
-        public override void Init()
+        private void Start()
+        {
+            Init();
+        }
+
+        private void Init()
         {
             LoadResourceStats(_resourceSO);
         }
-
-        // protected override void ResourceCollection(Action<List<ResourceData>, ResourceSO> callback = null)
-        // {
-        //     callback?.Invoke(_resourceData, _resourceSO);
-        // }
 
         public void LoadResourceStats(ResourceSO resourceSO)
         {
@@ -39,19 +56,33 @@ namespace Gameplay.Resources
             return _resourceData;
         }
 
-        public void TakeDamage(int amount, Action callback = null)
+        public void TakeDamage(float damage)
         {
-            throw new NotImplementedException();
-        }
+            _currentHealth -= damage;
 
-        public void TakeDamage(float amount, Action callback = null)
+            if (_currentHealth <= 0)
+            {
+                HandleBreak();
+            }
+        }
+        
+        private void HandleBreak(Action callback = null)
         {
-            throw new NotImplementedException();
+            // Drop loot + grant XP
+            var player = PlayerController.Instance;
+
+            foreach (var resource in _resourceData)
+            {
+                player.AddResource(resource.DropAmount, resource.ResourceType);
+            }
+
+            player.PlayerProfile.TryAddXp(_resourceSO.ToolType, _resourceSO.XPReward);
+            Destroy(gameObject);
         }
 
         public virtual void ApplyKnockback(Vector2 direction, float force)
         {
-            throw new NotImplementedException();
+            
         }
 
         public bool IsDead { get; }

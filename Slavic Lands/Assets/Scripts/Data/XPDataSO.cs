@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Data
@@ -10,6 +11,23 @@ namespace Data
         [field:SerializeField] public int ShootXP { get; private set; }
         [field:SerializeField] public int CuttingXP { get; private set; }
         [field:SerializeField] public int MiningXP { get; private set; }
+        [field:SerializeField] public int SlashXP { get; private set; }
+        [field:SerializeField] public int ShieldBashXP { get; private set; }
+        [field:SerializeField] public int PiercingArrowXP { get; private set; }
         
+        public int GetXpForTool(ToolType tool)
+        {
+            return tool switch
+            {
+                ToolType.Axe => CuttingXP,
+                ToolType.Pickaxe => MiningXP,
+                ToolType.BattleAxe => AttackXP,
+                ToolType.Bow => ShootXP,
+                ToolType.Slashed => SlashXP,
+                ToolType.ShieldBash => ShieldBashXP,
+                ToolType.PiercingArrow => PiercingArrowXP,
+                _ => 0
+            };
+        }
     }
 }

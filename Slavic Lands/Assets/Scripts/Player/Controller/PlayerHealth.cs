@@ -65,12 +65,7 @@ namespace Gameplay.Player
             ModifyHealth(PlayerPrefs.GetFloat(Constants.SavedHealth, _maxHealth));
         }
 
-        public void TakeDamage(int amount, Action callback = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TakeDamage(float amount, Action callback = null)
+        public void TakeDamage(float amount)
         {
             throw new NotImplementedException();
         }

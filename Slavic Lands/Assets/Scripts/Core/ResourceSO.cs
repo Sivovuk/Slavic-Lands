@@ -1,25 +1,15 @@
 ﻿using System.Collections.Generic;
+using Core.Interfaces;
+using Gameplay.Resources;
 using UnityEngine;
 
 namespace Core
 {
-    
-    public enum ResourceType
-    {
-        Wood,
-        Stone,
-        Hide,
-        Food,
-        Coal,
-        Iron,
-        Gold,
-        Crystal
-    }
-
     [CreateAssetMenu(fileName = "New Resource", menuName = "Resource Data")]
     public class ResourceSO : ScriptableObject
     {
         public List<ResourceData> Resources = new List<ResourceData>();
+        public ToolType ToolType;
         public float Health;
         public float XPMultiplayer = 1;
         public int XPReward = 1;
@@ -29,7 +19,7 @@ namespace Core
     public class ResourceData
     {
         public ResourceType ResourceType;
-        public int Amount;
+        public int DropAmount;
     }
 
 }

@@ -13,10 +13,53 @@ MonoBehaviour:
   m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp:Gameplay.Player:PlayerProfileSO
   PlayerLevelData:
-    <CurrentXp>k__BackingField: 0
-    <CurrentLevel>k__BackingField: 0
-    <XPToNextLevel>k__BackingField: 0
-    <MaxLevel>k__BackingField: 0
-    <FirstLevelXp>k__BackingField: 0
-    <LevelMultiplier>k__BackingField: 0
-    <LevelPointsAvailable>k__BackingField: 0
+    _currentXp: 0
+    _currentLevel: 1
+    _xpToNextLevel: 0
+    _maxLevel: 30
+    _firstLevelXp: 10
+    _levelMultiplier: 1.5
+    _levelPointsAvailable: 0
+  SkillXpEntries:
+  - ToolType: 1
+    LevelData:
+      _currentXp: 0
+      _currentLevel: 1
+      _xpToNextLevel: 0
+      _maxLevel: 10
+      _firstLevelXp: 10
+      _levelMultiplier: 1.2
+  - ToolType: 2
+    LevelData:
+      _currentXp: 0
+      _currentLevel: 1
+      _xpToNextLevel: 0
+      _maxLevel: 10
+      _firstLevelXp: 10
+      _levelMultiplier: 1.2
+  - ToolType: 3
+    LevelData:
+      _currentXp: 0
+      _currentLevel: 1
+      _xpToNextLevel: 0
+      _maxLevel: 10
+      _firstLevelXp: 10
+      _levelMultiplier: 1.2
+  - ToolType: 4
+    LevelData:
+      _currentXp: 0
+      _currentLevel: 1
+      _xpToNextLevel: 0
+      _maxLevel: 10
+      _firstLevelXp: 10
+      _levelMultiplier: 1.2
+  AbilityLevelDataList:
+  - ToolType: 5
+    CurrentLevel: 1
+    LevelMultiplier: 1.2
+  - ToolType: 6
+    CurrentLevel: 1
+    LevelMultiplier: 1.2
+  - ToolType: 7
+    CurrentLevel: 1
+    LevelMultiplier: 1.2

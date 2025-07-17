@@ -16,3 +16,6 @@ MonoBehaviour:
   <ShootXP>k__BackingField: 1
   <CuttingXP>k__BackingField: 1
   <MiningXP>k__BackingField: 1
+  <SlashXP>k__BackingField: 1
+  <ShieldBashXP>k__BackingField: 1
+  <PiercingArrowXP>k__BackingField: 1
