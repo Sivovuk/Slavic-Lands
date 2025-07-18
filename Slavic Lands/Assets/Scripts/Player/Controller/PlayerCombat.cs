@@ -151,7 +151,7 @@ namespace Gameplay.Player
 
             var prefab = _equippedTool == ToolType.PiercingArrow ? _piercingArrowProjectilePrefab : _arrowProjectilePrefab;
             var arrow = Instantiate(prefab, _shootPoint.position, _shootPoint.rotation);
-            arrow.Init(this, _equippedTool == ToolType.PiercingArrow ? _playerSO.PiercingArrowPushForce : 0);
+            arrow.Init(this, _equippedTool == ToolType.PiercingArrow ? _playerSO.PiercingArrow : _playerSO.ShootDamage, _equippedTool == ToolType.PiercingArrow ? _playerSO.PiercingArrowPushForce : 0);
             Physics2D.IgnoreCollision(arrow.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
             arrow.Rigidbody2D.linearVelocity = _shootPoint.right * _shootForce;
         }

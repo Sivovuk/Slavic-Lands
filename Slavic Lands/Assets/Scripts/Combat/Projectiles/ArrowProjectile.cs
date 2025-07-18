@@ -6,13 +6,16 @@ using UnityEngine;
 public class ArrowProjectile : MonoBehaviour
 {
     [SerializeField] private ToolType _actionType = ToolType.Bow;
+    [SerializeField] private bool _applyForce;
+    
     public Rigidbody2D Rigidbody2D { get; private set; }
+    
     private Collider2D _collider2D;
     private PlayerCombat _playerCombat;
     
+    private float _damage;
     private float _pushForce;
     
-    [SerializeField] private bool _applyForce;
     private bool _isFlying = false;
     private bool _alreadyHit = false;
 
@@ -31,46 +34,44 @@ public class ArrowProjectile : MonoBehaviour
         }
     }
 
-    public void Init(PlayerCombat playerCombat, float pushForce)
+    public void Init(PlayerCombat playerCombat, float damage, float pushForce)
     {
         _playerCombat = playerCombat;
-        _isFlying = true;
         _pushForce = pushForce;
+        _isFlying = true;
+        _damage = damage;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<IDamageable>(out IDamageable hit) && !_alreadyHit)
+        if (_alreadyHit) return;
+        
+        if (other.TryGetComponent<IDamageable>(out var damageable))
         {
-            Vector2 direction = other.transform.position - _playerCombat.transform.position;
-            direction.x = direction.x > 0 ? 1 : -1;
-            direction.y = direction.y > 0 ? 1 : -1;
-            Debug.Log(_applyForce + " : " + _pushForce);
-            //_playerCombat.HandleHit(_actionType, hit, _applyForce, _pushForce, direction);
-            
-            _isFlying = false;
-            Rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            Rigidbody2D.linearVelocity = Vector2.zero;
-            Destroy(gameObject, 3);
-            _alreadyHit = true;
+            Vector2 direction = (other.transform.position - transform.position).normalized;
+            damageable.TakeDamage(_damage);
+
+            if (_applyForce)
+            {
+                damageable.ApplyKnockback(direction, _pushForce);
+            }
+
+            StopProjectile(RigidbodyType2D.Kinematic);
         }
         else if (other.CompareTag("Ground"))
         {
-            _isFlying = false;
-            Rigidbody2D.bodyType = RigidbodyType2D.Static;
-            Destroy(gameObject, 3);
-            _alreadyHit = true;
+            StopProjectile(RigidbodyType2D.Static);
         }
     }
 
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (other.TryGetComponent<IHit>(out IHit hit))
-    //     {
-    //         Debug.LogError("hit " + other.name);
-    //         
-    //         _isFlying = true;
-    //         Rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-    //     }
-    // }
+    private void StopProjectile(RigidbodyType2D bodyType)
+    {
+        _isFlying = false;
+        _alreadyHit = true;
+
+        Rigidbody2D.linearVelocity = Vector2.zero;
+        Rigidbody2D.bodyType = bodyType;
+
+        Destroy(gameObject, 3f);
+    }
 }

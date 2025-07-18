@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 7703899043417989576}
   - component: {fileID: 7372261290817162431}
   - component: {fileID: 7564214460285005049}
-  - component: {fileID: 5147337255546325826}
+  - component: {fileID: 2612748446284056667}
   m_Layer: 10
   m_Name: Wolf
   m_TagString: Untagged
@@ -794,7 +794,7 @@ MonoBehaviour:
   _minWalkRange: -10
   _maxWalkRange: 10
   _movePoint: 0
---- !u!114 &5147337255546325826
+--- !u!114 &2612748446284056667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -803,17 +803,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8353007644685208510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c834cead61914c258accb560d5129d79, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ab643ae74534927b5f16759047d3993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
-  _currentHealth: 0
   _resourceData: []
-  DungeonData:
-  - DungeonLevels: 0
-    MaxNodeAmount: 2
-  - DungeonLevels: 1
-    MaxNodeAmount: 2
-  - DungeonLevels: 2
-    MaxNodeAmount: 2
+  DungeonData: []
   <_resourceSO>k__BackingField: {fileID: 11400000, guid: 93cce0a6d1430784fad42bb6d7281979, type: 2}

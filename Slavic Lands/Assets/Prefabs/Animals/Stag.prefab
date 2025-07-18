@@ -290,7 +290,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 300383343
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 100
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -425,13 +425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab643ae74534927b5f16759047d3993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
-  _currentHealth: 0
   _resourceData:
   - ResourceType: 0
-    Amount: 0
-  ResourceDungeonLevels: []
-  <_resourceSO>k__BackingField: {fileID: 0}
+    DropAmount: 0
+  DungeonData: []
+  <_resourceSO>k__BackingField: {fileID: 11400000, guid: 9b6ccc8a81f82ee41ab99470c40e1314, type: 2}
 --- !u!114 &7372261290817162431
 MonoBehaviour:
   m_ObjectHideFlags: 0
