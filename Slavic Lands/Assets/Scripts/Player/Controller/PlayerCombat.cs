@@ -103,15 +103,24 @@ namespace Gameplay.Player
         {
             switch (_equippedTool)
             {
-                case ToolType.BattleAxe:
-                    PerformMeleeAttack((int)_attackDamage, _shootForce);
+                case ToolType.Axe:
+                    PerformMeleeAttack((int)_cutDamage, 0);
+                    break;
+                case ToolType.Pickaxe:
+                    PerformMeleeAttack((int)_mineDamage, 0);
+                    break;
+                case ToolType.Slashed:
+                    PerformMeleeAttack((int)_playerSO.Slash, _playerSO.SlashPushForce);
+                    break;
+                case ToolType.ShieldBash:
+                    PerformMeleeAttack((int)_playerSO.ShieldBash, _playerSO.ShieldBashPushForce);
                     break;
                 case ToolType.Bow:
                 case ToolType.PiercingArrow:
                     Shoot();
                     break;
                 default:
-                    PerformMeleeAttack((int)_cutDamage, _shootForce);
+                    PerformMeleeAttack((int)_playerSO.AttackDamage, 0);
                     break;
             }
         }

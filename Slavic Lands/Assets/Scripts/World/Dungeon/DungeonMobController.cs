@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Entities;
 using UnityEngine;
 
 namespace Gameplay.Dungeon
 {
     public class DungeonMobController : MonoBehaviour
     {
-        [SerializeField] private List<NPC.NPC> _mobs = new List<NPC.NPC>();
+        [SerializeField] private List<NPC> _mobs = new List<NPC>();
         [SerializeField] private List<MobSpawningLocation> _dungeonLevel = new List<MobSpawningLocation>();
 
         public void UpdateDungeonMobs()
@@ -25,22 +26,22 @@ namespace Gameplay.Dungeon
                     {
                         if (mobLevel.DungeonLevels != _dungeonLevel[i].DungeonLevel)
                             continue;
-
+                    
                         int counter = 0;
-
+                    
                         for (int k = 0; k < _dungeonLevel[i].SpawnLocations.Count; k++)
                         {
                             if (spawnLocationsUsed.Contains(_dungeonLevel[i].SpawnLocations[k]))
                                 continue;
-
+                    
                             if (counter >= mobLevel.MaxNodeAmount)
                                 break;
-
+                    
                             Instantiate(mobToSpawn,
                                 _dungeonLevel[i].SpawnLocations[k].position,
                                 Quaternion.identity,
                                 _dungeonLevel[i].Parent);
-
+                    
                             spawnLocationsUsed.Add(_dungeonLevel[i].SpawnLocations[k]);
                             counter++;
                         }

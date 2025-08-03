@@ -4,7 +4,11 @@ namespace Core.Interfaces
 {
     public interface ILoadStatsResource
     {
-
-        public void LoadResourceStats(ResourceSO resourceSO);
+        public void LoadResourceData(ResourceSO resourceSO);
+    }
+    
+    public interface ILoadStatsEntity
+    {
+        public void LoadEntityData(EntitySO entityData);
     }
 }

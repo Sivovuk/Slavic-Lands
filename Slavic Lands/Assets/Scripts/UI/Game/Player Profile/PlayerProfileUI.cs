@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Interfaces;
 using Gameplay.Player;
 using Managers;
 using TMPro;
@@ -87,8 +88,8 @@ namespace UI.Game.PlayerProfile
         private void UpdateSkillsUI(TMP_Text level, TMP_Text xp, Image levelBar, LevelDataBase levelData)
         {
             level.text = levelData.CurrentLevel.ToString();
-            xp.text = levelData.CurrentXp + " / " + levelData.XPToNextLevel;
-            levelBar.fillAmount = (float)levelData.CurrentXp / (float)levelData.XPToNextLevel;
+            xp.text = levelData.CurrentXp + " / " + levelData.XpToNextLevel;
+            levelBar.fillAmount = (float)levelData.CurrentXp / (float)levelData.XpToNextLevel;
         }
 
         public void UpdateAttackBar(LevelDataBase levelData)
@@ -118,9 +119,9 @@ namespace UI.Game.PlayerProfile
 
         public void UpdateAbilitiesUI()
         {
-            // _abilitySlash.OnInit(Player.Instance.PlayerProfile.AbilitySlashData, this);
-            // _abilityShieldBash.OnInit(Player.Instance.PlayerProfile.AbilityShieldBashData, this);
-            // _abilityPiercingArrow.OnInit(Player.Instance.PlayerProfile.AbilityPiercingArrowData, this);
+            _abilitySlash.OnInit(PlayerController.Instance.PlayerProfile.AbilityMap[ToolType.Slashed], this);
+            _abilityShieldBash.OnInit(PlayerController.Instance.PlayerProfile.AbilityMap[ToolType.ShieldBash], this);
+            _abilityPiercingArrow.OnInit(PlayerController.Instance.PlayerProfile.AbilityMap[ToolType.PiercingArrow], this);
         }
         
         [SerializeField] private int _pointsUsed;
@@ -159,7 +160,7 @@ namespace UI.Game.PlayerProfile
                 {
                     if (ability.ToolType == playerAbilityLevelData.ToolType)
                     {
-                        //ability.CurrentLevel++;
+                        ability.CurrentLevel++;
                         _pointsUsed++;
                         UpdateLevelPoints();
                         //Debug.Log("existing ability update");
@@ -168,8 +169,8 @@ namespace UI.Game.PlayerProfile
                 }
             }
             
-            //_currentAbilities.Add(new PlayerAbilityLevelData(playerAbilityLevelData, playerAbilityLevelData.LevelMultiplier));
-            //_currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
+            _currentAbilities.Add(new PlayerAbilityLevelData(playerAbilityLevelData.ToolType, playerAbilityLevelData.CurrentLevel, playerAbilityLevelData.LevelMultiplier));
+            _currentAbilities[_currentAbilities.Count - 1].CurrentLevel++;
             _pointsUsed++;
             UpdateLevelPoints();
             //Debug.Log("new ability update");
@@ -187,8 +188,8 @@ namespace UI.Game.PlayerProfile
             {
                 if (ability.ToolType == playerAbilityLevelData.ToolType)
                 {
-                    //ability.CurrentLevel--;
-                    //ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
+                    ability.CurrentLevel--;
+                    ability.CurrentLevel = Math.Clamp(ability.CurrentLevel, 0, 1000);
                     _pointsUsed--;
                     UpdateLevelPoints();
                     //Debug.Log("Remove Point 1");

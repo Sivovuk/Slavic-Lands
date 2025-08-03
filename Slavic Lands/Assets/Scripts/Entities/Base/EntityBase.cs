@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using Core.Interfaces;
 using Data;
+using Gameplay.Resources;
 using UnityEngine;
 
 namespace Entities
 {
     [RequireComponent(typeof(Collider2D))]
-    public class EntityBase : MonoBehaviour, IDamageable
+    public class EntityBase : MonoBehaviour, IDamageable, ILoadStatsEntity
     {
         [Header("Entity Config")]
-        [SerializeField] protected EntitySO _entityData;
-        [SerializeField] protected ResourceSO _resourceData;
+        [field:SerializeField] public EntitySO EntityData { get; private set; }
+        [field:SerializeField] public ResourceSO ResourceData { get; private set; }
+        [field:SerializeField] public List<DungeonData>  DungeonData = new  List<DungeonData>();
 
         protected float _maxHealth;
         protected float _currentHealth;
@@ -24,13 +26,13 @@ namespace Entities
 
         protected virtual void Awake()
         {
-            if (_entityData != null)
-                OnInit(_entityData);
+            if (EntityData != null)
+                LoadEntityData(EntityData);
         }
-
-        public virtual void OnInit(EntitySO entityData)
+        
+        public void LoadEntityData(EntitySO entityData)
         {
-            _entityData = entityData;
+            EntityData = entityData;
 
             float levelMultiplier = Mathf.Pow(entityData.LevelMultiplayer, entityData.StartingLevel - 1);
             _maxHealth = entityData.BaseHealth * levelMultiplier;
@@ -45,14 +47,14 @@ namespace Entities
         protected virtual void ApplyStatsToChildren()
         {
             if (TryGetComponent(out EntityMovement movement))
-                movement.SetMovementStats(_entityData);
+                movement.SetMovementStats(EntityData);
 
             if (TryGetComponent(out EntityAttack attack))
                 attack.SetAttackStats(
-                    _entityData.AttackDamage,
-                    _entityData.AttackCooldown,
-                    _entityData.DetectionRadius,
-                    _entityData.AttackRange
+                    EntityData.AttackDamage,
+                    EntityData.AttackCooldown,
+                    EntityData.DetectionRadius,
+                    EntityData.AttackRange
                 );
         }
 
@@ -83,5 +85,6 @@ namespace Entities
 
         public virtual void ApplyForce(float force, Vector2 direction) => ApplyKnockback(direction, force);
         public virtual List<ResourceData> GetResourceType() => null;
+        
     }
 }

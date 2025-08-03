@@ -39,10 +39,10 @@ namespace Gameplay.Resources
 
         private void Init()
         {
-            LoadResourceStats(_resourceSO);
+            LoadResourceData(_resourceSO);
         }
 
-        public void LoadResourceStats(ResourceSO resourceSO)
+        public void LoadResourceData(ResourceSO resourceSO)
         {
             _maxHealth = resourceSO.Health;
             _currentHealth = resourceSO.Health;
