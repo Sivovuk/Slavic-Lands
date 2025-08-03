@@ -1,9 +1,9 @@
-﻿using System;
-using Data.Interaction;
+﻿using Data.Interaction;
+using Gameplay.Interaction;
 using Gameplay.Player;
 using UnityEngine;
 
-namespace Gameplay.Interaction
+namespace Entities
 {
     public class NPCDialogueTrigger : MonoBehaviour
     {

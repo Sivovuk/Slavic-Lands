@@ -1,8 +1,7 @@
-﻿using Gameplay.Resources;
-
-namespace Gameplay.Animal
+﻿
+namespace Entities
 {
-    public class Animal : Resource
+    public class Animal : EntityBase
     {
         
     }

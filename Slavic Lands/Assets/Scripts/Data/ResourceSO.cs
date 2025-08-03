@@ -3,7 +3,7 @@ using Core.Interfaces;
 using Gameplay.Resources;
 using UnityEngine;
 
-namespace Core
+namespace Data
 {
     [CreateAssetMenu(fileName = "New Resource", menuName = "Resource Data")]
     public class ResourceSO : ScriptableObject

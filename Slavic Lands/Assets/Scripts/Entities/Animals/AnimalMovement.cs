@@ -1,9 +1,7 @@
-﻿using Gameplay.NPC;
-using UnityEngine;
-
-namespace Gameplay.Animal
+﻿
+namespace Entities
 {
-    public class AnimalMovement : NPCMovement
+    public class AnimalMovement : EntityMovement
     {
         
     }

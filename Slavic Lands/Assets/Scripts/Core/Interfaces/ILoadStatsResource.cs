@@ -1,4 +1,4 @@
-﻿using Gameplay.Resources;
+﻿using Data;
 
 namespace Core.Interfaces
 {

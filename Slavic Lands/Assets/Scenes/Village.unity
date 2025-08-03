@@ -2086,13 +2086,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8106370932001060168, guid: 6cb5c770ffed37347995424fd9bb2e64, type: 3}
+      propertyPath: _entityData
+      value: 
+      objectReference: {fileID: 11400000, guid: 438b5c5e4a60f0a458d78b0eac052e75, type: 2}
+    - target: {fileID: 8106370932001060168, guid: 6cb5c770ffed37347995424fd9bb2e64, type: 3}
+      propertyPath: _resourceData
+      value: 
+      objectReference: {fileID: 11400000, guid: 93cce0a6d1430784fad42bb6d7281979, type: 2}
     - target: {fileID: 8353007644685208510, guid: 6cb5c770ffed37347995424fd9bb2e64, type: 3}
       propertyPath: m_Name
       value: Wolf
-      objectReference: {fileID: 0}
-    - target: {fileID: 8353007644685208510, guid: 6cb5c770ffed37347995424fd9bb2e64, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4006,6 +4010,10 @@ PrefabInstance:
       propertyPath: _velocityText
       value: 
       objectReference: {fileID: 360385398}
+    - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: _enemyLayer.m_Bits
+      value: 1664
+      objectReference: {fileID: 0}
     - target: {fileID: 6135717079960541633, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.46

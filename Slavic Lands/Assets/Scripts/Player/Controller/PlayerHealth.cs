@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core;
 using Core.Constants;
 using Core.Interfaces;
+using Data;
 using UnityEngine;
 
 namespace Gameplay.Player

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Gameplay.Player;
 using UnityEngine;
 
-namespace Gameplay.Player
+namespace Data
 {
     [CreateAssetMenu(fileName = "New Player Profile", menuName = "Player Profile")]
     public class PlayerProfileSO : ScriptableObject

@@ -1,4 +1,4 @@
-﻿
+﻿using Data;
 using Gameplay.Player;
 
 namespace Core.Interfaces

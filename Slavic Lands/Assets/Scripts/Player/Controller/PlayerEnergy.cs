@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Constants;
 using Core.Interfaces;
+using Data;
 using UnityEngine;
 
 namespace Gameplay.Player

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Core;
 using Core.Interfaces;
+using Data;
 using Gameplay.Dungeon;
 using Gameplay.Player;
 using UnityEngine;

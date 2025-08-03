@@ -1,9 +1,7 @@
-﻿using Gameplay.NPC;
-using UnityEngine;
-
-namespace Gameplay.Animal
+﻿
+namespace Entities
 {
-    public class AnimalAttack : NPCAttack
+    public class AnimalAttack : EntityAttack
     {
         
     }

@@ -5,13 +5,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d14917f0-711c-4181-9b4f-2b943daaed29" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/EntitySO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/EntitySO.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Slavic Lands/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Slavic Lands/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Combat/Projectiles/ArrowProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Combat/Projectiles/ArrowProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IDamageable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IGatherable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/IGatherable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Bear.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Bear.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Eagle.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Eagle.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Rabbit.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Rabbit.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Stag.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Stag.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Wolf.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Animals/Wolf.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/Player.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/Player.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/PlayerProfile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/PlayerProfile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/XP Data.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Player/XP Data.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Coal.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Coal.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Crystal.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Crystal.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Gold.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Gold.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Iron.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Iron.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Rock.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Rocks/Rock.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Beech.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Beech.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Birch.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Birch.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Oak.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Oak.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Pine.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Trees/Pine.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Animals/Wolf.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Animals/Wolf.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/ILoadStatsResource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/ILoadStatsResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/ILoadingStatsPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/ILoadingStatsPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/ResourceSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/ResourceSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/ResourceSO.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/ResourceSO.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/PlayerProfileSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/PlayerProfileSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/PlayerSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/PlayerSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Animals/AnimalAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Animals/AnimalAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCAttackCollider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCAttackCollider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCDetectionCollider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCDetectionCollider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Environment/Resources/Resource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Health.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Health.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerCombat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerCombat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerEnergy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerEnergy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Dungeon/DungeonLevelsUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Dungeon/DungeonLevelsUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Player Profile/PlayerProfileUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Game/Player Profile/PlayerProfileUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/World/Dungeon/DungeonMobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/World/Dungeon/DungeonMobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +95,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Animals/AnimalAttack.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/NPCs/NPCMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Environment/Resources/Resource.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Environment/Resources/ResourceTree.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Health.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerActionHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Input/PlayerInputSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Profile/PlayerProfile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Game/TabController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -214,7 +272,11 @@
       <workItem from="1752331945259" duration="2701000" />
       <workItem from="1752334944245" duration="7660000" />
       <workItem from="1752498596238" duration="1788000" />
-      <workItem from="1752779254651" duration="6076000" />
+      <workItem from="1752779254651" duration="8142000" />
+      <workItem from="1752857928578" duration="4306000" />
+      <workItem from="1753534272096" duration="808000" />
+      <workItem from="1753894863487" duration="3389000" />
+      <workItem from="1754214928309" duration="5519000" />
     </task>
     <servers />
   </component>

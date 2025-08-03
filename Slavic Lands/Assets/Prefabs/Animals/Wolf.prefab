@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 188454602796260889}
   - component: {fileID: 6770381758486138421}
-  - component: {fileID: 8831906964693743535}
   m_Layer: 0
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -201,18 +200,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
---- !u!114 &8831906964693743535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4361468938791150253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39402feb6eaa434c822ce949f926d21d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5175786287382529065
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +346,6 @@ GameObject:
   m_Component:
   - component: {fileID: 532950540808197139}
   - component: {fileID: 1482742369262499164}
-  - component: {fileID: 8453020240454516454}
   m_Layer: 0
   m_Name: DetectionCollider
   m_TagString: Untagged
@@ -428,18 +414,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 15, y: 2}
   m_EdgeRadius: 0
---- !u!114 &8453020240454516454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5193380021929923282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07379bb114d4048be7c8a9f8cfbea0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6554395014000114200
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,9 +614,9 @@ GameObject:
   - component: {fileID: 7772397110361465433}
   - component: {fileID: 4023743932867563238}
   - component: {fileID: 7703899043417989576}
-  - component: {fileID: 7372261290817162431}
-  - component: {fileID: 7564214460285005049}
-  - component: {fileID: 2612748446284056667}
+  - component: {fileID: 8106370932001060168}
+  - component: {fileID: 6008574203860367351}
+  - component: {fileID: 1922313118411850183}
   m_Layer: 10
   m_Name: Wolf
   m_TagString: Untagged
@@ -740,7 +714,7 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7372261290817162431
+--- !u!114 &8106370932001060168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -749,28 +723,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8353007644685208510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd07b1245004f25b040b891f1a87769, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d9efd69bdd44249a2af8a3686cfdcf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 1
-  _attackDamage: 1
-  <IsAttacking>k__BackingField: 0
-  <IsChasing>k__BackingField: 0
-  <Target>k__BackingField: {fileID: 0}
-  _boxCollider: {fileID: 0}
-  _detectionBoxSize: {x: 15, y: 2}
-  _attackBoxSize: {x: 3, y: 1.9}
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _npcLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _animalLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  _attackIndicator: {fileID: 467692403652458226}
---- !u!114 &7564214460285005049
+  _entityData: {fileID: 11400000, guid: 438b5c5e4a60f0a458d78b0eac052e75, type: 2}
+  _resourceData: {fileID: 11400000, guid: 93cce0a6d1430784fad42bb6d7281979, type: 2}
+--- !u!114 &6008574203860367351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -779,33 +737,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8353007644685208510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae31ed127d9a43918613a94136daf98e, type: 3}
+  m_Script: {fileID: 11500000, guid: df851a2110534280b25ad7ae60ff4e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSpeed: 3
-  _runSpeed: 5
-  _activeSpeed: 1
-  _idleDuration: 1
-  _idleAttackDuration: 0.5
+  _isAfraid: 0
+  _detectionLayers:
+    serializedVersion: 2
+    m_Bits: 192
+--- !u!114 &1922313118411850183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8353007644685208510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c036acb26bd41c487383dcfb0cbbb78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _isIdle: 1
   _isRunning: 0
+  _isStunned: 0
   _goRight: 1
-  IsStunned: 0
-  _minWalkRange: -10
-  _maxWalkRange: 10
-  _movePoint: 0
---- !u!114 &2612748446284056667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8353007644685208510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab643ae74534927b5f16759047d3993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourceData: []
-  DungeonData: []
-  <_resourceSO>k__BackingField: {fileID: 11400000, guid: 93cce0a6d1430784fad42bb6d7281979, type: 2}
+  _idleDuration: 1
+  _idleAttackDuration: 0.5
+  _minWalkRange: 0
+  _maxWalkRange: 0
