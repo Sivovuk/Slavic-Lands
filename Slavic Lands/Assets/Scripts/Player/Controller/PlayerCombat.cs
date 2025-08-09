@@ -104,41 +104,42 @@ namespace Gameplay.Player
             switch (_equippedTool)
             {
                 case ToolType.Axe:
-                    PerformMeleeAttack((int)_cutDamage, 0);
+                    PerformMeleeAttack((int)_cutDamage, 0, _equippedTool);
                     break;
                 case ToolType.Pickaxe:
-                    PerformMeleeAttack((int)_mineDamage, 0);
+                    PerformMeleeAttack((int)_mineDamage, 0, _equippedTool);
                     break;
                 case ToolType.Slashed:
-                    PerformMeleeAttack((int)_playerSO.Slash, _playerSO.SlashPushForce);
+                    PerformMeleeAttack((int)_playerSO.Slash, _playerSO.SlashPushForce, _equippedTool);
                     break;
                 case ToolType.ShieldBash:
-                    PerformMeleeAttack((int)_playerSO.ShieldBash, _playerSO.ShieldBashPushForce);
+                    PerformMeleeAttack((int)_playerSO.ShieldBash, _playerSO.ShieldBashPushForce, _equippedTool);
                     break;
                 case ToolType.Bow:
                 case ToolType.PiercingArrow:
                     Shoot();
                     break;
                 default:
-                    PerformMeleeAttack((int)_playerSO.AttackDamage, 0);
+                    PerformMeleeAttack((int)_playerSO.AttackDamage, 0, _equippedTool);
                     break;
             }
         }
 
-        private void PerformMeleeAttack(int damage, float pushForce)
+        private void PerformMeleeAttack(int damage, float pushForce, ToolType toolType)
         {
             var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
             foreach (var hit in hits)
             {
                 if (hit.TryGetComponent(out IDamageable damageable))
                 {
+                    damageable.TakeDamage(damage, toolType);
+                    
                     if (hit.TryGetComponent(out Rigidbody2D rb))
                     {
                         Vector2 direction = (hit.transform.position - transform.position).normalized;
                         damageable.ApplyKnockback(direction, pushForce);
                     }
                     
-                    damageable.TakeDamage(damage);
 
                     HandleActionXp();
                 }

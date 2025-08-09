@@ -116,6 +116,7 @@ namespace Gameplay.Player
         {
             if (_skillMap.TryGetValue(tool, out var level))
             {
+                Debug.LogError(amount);
                 level.AddXp(amount);
                 return true;
             }
@@ -147,7 +148,7 @@ namespace Gameplay.Player
         {
             _currentXp = copyFrom._currentXp;
             _currentLevel = copyFrom._currentLevel;
-            _xpToNextLevel = copyFrom._xpToNextLevel;
+            _xpToNextLevel = copyFrom._firstLevelXp;
             _firstLevelXp = copyFrom._firstLevelXp;
             _levelMultiplier = newMultiplier;
             _maxLevel = copyFrom._maxLevel;

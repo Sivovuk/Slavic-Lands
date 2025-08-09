@@ -58,8 +58,9 @@ namespace Entities
                 );
         }
 
-        public virtual void TakeDamage(float damage)
+        public virtual void TakeDamage(float damage, ToolType toolType)
         {
+            if (toolType != ResourceData.ToolType) return;
             if (_isDead) return;
 
             _currentHealth -= damage;

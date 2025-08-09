@@ -1,6 +1,4 @@
-﻿using System;
-using Gameplay.Player;
-using Managers;
+﻿using Gameplay.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,15 +6,14 @@ namespace UI.HUD
 {
     public class HUDController : MonoBehaviour
     {
+        [field: SerializeField] public ResourceDisplay ResourceDisplay { get; private set; }
+        
         [Header("Health")]
         [SerializeField] private Image _healthBar;
 
         [Header("Energy")]
         [SerializeField] private Image _energyBar;
 
-        [Header("References")]
-        public ResourceDisplay _resourceDisplay;
-        
         public static HUDController Instance { get; private set; }
 
         private void Awake()
@@ -27,40 +24,28 @@ namespace UI.HUD
                 Destroy(this);
         }
 
-        private void Start()
+        public void OnInit(PlayerController player)
         {
-            //Debug.LogError("!!! Start HUDController");
-            GameManager.Instance.OnPlayerInit += OnInit;
-        }
+            player.PlayerHealth.OnHealthChanged += UpdateHealthBar;
+            player.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
 
-        public void OnInit()
-        {
-            //Debug.LogError("!!! OnInit HUDController");
-            PlayerController.Instance.PlayerHealth.OnHealthChanged += UpdateHealthBar;
-            PlayerController.Instance.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
-        }
-
-        private void OnEnable()
-        {
-            //Debug.LogError("!!! OnEnable HUDController");
-            
+            // Initialize resource UI
+            ResourceDisplay.Initialize(player.PlayerResources);
         }
 
         private void OnDisable()
         {
-            PlayerController.Instance.PlayerHealth.OnHealthChanged -= UpdateHealthBar;
-            PlayerController.Instance.PlayerEnergy.OnEnergyChanged -= UpdateEnergyBar;
+            if (PlayerController.Instance != null)
+            {
+                PlayerController.Instance.PlayerHealth.OnHealthChanged -= UpdateHealthBar;
+                PlayerController.Instance.PlayerEnergy.OnEnergyChanged -= UpdateEnergyBar;
+            }
         }
 
-        public void UpdateHealthBar(float current, float max)
-        {
-            //Debug.LogError("!!! UpdateHealthBar");
+        public void UpdateHealthBar(float current, float max) =>
             _healthBar.fillAmount = current / max;
-        }
 
-        public void UpdateEnergyBar(float current, float max)
-        {
+        public void UpdateEnergyBar(float current, float max) =>
             _energyBar.fillAmount = current / max;
-        }
     }
 }

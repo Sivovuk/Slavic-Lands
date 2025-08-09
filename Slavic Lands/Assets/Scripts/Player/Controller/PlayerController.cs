@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Core;
 using Core.Interfaces;
 using Data;
 using Gameplay.Resources;
@@ -12,21 +11,18 @@ namespace Gameplay.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private PlayerResource _playerResource;
-
-        // References
         [Header("References")]
-        [field: SerializeField]
-        public PlayerSO PlayerSO { get; private set; }
-
-        public XPDataSO XpDataSO;
-        [SerializeField] private PlayerProfileSO _playerProfileSO;
+        [field: SerializeField] public PlayerSO PlayerSO { get; private set; }
+        [field: SerializeField] public XPDataSO XpDataSO { get; private set; }
+        [field: SerializeField] public PlayerProfileSO PlayerProfileSO { get; private set; }
         [field: SerializeField] public PlayerProfile PlayerProfile { get; private set; }
-        public PlayerMovement PlayerMovement { get; private set; }
-        public PlayerCombat PlayerCombat { get; private set; }
-        public PlayerHealth PlayerHealth { get; private set; }
-        public PlayerEnergy PlayerEnergy { get; private set; }
+        [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
+        [field: SerializeField] public PlayerCombat PlayerCombat { get; private set; }
+        [field: SerializeField] public PlayerHealth PlayerHealth { get; private set; }
+        [field: SerializeField] public PlayerEnergy PlayerEnergy { get; private set; }
+        public PlayerResource PlayerResources { get; private set; }
 
+        
         public static PlayerController Instance { get; private set; }
 
         private void Awake()
@@ -41,7 +37,7 @@ namespace Gameplay.Player
             PlayerHealth = GetComponent<PlayerHealth>();
             PlayerEnergy = GetComponent<PlayerEnergy>();
             
-            _playerResource = new PlayerResource();
+            PlayerResources = new PlayerResource();
             PlayerProfile = new PlayerProfile();
         }
 
@@ -73,10 +69,10 @@ namespace Gameplay.Player
 
         private void LoadFromDefaults()
         {
-            PlayerProfile.PlayerLevelData = new PlayerLevelData(_playerProfileSO.PlayerLevelData, PlayerSO.LevelMultiplayer);
+            PlayerProfile.PlayerLevelData = new PlayerLevelData(PlayerProfileSO.PlayerLevelData, PlayerSO.LevelMultiplayer);
 
             PlayerProfile.SkillXpEntries.Clear();
-            foreach (var entry in _playerProfileSO.SkillXpEntries)
+            foreach (var entry in PlayerProfileSO.SkillXpEntries)
             {
                 var newEntry = new SkillLevelEntry
                 {
@@ -87,7 +83,7 @@ namespace Gameplay.Player
             }
 
             PlayerProfile.AbilityLevelDataList.Clear();
-            foreach (var ability in _playerProfileSO.AbilityLevelDataList)
+            foreach (var ability in PlayerProfileSO.AbilityLevelDataList)
             {
                 PlayerProfile.AbilityLevelDataList.Add(new PlayerAbilityLevelData(
                     ability.ToolType,
@@ -115,7 +111,7 @@ namespace Gameplay.Player
 
         public void AddResource(int amount, ResourceType resourceType)
         {
-            _playerResource.AddResource(amount, resourceType);
+            PlayerResources.AddResource(amount, resourceType);
         }
 
         public void SavePlayer()

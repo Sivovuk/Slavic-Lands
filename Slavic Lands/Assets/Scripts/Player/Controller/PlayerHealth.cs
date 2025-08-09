@@ -33,7 +33,7 @@ namespace Gameplay.Player
             ModifyHealth(healAmount);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, ToolType toolType)
         {
             ModifyHealth(-damage);
         }

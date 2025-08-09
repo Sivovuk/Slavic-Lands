@@ -1,49 +1,27 @@
-﻿using Core;
+﻿using System;
+using System.Collections.Generic;
 using Gameplay.Resources;
-using UI.HUD;
 
 namespace Gameplay.Player
 {
     [System.Serializable]
     public class PlayerResource
     {
-        public int Wood { get; private set; }
-        public int Stone { get; private set; }
-        public int Hide { get; private set; }
-        public int Food { get; private set; }
+        private readonly Dictionary<ResourceType, int> _resources = new();
+
+        public event Action<ResourceType, int> OnResourceChanged;
+
+        public int GetResource(ResourceType type) => 
+            _resources.TryGetValue(type, out var amount) ? amount : 0;
 
         public void AddResource(int amount, ResourceType resourceType)
         {
-            if (resourceType == ResourceType.Wood)
-                AddWood(amount); 
-            else if (resourceType == ResourceType.Stone)
-                AddStone(amount);
-            else if (resourceType == ResourceType.Hide)
-                AddHide(amount);
-            else if (resourceType == ResourceType.Food)
-                AddFood(amount);
-            
-            HUDController.Instance._resourceDisplay.UpdateResource(this);
-        }
+            if (!_resources.ContainsKey(resourceType))
+                _resources[resourceType] = 0;
 
-        public void AddWood(int wood)
-        {
-            Wood += wood;
-        }
-        
-        public void AddStone(int stone)
-        {
-            Stone += stone;
-        }
-        
-        public void AddHide(int hide)
-        {
-            Hide += hide;
-        }
-        
-        public void AddFood(int food)
-        {
-            Hide += food;
+            _resources[resourceType] += amount;
+
+            OnResourceChanged?.Invoke(resourceType, _resources[resourceType]);
         }
     }
 }

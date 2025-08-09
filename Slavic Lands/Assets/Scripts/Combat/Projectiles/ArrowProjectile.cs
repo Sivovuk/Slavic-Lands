@@ -49,7 +49,7 @@ public class ArrowProjectile : MonoBehaviour
         if (other.TryGetComponent<IDamageable>(out var damageable))
         {
             Vector2 direction = (other.transform.position - transform.position).normalized;
-            damageable.TakeDamage(_damage);
+            damageable.TakeDamage(_damage, ToolType.Bow);
 
             if (_applyForce)
             {

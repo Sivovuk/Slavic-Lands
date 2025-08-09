@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using Gameplay.Player;
 using TMPro;
 using UnityEngine;
@@ -12,41 +11,46 @@ namespace UI.Game.PlayerProfile
         [SerializeField] private Button _plusBtn;
         [SerializeField] private Button _minusBtn;
         [SerializeField] private TMP_Text _abilityLevel;
-        
+
         private ToolType _toolType;
         private PlayerAbilityLevelData _playerAbilityLevelData;
         private PlayerProfileUI _playerProfileUI;
 
-        public void OnInit(PlayerAbilityLevelData playerAbilityLevelData, PlayerProfileUI playerProfileUI)
+        public void OnInit(PlayerAbilityLevelData data, PlayerProfileUI ui)
         {
-            _playerAbilityLevelData = playerAbilityLevelData;
-            _playerProfileUI = playerProfileUI;
+            _playerAbilityLevelData = data;
+            _playerProfileUI = ui;
+
             _plusBtn.onClick.RemoveAllListeners();
             _minusBtn.onClick.RemoveAllListeners();
-            
-            _abilityLevel.text = playerAbilityLevelData.ToolType + " : " + playerAbilityLevelData.CurrentLevel.ToString();
-            _plusBtn.onClick.AddListener(delegate { PlusBtnOnClick(); });
-            _minusBtn.onClick.AddListener(delegate { MinusBtnOnClick(); });
+
+            _plusBtn.onClick.AddListener(PlusBtnOnClick);
+            _minusBtn.onClick.AddListener(MinusBtnOnClick);
+
+            UpdateDisplay();
+        }
+
+        private void PlusBtnOnClick()
+        {
+            _playerAbilityLevelData = _playerProfileUI.AddPoint(_playerAbilityLevelData);
+            UpdateDisplay();
+        }
+
+        private void MinusBtnOnClick()
+        {
+            _playerAbilityLevelData = _playerProfileUI.RemovePoint(_playerAbilityLevelData);
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            _abilityLevel.text = $"{_playerAbilityLevelData.ToolType} : {_playerAbilityLevelData.CurrentLevel}";
         }
 
         public void OnClose()
         {
             _playerAbilityLevelData = null;
             _playerProfileUI = null;
-        }
-
-        private void PlusBtnOnClick()
-        {
-            _playerAbilityLevelData = _playerProfileUI.AddPoint(_playerAbilityLevelData);
-            
-            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel.ToString();
-        }
-
-        private void MinusBtnOnClick()
-        {
-            _playerAbilityLevelData = _playerProfileUI.RemovePoint(_playerAbilityLevelData);
-            
-            _abilityLevel.text = _playerAbilityLevelData.ToolType + " : " + _playerAbilityLevelData.CurrentLevel.ToString();
         }
     }
 }

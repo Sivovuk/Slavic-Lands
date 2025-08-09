@@ -7,7 +7,7 @@ namespace Core.Interfaces
 {
     public interface IDamageable
     {
-        void TakeDamage(float amount);
+        void TakeDamage(float amount, ToolType toolType);
         void ApplyKnockback(Vector2 direction, float force);
         bool IsDead { get; }
     }

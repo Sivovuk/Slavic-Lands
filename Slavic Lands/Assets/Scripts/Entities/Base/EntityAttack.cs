@@ -98,7 +98,7 @@ namespace Entities
                 _attackTimer = 0f;
                 if (_target.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    damageable.TakeDamage(_attackDamage);
+                    damageable.TakeDamage(_attackDamage, ToolType.BattleAxe);
                     OnStartAttacking?.Invoke(true);
                 }
             }

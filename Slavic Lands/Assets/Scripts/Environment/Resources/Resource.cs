@@ -56,8 +56,10 @@ namespace Gameplay.Resources
             return _resourceData;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, ToolType toolType)
         {
+            if (toolType != _resourceSO.ToolType) return;
+            
             _currentHealth -= damage;
 
             if (_currentHealth <= 0)
@@ -76,7 +78,7 @@ namespace Gameplay.Resources
                 player.AddResource(resource.DropAmount, resource.ResourceType);
             }
 
-            player.PlayerProfile.TryAddXp(_resourceSO.ToolType, _resourceSO.XPReward);
+            player.PlayerProfile.PlayerLevelData.AddXp(_resourceSO.XPReward);
             Destroy(gameObject);
         }
 
