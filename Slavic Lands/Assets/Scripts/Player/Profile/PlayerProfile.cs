@@ -44,6 +44,7 @@ namespace Gameplay.Player
                 AbilityLevelDataList.Add(newData);
                 AbilityMap.Add(newData.ToolType, newData);
             }
+            
         }
 
         public PlayerAbilityLevelData GetAbilityData(ToolType toolType)
@@ -116,7 +117,6 @@ namespace Gameplay.Player
         {
             if (_skillMap.TryGetValue(tool, out var level))
             {
-                Debug.LogError(amount);
                 level.AddXp(amount);
                 return true;
             }
@@ -236,6 +236,11 @@ namespace Gameplay.Player
         }
 
         public bool CanUsePoints() => _levelPointsAvailable > 0;
+
+        public void UsePoints(int amount)
+        {
+            _levelPointsAvailable -= amount;
+        }
     }
 
     [Serializable]

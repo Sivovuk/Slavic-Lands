@@ -13,21 +13,23 @@ namespace UI.Game.PlayerProfile
         [SerializeField] private Image _progressBar;
 
         private LevelDataBase _levelData;
+        
+        private bool _isInitialized = false;
 
         public void Init(LevelDataBase levelData)
         {
+            if (_isInitialized)
+                return;
+
+            _isInitialized = true;
             _levelData = levelData;
-            UpdateUI(levelData);
 
             _levelData.OnXpChanged += UpdateUI;
-        }
 
-        private void OnDisable()
-        {
-            if (_levelData != null)
-                _levelData.OnXpChanged -= UpdateUI;
-        }
+            UpdateUI(_levelData);
 
+        }
+        
         private void UpdateUI(LevelDataBase data)
         {
             _levelText.text = $"Lv. {data.CurrentLevel}";

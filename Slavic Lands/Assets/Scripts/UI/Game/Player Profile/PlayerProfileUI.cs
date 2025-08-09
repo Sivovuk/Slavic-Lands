@@ -87,13 +87,24 @@ namespace UI.Game.PlayerProfile
 
         private void SavePoints()
         {
-            var profile = PlayerController.Instance.PlayerProfile;
+            var playerProfile = PlayerController.Instance.PlayerProfile;
+            var levelData = playerProfile.PlayerLevelData;
 
+            // Subtract points permanently
+            levelData.UsePoints(_pointsUsed);
+
+            // Apply ability upgrades
             foreach (var ability in _currentAbilities)
-                profile.SaveNewAbilityLevelData(ability);
+            {
+                playerProfile.SaveNewAbilityLevelData(ability);
+            }
 
+            // Reset after all abilities are processed
             _pointsUsed = 0;
             UpdateLevelPoints();
+
+            // Refresh UI so XP/bars update immediately
+            UpdateAbilitiesUI();
         }
 
         public PlayerAbilityLevelData AddPoint(PlayerAbilityLevelData ability)
