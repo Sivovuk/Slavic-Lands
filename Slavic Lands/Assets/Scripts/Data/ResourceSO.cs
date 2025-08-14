@@ -8,7 +8,14 @@ namespace Data
     [CreateAssetMenu(fileName = "New Resource", menuName = "Resource Data")]
     public class ResourceSO : ScriptableObject
     {
-        public List<ResourceData> Resources = new List<ResourceData>();
+        [SerializeField] 
+        private List<ResourceData> _resourceData = new List<ResourceData>();
+        public IReadOnlyList<ResourceData> ResourceData => _resourceData;
+        
+        [SerializeField] 
+        private List<DungeonData> _dungeonData = new List<DungeonData>();
+        public IReadOnlyList<DungeonData> DungeonData => _dungeonData;
+        
         public ToolType ToolType;
         public float Health;
         public int XPReward = 1;

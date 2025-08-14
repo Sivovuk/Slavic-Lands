@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
   m_Name: Birch
   m_EditorClassIdentifier: 
-  Resources:
+  _resourceData:
   - ResourceType: 0
-    DropAmount: 1
+    DropAmount: 3
+  _dungeonData: []
   ToolType: 1
   Health: 32
-  XPMultiplayer: 1
   XPReward: 5

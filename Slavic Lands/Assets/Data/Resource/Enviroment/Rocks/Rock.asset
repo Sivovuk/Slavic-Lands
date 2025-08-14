@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d689003099dd4c9d9cdf5c8e15782321, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
-  Resources:
+  _resourceData:
   - ResourceType: 1
-    DropAmount: 1
+    DropAmount: 5
+  _dungeonData:
+  - DungeonLevels: 0
+    MaxNodeAmount: 5
   ToolType: 2
   Health: 32
-  XPMultiplayer: 1
   XPReward: 5

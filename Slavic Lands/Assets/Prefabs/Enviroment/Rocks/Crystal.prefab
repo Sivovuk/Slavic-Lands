@@ -49,9 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38e01fa6dcf7de40bb532d570fcecfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceData: []
-  DungeonData: []
-  <_resourceSO>k__BackingField: {fileID: 11400000, guid: 1e198cf5f37ca3a4fbc5a393218d33ec, type: 2}
+  _resourceData:
+  - ResourceType: 7
+    DropAmount: 1
+  DungeonData:
+  - DungeonLevels: 2
+    MaxNodeAmount: 3
+  <ResourceSO>k__BackingField: {fileID: 11400000, guid: 1e198cf5f37ca3a4fbc5a393218d33ec, type: 2}
 --- !u!61 &8013116269896221089
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gameplay.Player;
 using Gameplay.Resources;
@@ -28,8 +29,6 @@ public class ResourceDisplay : MonoBehaviour
 
     private void UpdateResource(ResourceType type, int amount)
     {
-        
-        Debug.LogError("UpdateResource");
         if (_resourceTexts.ContainsKey(type))
             _resourceTexts[type].text = $"{type}: {amount}";
         else

@@ -26,11 +26,7 @@ namespace Gameplay.Resources
         private float _maxHealth;
         private float _currentHealth;
         
-        [SerializeField] private List<ResourceData> _resourceData = new  List<ResourceData>();
-        
-        [field:SerializeField] public List<DungeonData>  DungeonData = new  List<DungeonData>();
-
-        [field: SerializeField] public ResourceSO _resourceSO { get; private set; }
+        [field: SerializeField] public ResourceSO ResourceSO { get; private set; }
 
         private void Start()
         {
@@ -39,26 +35,25 @@ namespace Gameplay.Resources
 
         private void Init()
         {
-            LoadResourceData(_resourceSO);
+            LoadResourceData(ResourceSO);
         }
 
         public void LoadResourceData(ResourceSO resourceSO)
         {
             _maxHealth = resourceSO.Health;
             _currentHealth = resourceSO.Health;
-            _resourceData = resourceSO.Resources;
             
             // dodaj ucitavanje iz save-a
         }
 
-        public List<ResourceData> GetResourceType()
+        public IReadOnlyList<ResourceData> GetResourceType()
         {
-            return _resourceData;
+            return ResourceSO.ResourceData;
         }
 
         public void TakeDamage(float damage, ToolType toolType)
         {
-            if (toolType != _resourceSO.ToolType) return;
+            if (toolType != ResourceSO.ToolType) return;
             
             _currentHealth -= damage;
 
@@ -70,15 +65,14 @@ namespace Gameplay.Resources
         
         private void HandleBreak(Action callback = null)
         {
-            // Drop loot + grant XP
             var player = PlayerController.Instance;
 
-            foreach (var resource in _resourceData)
+            foreach (var resource in ResourceSO.ResourceData)
             {
                 player.AddResource(resource.DropAmount, resource.ResourceType);
             }
 
-            player.PlayerProfile.PlayerLevelData.AddXp(_resourceSO.XPReward);
+            player.PlayerProfile.PlayerLevelData.AddXp(ResourceSO.XPReward);
             Destroy(gameObject);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Gameplay.Player;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,13 +25,23 @@ namespace UI.HUD
                 Destroy(this);
         }
 
-        public void OnInit(PlayerController player)
+        private void OnEnable()
         {
-            player.PlayerHealth.OnHealthChanged += UpdateHealthBar;
-            player.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
+            GameManager.Instance.OnPlayerInit += OnInit;
+        }
+        
+        private void OnDestroy()
+        {
+            GameManager.Instance.OnPlayerInit -= OnInit;
+        }
+
+        public void OnInit()
+        {
+            PlayerController.Instance.PlayerHealth.OnHealthChanged += UpdateHealthBar;
+            PlayerController.Instance.PlayerEnergy.OnEnergyChanged += UpdateEnergyBar;
 
             // Initialize resource UI
-            ResourceDisplay.Initialize(player.PlayerResources);
+            ResourceDisplay.Initialize(PlayerController.Instance.PlayerResources);
         }
 
         private void OnDisable()

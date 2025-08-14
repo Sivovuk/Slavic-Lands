@@ -22,7 +22,7 @@ namespace Gameplay.Dungeon
 
                 foreach (var resourceToSpawn in _resources)
                 {
-                    foreach (var resourceLevel in resourceToSpawn.DungeonData)
+                    foreach (var resourceLevel in resourceToSpawn.ResourceSO.DungeonData)
                     {
                         if (resourceLevel.DungeonLevels != _dungeonLevel[i].DungeonLevel)
                             continue;
