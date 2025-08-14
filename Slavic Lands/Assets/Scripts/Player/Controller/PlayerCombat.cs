@@ -10,17 +10,6 @@ namespace Gameplay.Player
 {
     public class PlayerCombat : MonoBehaviour, ILoadingStatsPlayer
     {
-        [Header("Base Damage")]
-        private float _cutDamage;
-        private float _mineDamage;
-        private float _attackDamage;
-        private float _shootDamage;
-
-        [Header("Ability Damage")]
-        private float _slashAbilityDamage;
-        private float _shieldAbilityDamage;
-        private float _piercingArrowAbilityDamage;
-
         [Header("Shooting")]
         [SerializeField] private float _shootForce = 50f;
         private bool _isShooted;
@@ -57,7 +46,6 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick += ActiveShield;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnAbilitySelect += SelectAction;
-            GameManager.Instance.OnPlayerInit += LoadAbilities;
         }
 
         private void OnDisable()
@@ -66,37 +54,18 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             _playerInputSystem.OnAbilitySelect -= SelectAction;
-            GameManager.Instance.OnPlayerInit -= LoadAbilities;
         }
 
         public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
         {
             _playerController = playerController;
             _playerSO = playerSO;
-            UpdatePlayerStats();
         }
-
-        public void UpdatePlayerStats()
-        {
-            if (_playerController == null || _playerSO == null) return;
-
-            _cutDamage = _playerSO.CuttingDamage + GetScaledDamage(ToolType.Axe);
-            _mineDamage = _playerSO.MiningDamage + GetScaledDamage(ToolType.Pickaxe);
-            _attackDamage = _playerSO.AttackDamage + GetScaledDamage(ToolType.BattleAxe);
-            _shootDamage = _playerSO.ShootDamage + GetScaledDamage(ToolType.Bow);
-        }
-
+        
         private float GetScaledDamage(ToolType tool)
         {
             var levelData = _playerController.PlayerProfile.GetLevelData(tool);
             return levelData != null ? levelData.CurrentLevel * _playerSO.LevelMultiplayer : 0f;
-        }
-
-        private void LoadAbilities()
-        {
-            _slashAbilityDamage = _playerSO.Slash + GetScaledDamage(ToolType.Slashed);
-            _shieldAbilityDamage = _playerSO.ShieldBash + GetScaledDamage(ToolType.ShieldBash);
-            _piercingArrowAbilityDamage = _playerSO.PiercingArrow + GetScaledDamage(ToolType.PiercingArrow);
         }
 
         private void UseEquippedTool()
@@ -104,28 +73,28 @@ namespace Gameplay.Player
             switch (_equippedTool)
             {
                 case ToolType.Axe:
-                    PerformMeleeAttack((int)_cutDamage, 0, _equippedTool);
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
                 case ToolType.Pickaxe:
-                    PerformMeleeAttack((int)_mineDamage, 0, _equippedTool);
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
                 case ToolType.Slashed:
-                    PerformMeleeAttack((int)_playerSO.Slash, _playerSO.SlashPushForce, _equippedTool);
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.SlashPushForce, _equippedTool);
                     break;
                 case ToolType.ShieldBash:
-                    PerformMeleeAttack((int)_playerSO.ShieldBash, _playerSO.ShieldBashPushForce, _equippedTool);
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.ShieldBashPushForce, _equippedTool);
                     break;
                 case ToolType.Bow:
                 case ToolType.PiercingArrow:
                     Shoot();
                     break;
                 default:
-                    PerformMeleeAttack((int)_playerSO.AttackDamage, 0, _equippedTool);
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
             }
         }
 
-        private void PerformMeleeAttack(int damage, float pushForce, ToolType toolType)
+        private void PerformMeleeAttack(float damage, float pushForce, ToolType toolType)
         {
             var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
             foreach (var hit in hits)

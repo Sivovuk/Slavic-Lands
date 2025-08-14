@@ -105,7 +105,6 @@ namespace Entities
 
                 if (_attackComponent.IsFleeing)
                 {
-                    // Move away from target
                     float distance = Random.Range(_minWalkRange, _maxWalkRange);
                     newTarget = targetX > currentX
                         ? currentX - distance

@@ -111,7 +111,9 @@ namespace Gameplay.Player
 
         public void AddResource(int amount, ResourceType resourceType)
         {
+            Debug.LogError("AddResource");
             PlayerResources.AddResource(amount, resourceType);
+            
         }
 
         public void SavePlayer()

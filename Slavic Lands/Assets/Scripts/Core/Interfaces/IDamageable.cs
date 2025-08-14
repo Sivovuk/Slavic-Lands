@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Gameplay.Resources;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Core.Interfaces
 {

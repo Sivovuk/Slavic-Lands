@@ -27,7 +27,6 @@ namespace UI.Game.PlayerProfile
             _levelData.OnXpChanged += UpdateUI;
 
             UpdateUI(_levelData);
-
         }
         
         private void UpdateUI(LevelDataBase data)

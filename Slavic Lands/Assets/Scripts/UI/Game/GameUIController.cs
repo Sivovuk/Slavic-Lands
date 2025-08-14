@@ -34,7 +34,6 @@ namespace UI.Game
         public void OpenMenu(bool isActive)
         {
             OpenPanel(_activePanel != null ? _activePanel : _playerProfilePanel, isActive);
-            //OpenTab();
         }
 
 

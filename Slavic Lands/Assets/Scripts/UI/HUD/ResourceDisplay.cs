@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class ResourceDisplay : MonoBehaviour
 {
-    [SerializeField] private Transform _container; // Parent where resource UI elements are placed
-    [SerializeField] private TMP_Text _resourcePrefab; // Prefab for each resource display
+    [SerializeField] private Transform _container;
+    [SerializeField] private TMP_Text _resourcePrefab;
 
     private readonly Dictionary<ResourceType, TMP_Text> _resourceTexts = new();
 
@@ -15,11 +15,8 @@ public class ResourceDisplay : MonoBehaviour
     {
         playerResource.OnResourceChanged += UpdateResource;
 
-        // Initialize UI for all existing resources
         foreach (ResourceType type in System.Enum.GetValues(typeof(ResourceType)))
-        {
             CreateResourceUI(type, playerResource.GetResource(type));
-        }
     }
 
     private void CreateResourceUI(ResourceType type, int amount)
@@ -31,14 +28,11 @@ public class ResourceDisplay : MonoBehaviour
 
     private void UpdateResource(ResourceType type, int amount)
     {
+        
+        Debug.LogError("UpdateResource");
         if (_resourceTexts.ContainsKey(type))
-        {
             _resourceTexts[type].text = $"{type}: {amount}";
-        }
         else
-        {
-            // If a new resource type appears during gameplay
             CreateResourceUI(type, amount);
-        }
     }
 }
