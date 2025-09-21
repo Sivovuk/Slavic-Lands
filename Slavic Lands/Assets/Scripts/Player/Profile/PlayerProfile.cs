@@ -7,7 +7,11 @@ using UnityEngine;
 
 namespace Gameplay.Player
 {
-    [System.Serializable]
+    /// <summary>
+    /// Stores and manages the player's overall level, skill XP, and ability levels.
+    /// Supports XP progression, data serialization, and runtime mapping for performance.
+    /// </summary>
+    [Serializable]
     public class PlayerProfile
     {
         public PlayerLevelData PlayerLevelData { get; set; }
@@ -20,6 +24,9 @@ namespace Gameplay.Player
 
         private bool _initialized;
 
+        /// <summary>
+        /// Builds dictionaries from lists on first access.
+        /// </summary>
         private void EnsureInitialized()
         {
             if (_initialized) return;
@@ -28,6 +35,9 @@ namespace Gameplay.Player
             _initialized = true;
         }
 
+        /// <summary>
+        /// Adds or updates an ability level in both the dictionary and list.
+        /// </summary>
         public void SaveNewAbilityLevelData(PlayerAbilityLevelData newData)
         {
             EnsureInitialized();
@@ -44,7 +54,6 @@ namespace Gameplay.Player
                 AbilityLevelDataList.Add(newData);
                 AbilityMap.Add(newData.ToolType, newData);
             }
-            
         }
 
         public PlayerAbilityLevelData GetAbilityData(ToolType toolType)
@@ -52,13 +61,16 @@ namespace Gameplay.Player
             EnsureInitialized();
             return AbilityMap.TryGetValue(toolType, out var data) ? data : null;
         }
-        
+
         public LevelDataBase GetLevelData(ToolType toolType)
         {
             EnsureInitialized();
             return _skillMap.TryGetValue(toolType, out var data) ? data : null;
         }
 
+        /// <summary>
+        /// Converts the runtime profile into a serializable format for saving.
+        /// </summary>
         public PlayerProfileSaveData ToSaveData()
         {
             var data = new PlayerProfileSaveData
@@ -95,6 +107,9 @@ namespace Gameplay.Player
             return data;
         }
 
+        /// <summary>
+        /// Loads all stats and progression from saved data.
+        /// </summary>
         public void LoadFromSaveData(PlayerProfileSaveData saveData, float levelMultiplier)
         {
             PlayerLevelData = new PlayerLevelData(saveData.PlayerLevel, saveData.PlayerXp, saveData.PlayerXpToNext, saveData.MaxLevel, saveData.LevelPointsAvailable, levelMultiplier);
@@ -102,7 +117,7 @@ namespace Gameplay.Player
             SkillXpEntries.Clear();
             foreach (var skill in saveData.Skills)
             {
-                var levelData = new LevelData(skill.CurrentLevel, skill.CurrentXp, skill.XpToNextLevel, skill.MaxLevel,  levelMultiplier);
+                var levelData = new LevelData(skill.CurrentLevel, skill.CurrentXp, skill.XpToNextLevel, skill.MaxLevel, levelMultiplier);
                 SkillXpEntries.Add(new SkillLevelEntry { ToolType = skill.ToolType, LevelData = levelData });
             }
 
@@ -112,7 +127,10 @@ namespace Gameplay.Player
                 AbilityLevelDataList.Add(new PlayerAbilityLevelData(ability.ToolType, ability.CurrentLevel, levelMultiplier));
             }
         }
-        
+
+        /// <summary>
+        /// Adds XP to a tool-specific skill and returns true if successful.
+        /// </summary>
         public bool TryAddXp(ToolType tool, int amount)
         {
             if (_skillMap.TryGetValue(tool, out var level))
@@ -123,6 +141,8 @@ namespace Gameplay.Player
             return false;
         }
     }
+
+    // --- XP/Level System Core ---
 
     [Serializable]
     public class LevelDataBase : ILevelData
@@ -169,9 +189,12 @@ namespace Gameplay.Player
             _xpToNextLevel = xpToNext;
             _levelMultiplier = multiplier;
             _maxLevel = maxLvl;
-            _firstLevelXp = firstLevelXp; // default or configurable value
+            _firstLevelXp = firstLevelXp;
         }
 
+        /// <summary>
+        /// Adds XP and handles automatic leveling.
+        /// </summary>
         public virtual void AddXp(int xp)
         {
             if (_currentLevel >= _maxLevel) return;
@@ -209,7 +232,6 @@ namespace Gameplay.Player
         [SerializeField] private int _levelPointsAvailable;
 
         public int LevelPointsAvailable => _levelPointsAvailable;
-
         public event Action OnPointsChanged;
 
         public PlayerLevelData(PlayerLevelData copyFrom, float multiplier)

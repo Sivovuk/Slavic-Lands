@@ -5,26 +5,35 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Player
 {
+    /// <summary>
+    /// Handles player input using Unity's new Input System.
+    /// Converts raw input into high-level events for other systems like movement, combat, and interaction.
+    /// </summary>
     public class PlayerInputSystem : MonoBehaviour, Controls.IPlayerActions
     {
-        [field: SerializeField] public Vector2 MovementValue { get; private set; }
-        [field: SerializeField] public Vector2 Look { get; private set; }
+        // --- Input Values ---
+
+        [field: SerializeField] public Vector2 MovementValue { get; private set; } // WASD or joystick movement
+        [field: SerializeField] public Vector2 Look { get; private set; }         // Mouse or right stick look
+
+        // --- Events for Subscribing Systems ---
 
         public event Action OnLmbClick;
-        public event  Action OnLmbRelease;
-        public event  Action<bool> OnRmbClick;
-        public event  Action OnInteractionClick;
-        public event  Action OnJumpClick;
-        public event  Action<bool> OnActionChanged;
-        public event  Action<bool> OnSprintClick;
-        public event  Action<bool> OnTabClicked;
-        public event  Action OnDashClicked;
-        public event  Action<int> OnAbilitySelect;
+        public event Action OnLmbRelease;
+        public event Action<bool> OnRmbClick;
+        public event Action OnInteractionClick;
+        public event Action OnJumpClick;
+        public event Action<bool> OnActionChanged;
+        public event Action<bool> OnSprintClick;
+        public event Action<bool> OnTabClicked;
+        public event Action OnDashClicked;
+        public event Action<int> OnAbilitySelect;
 
         private Controls _controls;
 
         private void Awake()
         {
+            // Initialize input system and set this script as the input callback handler
             _controls = new Controls();
             _controls.Player.SetCallbacks(this);
             _controls.Enable();
@@ -35,6 +44,7 @@ namespace Gameplay.Player
             _controls.Player.Disable();
         }
 
+        // --- Input Action Implementations ---
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -71,7 +81,7 @@ namespace Gameplay.Player
                 var keyboard = Keyboard.current;
                 if (keyboard != null && keyboard.leftShiftKey.isPressed &&
                     (keyboard.dKey.isPressed || keyboard.aKey.isPressed))
-                    return;
+                    return; // Prevent jumping while sprinting sideways
 
                 OnJumpClick?.Invoke();
             }
@@ -93,6 +103,8 @@ namespace Gameplay.Player
             if (context.performed)
                 OnDashClicked?.Invoke();
         }
+
+        // --- Ability Hotkeys Mapped to ToolType Enum ---
 
         public void OnAbility1(InputAction.CallbackContext context)
         {

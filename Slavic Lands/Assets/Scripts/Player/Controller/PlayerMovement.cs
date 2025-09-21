@@ -7,19 +7,23 @@ using UnityEngine;
 
 namespace Gameplay.Player
 {
+    /// <summary>
+    /// Manages all player movement behaviors including walking, sprinting, jumping, and dashing.
+    /// It loads movement-related stats from PlayerSO and integrates with PlayerInputSystem.
+    /// </summary>
     public class PlayerMovement : MonoBehaviour, ILoadingStatsPlayer
     {
-        // Movement
+        // --- Movement ---
         private float _activeSpeed;
         private float _walkSpeed;
         private float _runSpeed;
         private bool _goingRight;
 
-        // Jump
+        // --- Jumping ---
         private float _jumpForce;
         [SerializeField] private float _jumpRaycastDistance;
 
-        // Dash
+        // --- Dashing ---
         private float _dashingCost;
         private float _dashingPower;
         private float _dashingTime;
@@ -27,11 +31,11 @@ namespace Gameplay.Player
         private bool _canDash = true;
         private bool _isDashing;
 
-        // State
+        // --- State ---
         private bool _isMoving;
         private bool _isGrounded;
 
-        // References
+        // --- References ---
         [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private Transform _jumpRaycast;
         [SerializeField] private Transform _playerSetup;
@@ -72,7 +76,7 @@ namespace Gameplay.Player
         {
             CheckIfGrounded();
 
-            //delete this
+            // Debug velocity display
             if (_velocityText != null)
                 _velocityText.text = $"Velocity : {_rigidbody2D.linearVelocity.x:F2}";
         }
@@ -83,6 +87,9 @@ namespace Gameplay.Player
                 Move();
         }
 
+        /// <summary>
+        /// Handles standard left/right movement based on input.
+        /// </summary>
         private void Move()
         {
             var direction = _playerInputSystem.MovementValue.x;
@@ -90,6 +97,9 @@ namespace Gameplay.Player
             SetDirection(direction);
         }
 
+        /// <summary>
+        /// Toggles between walk and sprint depending on stamina availability and player input.
+        /// </summary>
         private void Sprint(bool isSprinting)
         {
             if (!_playerController.PlayerEnergy.Sprint(isSprinting && _playerInputSystem.MovementValue.x != 0f) || _isDashing)
@@ -98,17 +108,26 @@ namespace Gameplay.Player
             _activeSpeed = isSprinting ? _runSpeed : _walkSpeed;
         }
 
+        /// <summary>
+        /// Allows the player to jump when grounded.
+        /// </summary>
         private void Jump()
         {
             if (_isGrounded)
                 _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
 
+        /// <summary>
+        /// Checks if the player is grounded using a raycast.
+        /// </summary>
         private void CheckIfGrounded()
         {
             _isGrounded = Physics2D.Raycast(_jumpRaycast.position, Vector3.down, _jumpRaycastDistance, _groundLayer);
         }
 
+        /// <summary>
+        /// Updates player sprite orientation based on direction.
+        /// </summary>
         public void SetDirection(float direction)
         {
             if (direction > 0)
@@ -123,6 +142,9 @@ namespace Gameplay.Player
             }
         }
 
+        /// <summary>
+        /// Loads all player movement stats from PlayerSO.
+        /// </summary>
         public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
         {
             _playerController = playerController;
@@ -140,6 +162,9 @@ namespace Gameplay.Player
             _isMoving = true;
         }
 
+        /// <summary>
+        /// Initiates a dash if enough energy is available.
+        /// </summary>
         public void Dash()
         {
             if (_dashingCost <= _playerEnergy.GetCurrentEnergy() && !_isDashing)
@@ -149,6 +174,9 @@ namespace Gameplay.Player
             }
         }
 
+        /// <summary>
+        /// Executes dash behavior with cooldown and visual effects.
+        /// </summary>
         private IEnumerator DashRoutine()
         {
             _canDash = false;
@@ -158,22 +186,24 @@ namespace Gameplay.Player
             _rigidbody2D.gravityScale = 0f;
 
             float direction = _goingRight ? 1f : -1f;
-            _rigidbody2D.linearVelocity  = new Vector2(direction * _dashingPower, _rigidbody2D.linearVelocity .y);
+            _rigidbody2D.linearVelocity = new Vector2(direction * _dashingPower, _rigidbody2D.linearVelocity.y);
 
             _trailRenderer.emitting = true;
 
             yield return new WaitForSeconds(_dashingTime);
 
             _trailRenderer.emitting = false;
-            _rigidbody2D.linearVelocity  = new Vector2(0f, _rigidbody2D.linearVelocity .y);
+            _rigidbody2D.linearVelocity = new Vector2(0f, _rigidbody2D.linearVelocity.y);
             _rigidbody2D.gravityScale = originalGravity;
             _isDashing = false;
 
             yield return new WaitForSeconds(_dashCooldown);
-
             _canDash = true;
         }
 
+        /// <summary>
+        /// Draws the jump raycast line for debugging in the editor.
+        /// </summary>
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
