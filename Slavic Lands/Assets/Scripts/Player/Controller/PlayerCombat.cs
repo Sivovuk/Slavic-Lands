@@ -92,13 +92,20 @@ namespace Gameplay.Player
             switch (_equippedTool)
             {
                 case ToolType.Axe:
-                case ToolType.Pickaxe:
+                    _playerMovement.PlayCut();
                     PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
+                case ToolType.Pickaxe:
+                    _playerMovement.PlayMine();
+                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
+                    break;
+                case ToolType.BattleAxe:
                 case ToolType.Slashed:
+                    _playerMovement.PlayAttack();
                     PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.SlashPushForce, _equippedTool);
                     break;
                 case ToolType.ShieldBash:
+                    _playerMovement.PlayShield();
                     PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.ShieldBashPushForce, _equippedTool);
                     break;
                 case ToolType.Bow:
@@ -133,6 +140,11 @@ namespace Gameplay.Player
                     HandleActionXp();
                 }
             }
+        }
+
+        private void ShieldBash()
+        {
+            
         }
 
         /// <summary>

@@ -35,6 +35,14 @@ namespace Gameplay.Player
         private bool _isMoving;
         private bool _isGrounded;
 
+        // --- Animation ---
+        private static readonly int MovementParam = Animator.StringToHash("Movement");
+        private static readonly int CutTrigger = Animator.StringToHash("Cut");
+        private static readonly int MineTrigger = Animator.StringToHash("Mine");
+        private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+        private static readonly int ShieldTrigger = Animator.StringToHash("Shield");
+        private static readonly int DeathTrigger = Animator.StringToHash("Death");
+
         // --- References ---
         [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private Transform _jumpRaycast;
@@ -48,6 +56,7 @@ namespace Gameplay.Player
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
         private BoxCollider2D _boxCollider2D;
+        private SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
@@ -56,6 +65,7 @@ namespace Gameplay.Player
             _animator = GetComponent<Animator>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
             _playerEnergy = GetComponent<PlayerEnergy>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -85,6 +95,8 @@ namespace Gameplay.Player
         {
             if (_isMoving && !_isDashing)
                 Move();
+
+            UpdateMovementAnimation();
         }
 
         /// <summary>
@@ -102,7 +114,8 @@ namespace Gameplay.Player
         /// </summary>
         private void Sprint(bool isSprinting)
         {
-            if (!_playerController.PlayerEnergy.Sprint(isSprinting && _playerInputSystem.MovementValue.x != 0f) || _isDashing)
+            if (!_playerController.PlayerEnergy.Sprint(isSprinting && _playerInputSystem.MovementValue.x != 0f) ||
+                _isDashing)
                 return;
 
             _activeSpeed = isSprinting ? _runSpeed : _walkSpeed;
@@ -134,11 +147,13 @@ namespace Gameplay.Player
             {
                 _goingRight = true;
                 _playerSetup.rotation = Quaternion.Euler(0f, 0f, 0f);
+                _spriteRenderer.flipX = false;
             }
             else if (direction < 0)
             {
                 _goingRight = false;
                 _playerSetup.rotation = Quaternion.Euler(0f, 180f, 0f);
+                _spriteRenderer.flipX = true;
             }
         }
 
@@ -208,6 +223,79 @@ namespace Gameplay.Player
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(_jumpRaycast.position, _jumpRaycast.position + Vector3.down * _jumpRaycastDistance);
+        }
+
+        /// <summary>
+        /// Updates the blend tree movement parameter based on current speed and input.
+        /// 0 = idle, ~0.5 = walk, 1 = run
+        /// </summary>
+        private void UpdateMovementAnimation()
+        {
+            float inputMagnitude = Mathf.Abs(_playerInputSystem.MovementValue.x);
+
+            if (inputMagnitude < 0.01f || _isDashing)
+            {
+                _animator.SetFloat(MovementParam, 0f, 0.1f, Time.deltaTime);
+            }
+            else
+            {
+                float blend = Mathf.Approximately(_activeSpeed, _runSpeed) ? 1f : 0.5f;
+                _animator.SetFloat(MovementParam, blend, 0.1f, Time.deltaTime);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the specified animation by name (Cut, Mine, Attack, Shield, Death).
+        /// </summary>
+        public void PlayTriggerAnimation(int triggerHash)
+        {
+            _animator.SetTrigger(triggerHash);
+        }
+
+        public void PlayCut()
+        {
+            _isMoving = false;
+            _animator.SetTrigger(CutTrigger);
+            StartAnimationCorutine(GetClipLength("Cut"));
+        }
+
+        public void PlayMine() => _animator.SetTrigger(MineTrigger);
+        public void PlayAttack() => _animator.SetTrigger(AttackTrigger);
+        public void PlayShield() => _animator.SetTrigger(ShieldTrigger);
+        public void PlayDeath() => _animator.SetTrigger(DeathTrigger);
+
+        private Coroutine _activeAnimation;
+
+        private void StartAnimationCorutine(float duration)
+        {
+            if (_activeAnimation == null)
+                _activeAnimation = StartCoroutine(ResumeMovement(duration));
+            else
+            {
+                StopCoroutine(_activeAnimation);
+                _activeAnimation = StartCoroutine(ResumeMovement(duration));
+            }
+        }
+
+        private IEnumerator ResumeMovement(float duration)
+        {
+            yield return new WaitForSeconds(duration - 0.1f);
+            _isMoving = true;
+        }
+
+        private float GetClipLength(string clipName)
+        {
+            RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
+    
+            foreach (AnimationClip clip in ac.animationClips)
+            {
+                if (clip.name == clipName)
+                {
+                    return clip.length;
+                }
+            }
+    
+            return 0f;
         }
     }
 }
