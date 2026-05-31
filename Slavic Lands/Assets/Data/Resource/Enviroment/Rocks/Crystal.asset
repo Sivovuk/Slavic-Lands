@@ -18,6 +18,6 @@ MonoBehaviour:
   _dungeonData:
   - DungeonLevels: 2
     MaxNodeAmount: 2
-  ToolType: 2
+  ToolType: 02000000
   Health: 32
   XPReward: 5

@@ -31,7 +31,7 @@ namespace Data
         // --- INTERACTION & PROGRESSION ---
 
         // Tool type required to interact with or harvest this resource (e.g., axe, pickaxe)
-        public ToolType ToolType;
+        public List<ToolType> ToolType = new List<ToolType>();
 
         // Total health of the resource node (how many hits it can take)
         public float Health;

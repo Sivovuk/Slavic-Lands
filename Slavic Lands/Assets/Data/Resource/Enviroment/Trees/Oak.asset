@@ -16,6 +16,6 @@ MonoBehaviour:
   - ResourceType: 0
     DropAmount: 10
   _dungeonData: []
-  ToolType: 1
+  ToolType: 01000000
   Health: 52
   XPReward: 5

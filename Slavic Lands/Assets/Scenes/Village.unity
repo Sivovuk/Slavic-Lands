@@ -3995,6 +3995,14 @@ PrefabInstance:
       propertyPath: _velocityText
       value: 
       objectReference: {fileID: 360385398}
+    - target: {fileID: 3680442154034623169, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832470264509727992, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6135717079960541633, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.46

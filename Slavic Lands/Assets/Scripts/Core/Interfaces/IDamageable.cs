@@ -9,6 +9,7 @@ namespace Core.Interfaces
         bool IsDead { get; }
     }
     
+    [System.Serializable]
     public enum ToolType
     {
         None = 0,

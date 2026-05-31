@@ -71,7 +71,7 @@ namespace Gameplay.Resources
         /// </summary>
         public void TakeDamage(float damage, ToolType toolType)
         {
-            if (toolType != ResourceSO.ToolType) return;
+            if (!ResourceSO.ToolType.Contains(toolType)) return;
 
             _currentHealth -= damage;
 

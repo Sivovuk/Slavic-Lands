@@ -80,7 +80,8 @@ namespace Entities
         /// </summary>
         public virtual void TakeDamage(float damage, ToolType toolType)
         {
-            if (toolType != ResourceData.ToolType) return;
+            if (!ResourceData.ToolType.Contains(toolType)) return;
+            
             if (_isDead) return;
 
             _currentHealth -= damage;
