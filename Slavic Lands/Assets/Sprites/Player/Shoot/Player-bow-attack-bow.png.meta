@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -149,12 +149,12 @@ TextureImporter:
       name: Player-bow-attack-bow_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 454
-        width: 15
-        height: 8
+        x: 0
+        y: 412
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -171,12 +171,12 @@ TextureImporter:
       name: Player-bow-attack-bow_1
       rect:
         serializedVersion: 2
-        x: 157
-        y: 454
-        width: 16
-        height: 8
+        x: 100
+        y: 412
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -193,12 +193,12 @@ TextureImporter:
       name: Player-bow-attack-bow_2
       rect:
         serializedVersion: 2
-        x: 257
-        y: 454
-        width: 15
-        height: 8
+        x: 200
+        y: 412
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -215,12 +215,12 @@ TextureImporter:
       name: Player-bow-attack-bow_3
       rect:
         serializedVersion: 2
-        x: 356
-        y: 453
-        width: 15
-        height: 21
+        x: 300
+        y: 412
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -237,12 +237,12 @@ TextureImporter:
       name: Player-bow-attack-bow_4
       rect:
         serializedVersion: 2
-        x: 458
-        y: 447
-        width: 8
-        height: 31
+        x: 400
+        y: 412
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -259,12 +259,12 @@ TextureImporter:
       name: Player-bow-attack-bow_5
       rect:
         serializedVersion: 2
-        x: 47
-        y: 360
-        width: 23
-        height: 23
+        x: 0
+        y: 312
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -281,12 +281,12 @@ TextureImporter:
       name: Player-bow-attack-bow_6
       rect:
         serializedVersion: 2
-        x: 145
-        y: 371
-        width: 23
-        height: 23
+        x: 100
+        y: 312
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -303,12 +303,12 @@ TextureImporter:
       name: Player-bow-attack-bow_7
       rect:
         serializedVersion: 2
-        x: 252
-        y: 364
-        width: 25
-        height: 23
+        x: 200
+        y: 312
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -325,12 +325,12 @@ TextureImporter:
       name: Player-bow-attack-bow_8
       rect:
         serializedVersion: 2
-        x: 350
-        y: 356
-        width: 22
-        height: 31
+        x: 300
+        y: 312
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -347,12 +347,12 @@ TextureImporter:
       name: Player-bow-attack-bow_9
       rect:
         serializedVersion: 2
-        x: 469
-        y: 358
-        width: 8
-        height: 31
+        x: 400
+        y: 312
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -369,12 +369,12 @@ TextureImporter:
       name: Player-bow-attack-bow_10
       rect:
         serializedVersion: 2
-        x: 60
-        y: 253
-        width: 23
-        height: 23
+        x: 0
+        y: 212
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -391,12 +391,12 @@ TextureImporter:
       name: Player-bow-attack-bow_11
       rect:
         serializedVersion: 2
-        x: 157
-        y: 254
-        width: 15
-        height: 8
+        x: 100
+        y: 212
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -413,7 +413,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9b2b289a42a9dfd4eba591abd4dbb1d5
     internalID: 0
     vertices: []
     indices: 
@@ -421,7 +421,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":100.0,"y":100.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player-bow-attack-bow_0: -5650688074720204417
       Player-bow-attack-bow_1: -6599702722403835182

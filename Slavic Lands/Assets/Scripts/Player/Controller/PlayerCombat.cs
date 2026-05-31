@@ -18,7 +18,6 @@ namespace Gameplay.Player
 
         [Header("Shooting")]
         [SerializeField] private float _shootForce = 50f;
-        private bool _isShooted; // Prevents rapid re-firing
 
         // --- SHIELD CONFIG ---
 
@@ -33,7 +32,9 @@ namespace Gameplay.Player
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private ArrowProjectile _arrowProjectilePrefab;
         [SerializeField] private ArrowProjectile _piercingArrowProjectilePrefab;
+        [SerializeField] private GameObject _battleAxe;
         [SerializeField] private GameObject _shield;
+        [SerializeField] private GameObject _bow;
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private GameObject _actionHUD;
 
@@ -51,12 +52,16 @@ namespace Gameplay.Player
         private float _pendingMeleePushForce;
         private ToolType _pendingMeleeToolType;
 
+        private bool _isActionLocked;
+
         private void Awake()
         {
             _playerInputSystem = GetComponent<PlayerInputSystem>();
             _playerMovement = GetComponent<PlayerMovement>();
             _animationController = GetComponent<PlayerAnimationController>();
             _animationEventHandler = GetComponent<PlayerAnimationEventHandler>();
+            
+            SelectAction(3);
         }
 
         private void OnEnable()
@@ -65,9 +70,14 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick += ActiveShield;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnAbilitySelect += SelectAction;
-            
             if (_animationEventHandler != null)
+            {
                 _animationEventHandler.OnMeleeHit += HandleMeleeHit;
+                _animationEventHandler.OnShoot += Shoot;
+            }
+
+            if (_playerMovement != null)
+                _playerMovement.OnActionLockChanged += HandleActionLock;
         }
 
         private void OnDisable()
@@ -76,9 +86,14 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             _playerInputSystem.OnAbilitySelect -= SelectAction;
-            
             if (_animationEventHandler != null)
+            {
                 _animationEventHandler.OnMeleeHit -= HandleMeleeHit;
+                _animationEventHandler.OnShoot -= Shoot;
+            }
+
+            if (_playerMovement != null)
+                _playerMovement.OnActionLockChanged -= HandleActionLock;
         }
 
         /// <summary>
@@ -104,6 +119,11 @@ namespace Gameplay.Player
         /// </summary>
         private void UseEquippedTool()
         {
+            if (_isActionLocked) return;
+
+            // Lock immediately to prevent spam-clicking before the animation state fully transitions
+            _isActionLocked = true;
+
             switch (_equippedTool)
             {
                 case ToolType.Axe:
@@ -125,13 +145,18 @@ namespace Gameplay.Player
                     break;
                 case ToolType.Bow:
                 case ToolType.PiercingArrow:
-                    Shoot();
+                    _animationController.TriggerShoot();
                     break;
                 default:
                     SetPendingMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     HandleMeleeHit(); // Execute instantly if no animation is set
                     break;
             }
+        }
+
+        private void HandleActionLock(bool isLocked)
+        {
+            _isActionLocked = isLocked;
         }
 
         private void SetPendingMeleeAttack(float damage, float pushForce, ToolType toolType)
@@ -180,14 +205,6 @@ namespace Gameplay.Player
         /// </summary>
         private void Shoot()
         {
-            if (_isShooted)
-            {
-                _isShooted = false;
-                return;
-            }
-
-            _isShooted = true;
-
             Vector2 shootDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
             _playerMovement.SetDirection(shootDir.x > 0 ? 1f : -1f);
             _shootPoint.right = shootDir;
@@ -221,6 +238,20 @@ namespace Gameplay.Player
                 : ToolType.None;
 
             ShowHUD(false);
+
+            _shield.SetActive(false);
+            _battleAxe.SetActive(false);
+            _bow.SetActive(false);
+            
+            if (_equippedTool == ToolType.BattleAxe)
+            {
+                _shield.SetActive(true);
+                _battleAxe.SetActive(true);
+            }
+            else if (_equippedTool == ToolType.Bow)
+            {
+                _bow.SetActive(true);
+            }
         }
 
         /// <summary>

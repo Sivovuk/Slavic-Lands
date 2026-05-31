@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Interfaces;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Player
@@ -58,6 +59,19 @@ namespace Gameplay.Player
 
         public void OnLMB(InputAction.CallbackContext context)
         {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            
+            // for later for mobile dev
+            
+            // if (Input.touchCount > 0 &&
+            //     EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            // {
+            //     return;
+            // }
+            
             if (context.performed)
                 OnLmbClick?.Invoke();
             else if (context.canceled)

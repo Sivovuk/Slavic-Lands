@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -128,12 +128,12 @@ TextureImporter:
       name: Player-bow-attack-arrow_0
       rect:
         serializedVersion: 2
-        x: 355
-        y: 458
-        width: 126
-        height: 10
+        x: 329
+        y: 338
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -142,94 +142,6 @@ TextureImporter:
       bones: []
       spriteID: f952cccebd70990429ea2ec8c4e3a9b9
       internalID: -1008252738
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-bow-attack-arrow_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 372
-        width: 37
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8e7eae6d74485941bbcbd0aa2865e28
-      internalID: 129315590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-bow-attack-arrow_2
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 383
-        width: 34
-        height: 73
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81ef4e42a460ce6468effde2f87e8dae
-      internalID: 1888556883
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-bow-attack-arrow_3
-      rect:
-        serializedVersion: 2
-        x: 241
-        y: 369
-        width: 132
-        height: 88
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9780a25f34058e419f22299e9ebbbb8
-      internalID: -1908297734
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-bow-attack-arrow_4
-      rect:
-        serializedVersion: 2
-        x: 349
-        y: 452
-        width: 5
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8ff50227dad36748a17a6f751fa460a
-      internalID: 151746580
       vertices: []
       indices: 
       edges: []

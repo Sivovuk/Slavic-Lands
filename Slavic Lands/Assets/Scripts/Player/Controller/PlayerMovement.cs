@@ -35,7 +35,8 @@ namespace Gameplay.Player
         private bool _isMoving;
         private bool _isGrounded;
 
-
+        public event Action<bool> OnActionLockChanged;
+        public bool IsActionLocked { get; private set; }
 
         // --- References ---
         [SerializeField] private TrailRenderer _trailRenderer;
@@ -243,6 +244,8 @@ namespace Gameplay.Player
         public void SetMovementLock(bool isLocked)
         {
             _isMoving = !isLocked;
+            IsActionLocked = isLocked;
+            OnActionLockChanged?.Invoke(isLocked);
             
             // If we just got locked, ensure we stop sliding
             if (isLocked)

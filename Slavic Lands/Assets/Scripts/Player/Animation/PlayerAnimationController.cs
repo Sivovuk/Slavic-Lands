@@ -13,6 +13,7 @@ namespace Gameplay.Player
         private static readonly int AttackTrigger = Animator.StringToHash("Attack");
         private static readonly int ShieldTrigger = Animator.StringToHash("Shield");
         private static readonly int DeathTrigger = Animator.StringToHash("Death");
+        private static readonly int ShootTrigger = Animator.StringToHash("Shoot");
 
         private Animator _animator;
 
@@ -34,5 +35,6 @@ namespace Gameplay.Player
         public void TriggerAttack() => _animator.SetTrigger(AttackTrigger);
         public void TriggerShield() => _animator.SetTrigger(ShieldTrigger);
         public void TriggerDeath() => _animator.SetTrigger(DeathTrigger);
+        public void TriggerShoot() => _animator.SetTrigger(ShootTrigger);
     }
 }

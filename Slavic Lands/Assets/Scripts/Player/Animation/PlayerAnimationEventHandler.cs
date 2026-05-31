@@ -10,6 +10,7 @@ namespace Gameplay.Player
     public class PlayerAnimationEventHandler : MonoBehaviour
     {
         public event Action OnMeleeHit;
+        public event Action OnShoot;
 
         /// <summary>
         /// Called via Unity Animation Event on the exact frame the weapon swing hits.
@@ -17,6 +18,14 @@ namespace Gameplay.Player
         public void ExecuteMeleeHit()
         {
             OnMeleeHit?.Invoke();
+        }
+
+        /// <summary>
+        /// Called via Unity Animation Event when the bow releases the arrow.
+        /// </summary>
+        public void ExecuteShoot()
+        {
+            OnShoot?.Invoke();
         }
     }
 }
