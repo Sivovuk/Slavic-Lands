@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Core;
 using Core.Interfaces;
@@ -41,13 +41,22 @@ namespace Gameplay.Player
         private PlayerSO _playerSO;
         private PlayerMovement _playerMovement;
         private PlayerInputSystem _playerInputSystem;
+        private PlayerAnimationController _animationController;
+        private PlayerAnimationEventHandler _animationEventHandler;
 
         private ToolType _equippedTool = ToolType.None;
+        
+        // Pending state for melee attacks waiting for animation events
+        private float _pendingMeleeDamage;
+        private float _pendingMeleePushForce;
+        private ToolType _pendingMeleeToolType;
 
         private void Awake()
         {
             _playerInputSystem = GetComponent<PlayerInputSystem>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _animationController = GetComponent<PlayerAnimationController>();
+            _animationEventHandler = GetComponent<PlayerAnimationEventHandler>();
         }
 
         private void OnEnable()
@@ -56,6 +65,9 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick += ActiveShield;
             _playerInputSystem.OnActionChanged += ShowHUD;
             _playerInputSystem.OnAbilitySelect += SelectAction;
+            
+            if (_animationEventHandler != null)
+                _animationEventHandler.OnMeleeHit += HandleMeleeHit;
         }
 
         private void OnDisable()
@@ -64,6 +76,9 @@ namespace Gameplay.Player
             _playerInputSystem.OnRmbClick -= ActiveShield;
             _playerInputSystem.OnActionChanged -= ShowHUD;
             _playerInputSystem.OnAbilitySelect -= SelectAction;
+            
+            if (_animationEventHandler != null)
+                _animationEventHandler.OnMeleeHit -= HandleMeleeHit;
         }
 
         /// <summary>
@@ -92,30 +107,43 @@ namespace Gameplay.Player
             switch (_equippedTool)
             {
                 case ToolType.Axe:
-                    _playerMovement.PlayCut();
-                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
+                    _animationController.TriggerCut();
+                    SetPendingMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
                 case ToolType.Pickaxe:
-                    _playerMovement.PlayMine();
-                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
+                    _animationController.TriggerMine();
+                    SetPendingMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
                     break;
                 case ToolType.BattleAxe:
                 case ToolType.Slashed:
-                    _playerMovement.PlayAttack();
-                    PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.SlashPushForce, _equippedTool);
+                    _animationController.TriggerAttack();
+                    SetPendingMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.SlashPushForce, _equippedTool);
                     break;
                 case ToolType.ShieldBash:
-                    _playerMovement.PlayShield();
-                    PerformMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.ShieldBashPushForce, _equippedTool);
+                    _animationController.TriggerShield();
+                    SetPendingMeleeAttack(GetScaledDamage(_equippedTool), _playerSO.ShieldBashPushForce, _equippedTool);
                     break;
                 case ToolType.Bow:
                 case ToolType.PiercingArrow:
                     Shoot();
                     break;
                 default:
-                    PerformMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
+                    SetPendingMeleeAttack(GetScaledDamage(_equippedTool), 0, _equippedTool);
+                    HandleMeleeHit(); // Execute instantly if no animation is set
                     break;
             }
+        }
+
+        private void SetPendingMeleeAttack(float damage, float pushForce, ToolType toolType)
+        {
+            _pendingMeleeDamage = damage;
+            _pendingMeleePushForce = pushForce;
+            _pendingMeleeToolType = toolType;
+        }
+
+        private void HandleMeleeHit()
+        {
+            PerformMeleeAttack(_pendingMeleeDamage, _pendingMeleePushForce, _pendingMeleeToolType);
         }
 
         /// <summary>

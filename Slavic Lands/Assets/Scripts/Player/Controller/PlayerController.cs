@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Data;
@@ -26,6 +26,8 @@ namespace Gameplay.Player
         [field: SerializeField] public PlayerCombat PlayerCombat { get; private set; }
         [field: SerializeField] public PlayerHealth PlayerHealth { get; private set; }
         [field: SerializeField] public PlayerEnergy PlayerEnergy { get; private set; }
+        [field: SerializeField] public PlayerAnimationController PlayerAnimationController { get; private set; }
+        [field: SerializeField] public PlayerAnimationEventHandler PlayerAnimationEventHandler { get; private set; }
 
         public PlayerResource PlayerResources { get; private set; }                               // Tracks collected resources
 
@@ -44,6 +46,8 @@ namespace Gameplay.Player
             PlayerCombat = GetComponent<PlayerCombat>();
             PlayerHealth = GetComponent<PlayerHealth>();
             PlayerEnergy = GetComponent<PlayerEnergy>();
+            PlayerAnimationController = GetComponent<PlayerAnimationController>();
+            PlayerAnimationEventHandler = GetComponent<PlayerAnimationEventHandler>();
 
             PlayerResources = new PlayerResource();
             PlayerProfile = new PlayerProfile();

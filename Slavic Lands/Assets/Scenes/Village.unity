@@ -3995,46 +3995,6 @@ PrefabInstance:
       propertyPath: _velocityText
       value: 
       objectReference: {fileID: 360385398}
-    - target: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: _enemyLayer.m_Bits
-      value: 1664
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <XpDataSO>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: b21733fec9eb6dc4b91d2ed350e4e6c4, type: 2}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerCombat>k__BackingField
-      value: 
-      objectReference: {fileID: 6286490905410016070}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerEnergy>k__BackingField
-      value: 
-      objectReference: {fileID: 6286490905410016069}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerHealth>k__BackingField
-      value: 
-      objectReference: {fileID: 6286490905410016068}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerMovement>k__BackingField
-      value: 
-      objectReference: {fileID: 6286490905410016071}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerProfileSO>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: 689682902e2d86a4cb4f293384d14ebd, type: 2}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerProfile>k__BackingField.<SkillXpEntries>k__BackingField.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471732045066454331, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: <PlayerProfile>k__BackingField.<AbilityLevelDataList>k__BackingField.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680442154034623169, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6135717079960541633, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.46
@@ -4075,14 +4035,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6605478336497125523, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: m_Size.y
-      value: 3.3779194
-      objectReference: {fileID: 0}
-    - target: {fileID: 6605478336497125523, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.013511062
-      objectReference: {fileID: 0}
     - target: {fileID: 8717956977632661785, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4101,39 +4053,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ed5e15022e94bf68d861676f422c087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6286490905410016069 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7448097306558477171, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-  m_PrefabInstance: {fileID: 6286490905410016067}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a3709c95e54cc9ac6a0d00277ff6fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6286490905410016070 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1739681899460929222, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-  m_PrefabInstance: {fileID: 6286490905410016067}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ed3644cc884152bff46082fb9e4da1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6286490905410016071 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 294103443833829595, guid: 19e546463a45c6749862fc27dc683d68, type: 3}
-  m_PrefabInstance: {fileID: 6286490905410016067}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d5b74917954ac40be5d34541f57431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7379334377324886939

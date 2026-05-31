@@ -35,13 +35,7 @@ namespace Gameplay.Player
         private bool _isMoving;
         private bool _isGrounded;
 
-        // --- Animation ---
-        private static readonly int MovementParam = Animator.StringToHash("Movement");
-        private static readonly int CutTrigger = Animator.StringToHash("Cut");
-        private static readonly int MineTrigger = Animator.StringToHash("Mine");
-        private static readonly int AttackTrigger = Animator.StringToHash("Attack");
-        private static readonly int ShieldTrigger = Animator.StringToHash("Shield");
-        private static readonly int DeathTrigger = Animator.StringToHash("Death");
+
 
         // --- References ---
         [SerializeField] private TrailRenderer _trailRenderer;
@@ -54,16 +48,16 @@ namespace Gameplay.Player
         private PlayerInputSystem _playerInputSystem;
         private PlayerEnergy _playerEnergy;
         private Rigidbody2D _rigidbody2D;
-        private Animator _animator;
         private BoxCollider2D _boxCollider2D;
         private SpriteRenderer _spriteRenderer;
+        private PlayerAnimationController _animationController;
 
         private void Awake()
         {
             _playerInputSystem = GetComponent<PlayerInputSystem>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
+            _animationController = GetComponent<PlayerAnimationController>();
             _playerEnergy = GetComponent<PlayerEnergy>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
@@ -226,8 +220,7 @@ namespace Gameplay.Player
         }
 
         /// <summary>
-        /// Updates the blend tree movement parameter based on current speed and input.
-        /// 0 = idle, ~0.5 = walk, 1 = run
+        /// Updates the movement blend tree parameter via PlayerAnimationController.
         /// </summary>
         private void UpdateMovementAnimation()
         {
@@ -235,67 +228,27 @@ namespace Gameplay.Player
 
             if (inputMagnitude < 0.01f || _isDashing)
             {
-                _animator.SetFloat(MovementParam, 0f, 0.1f, Time.deltaTime);
+                _animationController.UpdateMovement(0f);
             }
             else
             {
                 float blend = Mathf.Approximately(_activeSpeed, _runSpeed) ? 1f : 0.5f;
-                _animator.SetFloat(MovementParam, blend, 0.1f, Time.deltaTime);
+                _animationController.UpdateMovement(blend);
             }
         }
 
         /// <summary>
-        /// Triggers the specified animation by name (Cut, Mine, Attack, Shield, Death).
+        /// Locks or unlocks player movement. Used by StateMachineBehaviours during actions.
         /// </summary>
-        public void PlayTriggerAnimation(int triggerHash)
+        public void SetMovementLock(bool isLocked)
         {
-            _animator.SetTrigger(triggerHash);
-        }
-
-        public void PlayCut()
-        {
-            _isMoving = false;
-            _animator.SetTrigger(CutTrigger);
-            StartAnimationCorutine(GetClipLength("Cut"));
-        }
-
-        public void PlayMine() => _animator.SetTrigger(MineTrigger);
-        public void PlayAttack() => _animator.SetTrigger(AttackTrigger);
-        public void PlayShield() => _animator.SetTrigger(ShieldTrigger);
-        public void PlayDeath() => _animator.SetTrigger(DeathTrigger);
-
-        private Coroutine _activeAnimation;
-
-        private void StartAnimationCorutine(float duration)
-        {
-            if (_activeAnimation == null)
-                _activeAnimation = StartCoroutine(ResumeMovement(duration));
-            else
+            _isMoving = !isLocked;
+            
+            // If we just got locked, ensure we stop sliding
+            if (isLocked)
             {
-                StopCoroutine(_activeAnimation);
-                _activeAnimation = StartCoroutine(ResumeMovement(duration));
+                _animationController.UpdateMovement(0f);
             }
-        }
-
-        private IEnumerator ResumeMovement(float duration)
-        {
-            yield return new WaitForSeconds(duration - 0.1f);
-            _isMoving = true;
-        }
-
-        private float GetClipLength(string clipName)
-        {
-            RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
-    
-            foreach (AnimationClip clip in ac.animationClips)
-            {
-                if (clip.name == clipName)
-                {
-                    return clip.length;
-                }
-            }
-    
-            return 0f;
         }
     }
 }
