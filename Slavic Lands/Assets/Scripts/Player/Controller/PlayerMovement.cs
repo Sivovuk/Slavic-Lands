@@ -57,6 +57,11 @@ namespace Gameplay.Player
         {
             _playerInputSystem = GetComponent<PlayerInputSystem>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            
+            // Force interpolation to ensure the player's sprite moves smoothly between physics frames.
+            // This is the #1 cause of "player shakes but camera is smooth" in Unity 2D.
+            _rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
+            
             _boxCollider2D = GetComponent<BoxCollider2D>();
             _animationController = GetComponent<PlayerAnimationController>();
             _playerEnergy = GetComponent<PlayerEnergy>();
@@ -100,8 +105,14 @@ namespace Gameplay.Player
         private void Move()
         {
             var direction = _playerInputSystem.MovementValue.x;
-            transform.Translate(Vector2.right * direction * _activeSpeed * Time.deltaTime);
-            SetDirection(direction);
+            
+            // Move using Rigidbody physics instead of manual Transform translation
+            _rigidbody2D.linearVelocity = new Vector2(direction * _activeSpeed, _rigidbody2D.linearVelocity.y);
+            
+            if (direction != 0f)
+            {
+                SetDirection(direction);
+            }
         }
 
         /// <summary>
