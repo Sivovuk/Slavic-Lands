@@ -11,8 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d14917f0-711c-4181-9b4f-2b943daaed29" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Slavic Lands/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Animation/PlayerAnimationEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Animation/PlayerAnimationEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Cut.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Cut.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Mine.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Mine.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Entity/Animals/Wolf.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Entity/Animals/Wolf.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Animals/Wolf.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Animals/Wolf.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Resource/Player/Player.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Resource/Player/Player.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Village.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Village.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Controller/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,12 +31,24 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="1" />
+    <option name="cachedIndexableFilesCount" value="30" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Sivovuk"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Sivovuk/Slavic-Lands.git",
+    "accountId": "d08af32b-5376-4c03-9184-e71a8050d2fd"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Constants/Constants.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Interfaces/ILoadStatsResource.cs" root0="FORCE_HIGHLIGHTING" />
@@ -58,6 +77,65 @@
     <urls />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.0" />
+      <entry key="H2" value="1.0" />
+      <entry key="H4" value="1.0" />
+      <entry key="D1" value="1.0" />
+      <entry key="W1" value="1.0" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="3.9545037546846427E-7" />
+      <entry key="MS500" value="0.05241051152755819" />
+      <entry key="S2" value="0.4784698753365059" />
+      <entry key="S5" value="0.7446322470408051" />
+      <entry key="S10" value="0.8629207652159062" />
+      <entry key="S30" value="0.9520438968648106" />
+      <entry key="S60" value="0.9757273681027967" />
+      <entry key="M2" value="0.9877891313953585" />
+      <entry key="M5" value="0.9950976424624741" />
+      <entry key="M10" value="0.9975458097062381" />
+      <entry key="M15" value="0.9983632031787067" />
+      <entry key="M30" value="0.9991812664270217" />
+      <entry key="H1" value="0.9995905493886093" />
+      <entry key="H2" value="0.9997952537337879" />
+      <entry key="H4" value="0.9998976216262282" />
+      <entry key="D1" value="0.999982936209789" />
+      <entry key="W1" value="0.9999975622978571" />
+    </decayedShown>
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -255,6 +333,7 @@
       <workItem from="1777547114519" duration="1916000" />
       <workItem from="1780166464739" duration="1690000" />
       <workItem from="1780223454465" duration="150000" />
+      <workItem from="1780316668984" duration="3055000" />
     </task>
     <servers />
   </component>

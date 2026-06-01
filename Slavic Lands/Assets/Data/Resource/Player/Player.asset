@@ -26,10 +26,10 @@ MonoBehaviour:
   CuttingDamage: 5
   MiningDamage: 5
   Slash: 5
-  SlashPushForce: 5
+  SlashPushForce: 10
   ShieldBash: 2
   ShieldBashPushForce: 3
   PiercingArrow: 7
-  PiercingArrowPushForce: 5
+  PiercingArrowPushForce: 10
   StartingLevel: 1
   LevelMultiplayer: 1.2

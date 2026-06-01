@@ -262,6 +262,7 @@ namespace Gameplay.Player
             if (isLocked)
             {
                 _animationController.UpdateMovement(0f);
+                _rigidbody2D.linearVelocity = new Vector2(0f, _rigidbody2D.linearVelocity.y);
             }
         }
     }

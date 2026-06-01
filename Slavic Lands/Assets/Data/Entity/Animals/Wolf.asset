@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f031c028d3124e9597ad8e5a5e2cdcdf, type: 3}
   m_Name: Wolf
   m_EditorClassIdentifier: 
-  WalkSpeed: 3
-  RunSpeed: 10
+  IdleDuration: 1
+  IdleAttackDuration: 0.5
+  WalkSpeed: 0
+  RunSpeed: 0
+  MinWalkRange: -3
+  MaxWalkRange: 3
   AttackDamage: 1
+  AttackCooldown: 1
+  DetectionRadius: 5
+  AttackRange: 1
   BaseHealth: 10
   StartingLevel: 1
   LevelMultiplayer: 1.2
