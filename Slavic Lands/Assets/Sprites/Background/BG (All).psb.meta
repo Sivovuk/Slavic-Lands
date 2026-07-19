@@ -1,0 +1,456 @@
+fileFormatVersion: 2
+guid: b552857b46a664049a863f41f3aa86a3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 8d1a8627985b40e4fb0f8570829580d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  multiSpriteImportData: []
+  layeredSpriteImportData: []
+  spriteImportData: []
+  rigSpriteImportData: []
+  sharedRigSpriteImportData: []
+  mosaicSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  generateTileAssets: 0
+  tilePaletteCellLayout: 0
+  tilePaletteHexagonLayout: 0
+  tilePaletteCellSize: {x: 1, y: 1, z: 0}
+  tilePaletteCellSizing: 0
+  transparencySortMode: 0
+  transparencySortAxis: {x: 0, y: 0, z: 1}
+  tileTemplate: {instanceID: 0}
+  padding: 4
+  spriteSizeExpand: 0
+  skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  pSDLayerImportSetting: []
+  psdLayers:
+  - name: Podloge
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 819244ba8ba0c3a4ea806b44a4c74645
+    layerID: 139
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Stone 2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 06341817034ff6d4ebbab81dc20b6a1f
+    layerID: 147
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Stone 1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 476a4f841bd66de4397203e896cb0287
+    layerID: 146
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Vines
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: a3508b1f3dcfec74db2354a761395103
+    layerID: 93
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Grass
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 9adf5e57d0179484fa91d2a06c7a83a3
+    layerID: 92
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Stones
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 0b95d200a1d99cf4d8dc681de8b2fa3b
+    layerID: 91
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Eath
+    spriteName: 
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 7a8f8a2c01ba79343803d542744d6c40
+    layerID: 90
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Pozadne
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: a941334c10e88734c9827266cefd9ac7
+    layerID: 142
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Pozadina 4 kamen
+    spriteName: 
+    isGroup: 1
+    parentIndex: 7
+    spriteID: 9a239c53a2c29fb46b48b5f8ed108cd0
+    layerID: 144
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: StoneBG 1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 8
+    spriteID: f2fe61ccb37df22409101297c9fac89f
+    layerID: 150
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: StoneBG 2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 8
+    spriteID: 1a79b7424ac51d544ae37b6e02299ddd
+    layerID: 149
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Pozadina 3
+    spriteName: 
+    isGroup: 1
+    parentIndex: 7
+    spriteID: 82487e26dac7c3c4592707b1a0034423
+    layerID: 44
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Background hills 1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: b74f9db31cacabd44a8da270eb703dff
+    layerID: 40
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background hills 2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: f0264a5bf5d8c7441828bbf4f6b39d53
+    layerID: 41
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background mountain 1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 19f8fcca00ca2d848a48b3bc69c393b0
+    layerID: 42
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background mountain 2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 8a2e2b652c6c92b40a975995c67ee040
+    layerID: 43
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: nebo
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 542fd84e9f4cd4745a8f0235bd7df4d4
+    layerID: 47
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Pozadina 2 hrast
+    spriteName: 
+    isGroup: 1
+    parentIndex: 7
+    spriteID: f334c93a4f3d70542b4823ff5ccb1a14
+    layerID: 113
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Background_hills_1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 17
+    spriteID: 479ae5501cb125942a2b8a2c9ed21250
+    layerID: 137
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_hills_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 17
+    spriteID: b09df856984914547b3cc6e1dc801230
+    layerID: 135
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_mountain_1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 17
+    spriteID: 74625d71899671c44b9969a862d5678b
+    layerID: 106
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_mountain_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 17
+    spriteID: b5c3524d6916e5a43b9069d9175a8697
+    layerID: 103
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: nebo 8
+    spriteName: 
+    isGroup: 0
+    parentIndex: 17
+    spriteID: 6b3a64aabef69194aaa5c4028e4415b9
+    layerID: 101
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Pozadina 1 jelka
+    spriteName: 
+    isGroup: 1
+    parentIndex: 7
+    spriteID: 2fbf0ac0f7a28ef4a829a580358a3f72
+    layerID: 94
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Background_hills_1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: c4f6561c9de6ef34a99719e8e08b705d
+    layerID: 89
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_hills_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: e8e35ef65629e4345848e56e18e6b1e7
+    layerID: 88
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_mountain_1
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: 7922c1b9c30ccdd47a9717fd6f1ce0c5
+    layerID: 87
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Background_mountain_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: f4b48964d84a9fc4b832bf0eac8babf3
+    layerID: 84
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: planina 7
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: 7431faec6e778244ebe1ed0be331ab44
+    layerID: 83
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: nebo 8
+    spriteName: 
+    isGroup: 0
+    parentIndex: 23
+    spriteID: 4d30e157fb880f143b7cdb4b99924baa
+    layerID: 82
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  mosaicPSDLayers: []
+  rigPSDLayers: []
+  sharedRigPSDLayers: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
