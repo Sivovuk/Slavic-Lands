@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace SaveSystem
@@ -9,18 +10,50 @@ namespace SaveSystem
     /// </summary>
     public static class SaveManager
     {
-        // Path to the save file (platform-specific safe directory)
-        private static readonly string SaveFilePath = Path.Combine(Application.persistentDataPath, "player_save.json");
+        private const string SaveFileName = "player_save.json";
+        private const string TemporarySaveFileName = "player_save.tmp";
+        private const string BackupSaveFileName = "player_save.bak";
+
+        private static string SaveFilePath => Path.Combine(Application.persistentDataPath, SaveFileName);
+        private static string TemporarySaveFilePath => Path.Combine(Application.persistentDataPath, TemporarySaveFileName);
+        private static string BackupSaveFilePath => Path.Combine(Application.persistentDataPath, BackupSaveFileName);
 
         /// <summary>
         /// Serializes PlayerProfileSaveData to JSON and writes it to disk.
         /// </summary>
         /// <param name="saveData">The player's profile data to save.</param>
-        public static void SavePlayer(PlayerProfileSaveData saveData)
+        public static bool SavePlayer(PlayerProfileSaveData saveData)
         {
-            string json = JsonUtility.ToJson(saveData, true); // Pretty print JSON
-            File.WriteAllText(SaveFilePath, json);
-            Debug.Log($"Player saved to : {SaveFilePath}");
+            if (saveData == null)
+            {
+                Debug.LogError("Cannot save player data because the data is null.");
+                return false;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(Application.persistentDataPath);
+                string json = JsonUtility.ToJson(saveData, true);
+                File.WriteAllText(TemporarySaveFilePath, json);
+
+                if (File.Exists(SaveFilePath))
+                {
+                    File.Replace(TemporarySaveFilePath, SaveFilePath, BackupSaveFilePath, true);
+                }
+                else
+                {
+                    File.Move(TemporarySaveFilePath, SaveFilePath);
+                }
+
+                Debug.Log($"Player saved to: {SaveFilePath}");
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Failed to save player data: {exception}");
+                TryDeleteFile(TemporarySaveFilePath);
+                return false;
+            }
         }
 
         /// <summary>
@@ -30,28 +63,61 @@ namespace SaveSystem
         /// <returns>True if save file exists and loads successfully, false otherwise.</returns>
         public static bool TryLoadPlayer(out PlayerProfileSaveData saveData)
         {
-            if (File.Exists(SaveFilePath))
+            if (!TryReadSaveFile(SaveFilePath, out saveData) &&
+                !TryReadSaveFile(BackupSaveFilePath, out saveData))
             {
-                string json = File.ReadAllText(SaveFilePath);
-                saveData = JsonUtility.FromJson<PlayerProfileSaveData>(json);
-                Debug.Log("Game loaded.");
-                return true;
+                saveData = null;
+                Debug.LogWarning("No valid save file found.");
+                return false;
             }
-            
-            saveData = null;
-            Debug.LogWarning("No save file found.");
-            return false;
+
+            Debug.Log("Game loaded.");
+            return true;
         }
 
         /// <summary>
-        /// Deletes the player save file if it exists.
+        /// Deletes all save files and legacy PlayerPrefs data.
         /// </summary>
-        public static void DeleteSave()
+        public static void DeleteAllSavedData()
         {
-            if (File.Exists(SaveFilePath))
+            TryDeleteFile(SaveFilePath);
+            TryDeleteFile(TemporarySaveFilePath);
+            TryDeleteFile(BackupSaveFilePath);
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            Debug.Log("All saved player data deleted.");
+        }
+
+        private static bool TryReadSaveFile(string path, out PlayerProfileSaveData saveData)
+        {
+            saveData = null;
+
+            if (!File.Exists(path))
+                return false;
+
+            try
             {
-                File.Delete(SaveFilePath);
-                Debug.Log("Save file deleted.");
+                string json = File.ReadAllText(path);
+                saveData = JsonUtility.FromJson<PlayerProfileSaveData>(json);
+                return saveData != null && saveData.Skills != null && saveData.Abilities != null;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Failed to load save file '{path}': {exception}");
+                return false;
+            }
+        }
+
+        private static void TryDeleteFile(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                    File.Delete(path);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Failed to delete save file '{path}': {exception}");
             }
         }
     }

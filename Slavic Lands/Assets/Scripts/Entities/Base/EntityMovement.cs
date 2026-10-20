@@ -37,6 +37,8 @@ namespace Entities
         private float _activeSpeed;
         private float _targetXPosition;
 
+        protected float WalkSpeed => _walkSpeed;
+
         private Coroutine _idleCoroutine;
         private EntityAttack _attackComponent;
 

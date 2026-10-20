@@ -78,7 +78,8 @@ namespace Gameplay.Player
                 PlayerLevel = PlayerLevelData.CurrentLevel,
                 PlayerXp = PlayerLevelData.CurrentXp,
                 PlayerXpToNext = PlayerLevelData.XpToNextLevel,
-                LevelPointsAvailable = PlayerLevelData.LevelPointsAvailable
+                LevelPointsAvailable = PlayerLevelData.LevelPointsAvailable,
+                MaxLevel = PlayerLevelData.MaxLevel
             };
 
             foreach (var entry in SkillXpEntries)
@@ -90,7 +91,8 @@ namespace Gameplay.Player
                         ToolType = entry.ToolType,
                         CurrentXp = level.CurrentXp,
                         CurrentLevel = level.CurrentLevel,
-                        XpToNextLevel = level.XpToNextLevel
+                        XpToNextLevel = level.XpToNextLevel,
+                        MaxLevel = level.MaxLevel
                     });
                 }
             }
@@ -126,6 +128,10 @@ namespace Gameplay.Player
             {
                 AbilityLevelDataList.Add(new PlayerAbilityLevelData(ability.ToolType, ability.CurrentLevel, levelMultiplier));
             }
+
+            _initialized = false;
+            _skillMap = null;
+            AbilityMap = null;
         }
 
         /// <summary>
@@ -133,6 +139,8 @@ namespace Gameplay.Player
         /// </summary>
         public bool TryAddXp(ToolType tool, int amount)
         {
+            EnsureInitialized();
+
             if (_skillMap.TryGetValue(tool, out var level))
             {
                 level.AddXp(amount);
@@ -160,6 +168,7 @@ namespace Gameplay.Player
         public int CurrentXp => _currentXp;
         public int CurrentLevel => _currentLevel;
         public int XpToNextLevel => _xpToNextLevel;
+        public int MaxLevel => _maxLevel;
         public float LevelMultiplier => _levelMultiplier;
 
         protected LevelDataBase() { }

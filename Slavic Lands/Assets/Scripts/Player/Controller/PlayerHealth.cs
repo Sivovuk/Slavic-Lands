@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Constants;
 using Core.Interfaces;
 using Data;
 using UnityEngine;
@@ -20,6 +19,7 @@ namespace Gameplay.Player
 
         // Public getter for death state
         public bool IsDead => _isDead;
+        public float CurrentHealth => _currentHealth;
 
         // Events
         public Action OnDeath;
@@ -35,8 +35,14 @@ namespace Gameplay.Player
             _playerController = playerController;
 
             _maxHealth = playerSO.BaseHealth + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
-            _currentHealth = PlayerPrefs.GetFloat(Constants.SavedHealth, _maxHealth);
+            _currentHealth = _maxHealth;
+            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
 
+        public void LoadCurrentHealth(float currentHealth)
+        {
+            _currentHealth = Mathf.Clamp(currentHealth, 0f, _maxHealth);
+            _isDead = _currentHealth <= 0f;
             OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 

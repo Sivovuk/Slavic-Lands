@@ -25,6 +25,11 @@ namespace Gameplay.Interaction
         // Singleton instance for global access
         public static DialogueManager Instance { get; private set; }
 
+        public bool IsDialogueActive { get; private set; }
+        public GameObject DialogueSource { get; private set; }
+        public event Action<GameObject> DialogueStarted;
+        public event Action<GameObject> DialogueClosed;
+
         private void Awake()
         {
             // Simple singleton enforcement
@@ -37,16 +42,24 @@ namespace Gameplay.Interaction
         /// <summary>
         /// Begins a new dialogue session by activating UI and starting the typing effect.
         /// </summary>
-        public void StartDialogue(DialogueDataSO dialogueData)
+        public void StartDialogue(DialogueDataSO dialogueData, GameObject source = null)
         {
+            if (dialogueData == null || dialogueData.Sentences == null || dialogueData.Sentences.Length == 0)
+            {
+                Debug.LogError("Cannot start a dialogue without at least one sentence.", this);
+                return;
+            }
+
+            if (IsDialogueActive)
+                CloseDialogue();
+
             _dialogueBox.SetActive(true);
             _sentences = dialogueData.Sentences;
             _index = 0;
-
-            if (_typingCoroutine != null)
-                StopCoroutine(_typingCoroutine);
-
+            DialogueSource = source;
+            IsDialogueActive = true;
             _typingCoroutine = StartCoroutine(TypeSentence(_sentences[_index]));
+            DialogueStarted?.Invoke(DialogueSource);
         }
 
         /// <summary>
@@ -54,12 +67,23 @@ namespace Gameplay.Interaction
         /// </summary>
         public void CloseDialogue()
         {
+            if (!IsDialogueActive)
+                return;
+
+            GameObject source = DialogueSource;
+            IsDialogueActive = false;
+            DialogueSource = null;
+
+            if (_typingCoroutine != null)
+                StopCoroutine(_typingCoroutine);
+            _typingCoroutine = null;
+            _isTyping = false;
             _sentences = null;
             _index = 0;
             _dialogueText.text = "";
             _dialogueBox.SetActive(false);
 
-            StopCoroutine(_typingCoroutine); // Prevent coroutine from running in background
+            DialogueClosed?.Invoke(source);
         }
 
         /// <summary>
@@ -68,13 +92,16 @@ namespace Gameplay.Interaction
         /// </summary>
         public void SkipAnimation()
         {
-            if (_dialogueBox.activeInHierarchy)
+            if (IsDialogueActive)
             {
                 if (_isTyping)
                 {
-                    StopAllCoroutines();
+                    if (_typingCoroutine != null)
+                        StopCoroutine(_typingCoroutine);
+
                     _dialogueText.text = _sentences[_index];
                     _isTyping = false;
+                    _typingCoroutine = null;
                 }
                 else
                     NextSentence();
@@ -96,7 +123,7 @@ namespace Gameplay.Interaction
             }
             else
             {
-                _dialogueBox.SetActive(false);
+                CloseDialogue();
             }
         }
 
@@ -115,6 +142,7 @@ namespace Gameplay.Interaction
             }
 
             _isTyping = false;
+            _typingCoroutine = null;
         }
     }
 }

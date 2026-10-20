@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Constants;
 using Core.Interfaces;
 using Data;
 using UnityEngine;
@@ -29,15 +28,20 @@ namespace Gameplay.Player
 
         /// <summary>
         /// Loads player energy data using PlayerSO and scales it with level.
-        /// Attempts to restore saved energy from PlayerPrefs.
+        /// Initializes energy to its level-scaled maximum. Save data is applied by PlayerController.
         /// </summary>
         public void LoadPlayerStats(PlayerSO playerSO, PlayerController playerController)
         {
             _playerController = playerController;
             _maxEnergy = playerSO.BaseEnergy + (_playerController.PlayerProfile.PlayerLevelData.CurrentLevel * playerSO.LevelMultiplayer);
 
-            // Restore previously saved energy or default to max
-            ModifyEnergy(PlayerPrefs.GetFloat(Constants.SavedEnergy, _maxEnergy));
+            ModifyEnergy(_maxEnergy);
+        }
+
+        public void LoadCurrentEnergy(float currentEnergy)
+        {
+            _currentEnergy = Mathf.Clamp(currentEnergy, 0f, _maxEnergy);
+            OnEnergyChanged?.Invoke(_currentEnergy, _maxEnergy);
         }
 
         private void Update()

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Interfaces;
+using Gameplay.Resources;
+using UnityEngine;
 
 namespace SaveSystem
 {
@@ -11,6 +13,8 @@ namespace SaveSystem
     [Serializable]
     public class PlayerProfileSaveData
     {
+        public int SchemaVersion = 2;
+
         // --- PLAYER LEVEL STATE ---
 
         public int PlayerLevel;           // Current overall player level
@@ -18,11 +22,17 @@ namespace SaveSystem
         public int PlayerXpToNext;        // Required XP for next level
         public int LevelPointsAvailable;  // Points available to allocate into skills/abilities
         public int MaxLevel;              // Maximum cap for player level
+        public float CurrentHealth;
+        public float CurrentEnergy;
+        public string SceneName;
+        public float PositionX;
+        public float PositionY;
 
         // --- DETAILED PROGRESSION ---
 
         public List<SkillXpSaveData> Skills = new();     // List of all tool-based skill progressions
         public List<AbilitySaveData> Abilities = new();  // List of all learned/leveled abilities
+        public List<ResourceSaveData> Resources = new();
     }
 
     /// <summary>
@@ -46,5 +56,12 @@ namespace SaveSystem
     {
         public ToolType ToolType;   // The ability type (e.g., Slash, Shield Bash, Piercing Arrow)
         public int CurrentLevel;    // Current upgrade level of this ability
+    }
+
+    [Serializable]
+    public class ResourceSaveData
+    {
+        public ResourceType ResourceType;
+        public int Amount;
     }
 }

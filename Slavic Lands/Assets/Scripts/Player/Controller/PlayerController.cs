@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Data;
@@ -6,6 +5,7 @@ using Gameplay.Resources;
 using Managers;
 using SaveSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gameplay.Player
 {
@@ -33,6 +33,7 @@ namespace Gameplay.Player
 
         // Singleton pattern
         public static PlayerController Instance { get; private set; }
+        private PlayerProfileSaveData _loadedSaveData;
 
         private void Awake()
         {
@@ -55,9 +56,6 @@ namespace Gameplay.Player
 
         private async void Start()
         {
-            // Clear previous saves during development/test
-            SaveManager.DeleteSave();
-
             // Load saved data or defaults
             if (!LoadFromSaveFile())
             {
@@ -67,6 +65,19 @@ namespace Gameplay.Player
             // Initialize components with loaded data
             await LoadPlayerStats();
             await LoadResource();
+
+            if (_loadedSaveData != null)
+            {
+                var saveData = _loadedSaveData;
+                if (saveData.SchemaVersion >= 2)
+                {
+                    PlayerHealth.LoadCurrentHealth(saveData.CurrentHealth);
+                    PlayerEnergy.LoadCurrentEnergy(saveData.CurrentEnergy);
+
+                    if (saveData.SceneName == SceneManager.GetActiveScene().name)
+                        transform.position = new Vector3(saveData.PositionX, saveData.PositionY, transform.position.z);
+                }
+            }
 
             // Notify other systems that the player is initialized
             GameManager.Instance.PlayerInit();
@@ -79,11 +90,30 @@ namespace Gameplay.Player
         {
             if (SaveManager.TryLoadPlayer(out var saveData))
             {
+                NormalizeLegacySaveData(saveData);
                 PlayerProfile.LoadFromSaveData(saveData, PlayerSO.LevelMultiplayer);
+                _loadedSaveData = saveData;
                 return true;
             }
 
+            _loadedSaveData = null;
             return false;
+        }
+
+        private void NormalizeLegacySaveData(PlayerProfileSaveData saveData)
+        {
+            if (saveData.MaxLevel <= 0)
+                saveData.MaxLevel = PlayerProfileSO.PlayerLevelData.MaxLevel;
+
+            foreach (var skill in saveData.Skills)
+            {
+                if (skill.MaxLevel > 0)
+                    continue;
+
+                var defaultSkill = PlayerProfileSO.SkillXpEntries.Find(entry => entry.ToolType == skill.ToolType);
+                if (defaultSkill != null)
+                    skill.MaxLevel = defaultSkill.LevelData.MaxLevel;
+            }
         }
 
         /// <summary>
@@ -113,6 +143,8 @@ namespace Gameplay.Player
                     ability.LevelMultiplier
                 ));
             }
+
+            _loadedSaveData = null;
         }
 
         /// <summary>
@@ -133,6 +165,10 @@ namespace Gameplay.Player
         /// </summary>
         private Task LoadResource()
         {
+            var saveData = _loadedSaveData;
+            if (saveData != null && saveData.SchemaVersion >= 2)
+                PlayerResources.LoadFromSaveData(saveData.Resources);
+
             return Task.CompletedTask;
         }
 
@@ -141,8 +177,8 @@ namespace Gameplay.Player
         /// </summary>
         public void AddResource(int amount, ResourceType resourceType)
         {
-            Debug.LogError("AddResource");
             PlayerResources.AddResource(amount, resourceType);
+            SavePlayer();
         }
 
         /// <summary>
@@ -151,6 +187,12 @@ namespace Gameplay.Player
         public void SavePlayer()
         {
             var saveData = PlayerProfile.ToSaveData();
+            saveData.CurrentHealth = PlayerHealth.CurrentHealth;
+            saveData.CurrentEnergy = PlayerEnergy.GetCurrentEnergy();
+            saveData.SceneName = SceneManager.GetActiveScene().name;
+            saveData.PositionX = transform.position.x;
+            saveData.PositionY = transform.position.y;
+            saveData.Resources = PlayerResources.ToSaveData();
             SaveManager.SavePlayer(saveData);
         }
 
@@ -160,6 +202,12 @@ namespace Gameplay.Player
         private void OnApplicationQuit()
         {
             SavePlayer();
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (pauseStatus)
+                SavePlayer();
         }
     }
 }

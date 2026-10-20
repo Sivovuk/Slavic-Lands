@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 82394739391669593}
   - component: {fileID: 1731998029803557488}
   - component: {fileID: 3626208310415916480}
+  - component: {fileID: 7711944520112364012}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -186,8 +187,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7310391125506823483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a56741d066b4fd3a701ef4402c7bc36, type: 3}
+  m_Script: {fileID: 11500000, guid: 146729ed79bbefb458ba45a93b47eef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementValue>k__BackingField: {x: 0, y: 0}
-  <Look>k__BackingField: {x: 0, y: 0}
+  _wanderRadius: 3
+  _minimumIdleDuration: 1
+  _maximumIdleDuration: 3
+--- !u!114 &7711944520112364012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310391125506823483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c834cead61914c258accb560d5129d79, type: 3}
+  <EntityData>k__BackingField: {fileID: 0}
+  <ResourceData>k__BackingField: {fileID: 0}
+  DungeonData: []
