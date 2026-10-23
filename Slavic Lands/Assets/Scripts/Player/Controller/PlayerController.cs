@@ -28,6 +28,8 @@ namespace Gameplay.Player
         [field: SerializeField] public PlayerEnergy PlayerEnergy { get; private set; }
         [field: SerializeField] public PlayerAnimationController PlayerAnimationController { get; private set; }
         [field: SerializeField] public PlayerAnimationEventHandler PlayerAnimationEventHandler { get; private set; }
+        [field: SerializeField] public Gameplay.Inventory.PlayerInventory Inventory { get; private set; }
+        [field: SerializeField] public Data.Items.ItemDatabaseSO ItemDatabase { get; private set; }
 
         public PlayerResource PlayerResources { get; private set; }                               // Tracks collected resources
 
@@ -49,6 +51,23 @@ namespace Gameplay.Player
             PlayerEnergy = GetComponent<PlayerEnergy>();
             PlayerAnimationController = GetComponent<PlayerAnimationController>();
             PlayerAnimationEventHandler = GetComponent<PlayerAnimationEventHandler>();
+            Inventory = GetComponent<Gameplay.Inventory.PlayerInventory>();
+            if (Inventory == null)
+            {
+                Inventory = gameObject.AddComponent<Gameplay.Inventory.PlayerInventory>();
+            }
+
+            if (ItemDatabase == null)
+            {
+#if UNITY_EDITOR
+                ItemDatabase = UnityEditor.AssetDatabase.LoadAssetAtPath<Data.Items.ItemDatabaseSO>("Assets/Data/Items/ItemDatabase.asset");
+#endif
+            }
+
+            if (Inventory != null && ItemDatabase != null)
+            {
+                Inventory.SetItemDatabase(ItemDatabase);
+            }
 
             PlayerResources = new PlayerResource();
             PlayerProfile = new PlayerProfile();
@@ -167,7 +186,13 @@ namespace Gameplay.Player
         {
             var saveData = _loadedSaveData;
             if (saveData != null && saveData.SchemaVersion >= 2)
+            {
                 PlayerResources.LoadFromSaveData(saveData.Resources);
+                if (Inventory != null && saveData.InventoryItems != null)
+                {
+                    Inventory.LoadFromSaveData(saveData.InventoryItems);
+                }
+            }
 
             return Task.CompletedTask;
         }
@@ -182,6 +207,27 @@ namespace Gameplay.Player
         }
 
         /// <summary>
+        /// Attempts to spend the specified amount of a resource. Returns true and saves if successful.
+        /// </summary>
+        public bool TrySpendResource(ResourceType resourceType, int amount)
+        {
+            bool success = PlayerResources.TrySpendResource(resourceType, amount);
+            if (success)
+            {
+                SavePlayer();
+            }
+            return success;
+        }
+
+        /// <summary>
+        /// Attempts to spend the specified amount of Gold.
+        /// </summary>
+        public bool TrySpendGold(int amount)
+        {
+            return TrySpendResource(ResourceType.Gold, amount);
+        }
+
+        /// <summary>
         /// Serializes and saves the current player profile to persistent storage.
         /// </summary>
         public void SavePlayer()
@@ -193,6 +239,10 @@ namespace Gameplay.Player
             saveData.PositionX = transform.position.x;
             saveData.PositionY = transform.position.y;
             saveData.Resources = PlayerResources.ToSaveData();
+            if (Inventory != null)
+            {
+                saveData.InventoryItems = Inventory.ToSaveData();
+            }
             SaveManager.SavePlayer(saveData);
         }
 

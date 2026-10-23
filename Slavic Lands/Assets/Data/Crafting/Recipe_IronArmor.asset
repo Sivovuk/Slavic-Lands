@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587cbbfe6cd3ba84fb403fa5b44235c4, type: 3}
+  m_Name: Recipe_IronArmor
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Crafting.CraftingRecipeSO
+  _recipeName: "Kovanje \u017Deljeznog Oklopa"
+  _description: "Iskuj oklop od 5 \u017Eeljeznih poluga i 2 ko\u017Ee."
+  _ingredients:
+  - UseRawResourceType: 0
+    RawResource: 5
+    Item: {fileID: 11400000, guid: 35eec864e498d04408ec1daa451689b1, type: 2}
+    Amount: 5
+  - UseRawResourceType: 1
+    RawResource: 2
+    Item: {fileID: 0}
+    Amount: 2
+  _resultItem: {fileID: 11400000, guid: 68b607a4a35566a4093ef03eec6f7605, type: 2}
+  _resultAmount: 1
+  _goldCost: 15

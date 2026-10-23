@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29715549534d534585046bd64eb19c1, type: 3}
+  m_Name: Item_IronArmor
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Items.EquipmentItemSO
+  _itemId: Item_IronArmor
+  _itemName: "\u017Deljezni Oklop (Iron Armor)"
+  _description: "Te\u0161ki \u017Eeljezni oklop."
+  _icon: {fileID: 0}
+  _category: 4
+  _buyPrice: 150
+  _sellPrice: 75
+  _isStackable: 1
+  _maxStackSize: 99
+  _isRawResource: 0
+  _resourceType: 0
+  _slot: 3
+  _toolType: 0
+  _damageBonus: 0
+  _defenseBonus: 15
+  _movementSpeedModifier: 0
+  _harvestPower: 1
+  _durability: 100

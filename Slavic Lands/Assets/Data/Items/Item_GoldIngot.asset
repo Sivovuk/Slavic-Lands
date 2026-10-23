@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cb34876fd6fc47ad34a1551d1e47f, type: 3}
+  m_Name: Item_GoldIngot
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Items.ItemSO
+  _itemId: Item_GoldIngot
+  _itemName: Zlatna Poluga (Gold Ingot)
+  _description: "Poluga \u010Distog zlata."
+  _icon: {fileID: 0}
+  _category: 1
+  _buyPrice: 100
+  _sellPrice: 50
+  _isStackable: 1
+  _maxStackSize: 99
+  _isRawResource: 0
+  _resourceType: 6

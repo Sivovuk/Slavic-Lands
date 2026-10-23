@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Data.Interaction;
 using Gameplay.Player;
@@ -59,6 +59,12 @@ namespace Gameplay.Interaction
             DialogueSource = source;
             IsDialogueActive = true;
             _typingCoroutine = StartCoroutine(TypeSentence(_sentences[_index]));
+
+            if (PlayerController.Instance != null && PlayerController.Instance.PlayerMovement != null)
+            {
+                PlayerController.Instance.PlayerMovement.SetMovementLock(true);
+            }
+
             DialogueStarted?.Invoke(DialogueSource);
         }
 
@@ -82,6 +88,11 @@ namespace Gameplay.Interaction
             _index = 0;
             _dialogueText.text = "";
             _dialogueBox.SetActive(false);
+
+            if (PlayerController.Instance != null && PlayerController.Instance.PlayerMovement != null)
+            {
+                PlayerController.Instance.PlayerMovement.SetMovementLock(false);
+            }
 
             DialogueClosed?.Invoke(source);
         }

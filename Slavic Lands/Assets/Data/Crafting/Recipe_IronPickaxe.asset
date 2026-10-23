@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587cbbfe6cd3ba84fb403fa5b44235c4, type: 3}
+  m_Name: Recipe_IronPickaxe
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Crafting.CraftingRecipeSO
+  _recipeName: "Kovanje \u017Deljeznog Pijuka"
+  _description: "Iskuj pijuk od 3 \u017Eeljezne poluge i 2 drva."
+  _ingredients:
+  - UseRawResourceType: 0
+    RawResource: 5
+    Item: {fileID: 11400000, guid: 35eec864e498d04408ec1daa451689b1, type: 2}
+    Amount: 3
+  - UseRawResourceType: 1
+    RawResource: 0
+    Item: {fileID: 0}
+    Amount: 2
+  _resultItem: {fileID: 11400000, guid: f4b50e9ef2750e645aae4dd5ffac044a, type: 2}
+  _resultAmount: 1
+  _goldCost: 10

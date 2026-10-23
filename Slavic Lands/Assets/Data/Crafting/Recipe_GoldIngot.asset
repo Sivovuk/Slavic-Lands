@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587cbbfe6cd3ba84fb403fa5b44235c4, type: 3}
+  m_Name: Recipe_GoldIngot
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Crafting.CraftingRecipeSO
+  _recipeName: Taljenje Zlata (Smelt Gold Ingot)
+  _description: Istopi 2 rude zlata i 4 ugljena u 1 zlatnu polugu.
+  _ingredients:
+  - UseRawResourceType: 1
+    RawResource: 6
+    Item: {fileID: 0}
+    Amount: 2
+  - UseRawResourceType: 1
+    RawResource: 4
+    Item: {fileID: 0}
+    Amount: 4
+  _resultItem: {fileID: 11400000, guid: d31c64f78a988c24baa16539ce0737b9, type: 2}
+  _resultAmount: 1
+  _goldCost: 0

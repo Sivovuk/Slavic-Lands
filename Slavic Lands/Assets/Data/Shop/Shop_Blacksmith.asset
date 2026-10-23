@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c9b3dacdb4333498869d9566e0380f, type: 3}
+  m_Name: Shop_Blacksmith
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Shop.ShopSO
+  _shopTitle: "Kova\u010Dnica (Smith Shop)"
+  _shopType: 1
+  _greetingMessage: "Dobrodo\u0161ao u kova\u010Dnicu! Ovdje prodajem oru\u017Eje
+    i oklop i obradjujem rude."
+  _items:
+  - Item: {fileID: 11400000, guid: 24cb099e7491ce6408e86cb14e561184, type: 2}
+    OverridePrices: 0
+    BuyPrice: 120
+    SellPrice: 60
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  - Item: {fileID: 11400000, guid: f4b50e9ef2750e645aae4dd5ffac044a, type: 2}
+    OverridePrices: 0
+    BuyPrice: 100
+    SellPrice: 50
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  - Item: {fileID: 11400000, guid: 68b607a4a35566a4093ef03eec6f7605, type: 2}
+    OverridePrices: 0
+    BuyPrice: 150
+    SellPrice: 75
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  - Item: {fileID: 11400000, guid: 6b485402e78b1aa46bd650623f3677bc, type: 2}
+    OverridePrices: 0
+    BuyPrice: 110
+    SellPrice: 55
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  - Item: {fileID: 11400000, guid: 1b872c49102b4fe409e7387e03a40d9b, type: 2}
+    OverridePrices: 0
+    BuyPrice: 90
+    SellPrice: 45
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  - Item: {fileID: 11400000, guid: 35eec864e498d04408ec1daa451689b1, type: 2}
+    OverridePrices: 0
+    BuyPrice: 50
+    SellPrice: 25
+    CanBuy: 1
+    CanSell: 1
+    IsUnlimited: 1
+    Stock: 99
+  _supportsCrafting: 1
+  _craftingRecipes:
+  - {fileID: 11400000, guid: 3aa00ea397e09cc4bb471c004fad22e3, type: 2}
+  - {fileID: 11400000, guid: a9536fd96185b5048be6afe6b4ecd992, type: 2}
+  - {fileID: 11400000, guid: 076854cf34e04fb4eaa48499334ff032, type: 2}
+  - {fileID: 11400000, guid: a12481ebe25177b4888407ffd363ee2f, type: 2}
+  - {fileID: 11400000, guid: 8d6b814b9e0eecc4293817d879183722, type: 2}

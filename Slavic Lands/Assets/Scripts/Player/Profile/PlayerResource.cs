@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Gameplay.Resources;
 using SaveSystem;
@@ -55,6 +55,38 @@ namespace Gameplay.Player
             _resources[resourceType] += amount;
 
             OnResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+        }
+
+        public bool HasResource(ResourceType type, int amount)
+        {
+            if (amount <= 0) return true;
+            return GetResource(type) >= amount;
+        }
+
+        public bool TrySpendResource(ResourceType type, int amount)
+        {
+            if (amount < 0) return false;
+            if (amount == 0) return true;
+            if (!HasResource(type, amount)) return false;
+
+            _resources[type] -= amount;
+            OnResourceChanged?.Invoke(type, _resources[type]);
+            return true;
+        }
+
+        public int GetGold()
+        {
+            return GetResource(ResourceType.Gold);
+        }
+
+        public void AddGold(int amount)
+        {
+            AddResource(amount, ResourceType.Gold);
+        }
+
+        public bool TrySpendGold(int amount)
+        {
+            return TrySpendResource(ResourceType.Gold, amount);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Core.Interfaces;
 using Gameplay.Resources;
@@ -33,6 +33,17 @@ namespace SaveSystem
         public List<SkillXpSaveData> Skills = new();     // List of all tool-based skill progressions
         public List<AbilitySaveData> Abilities = new();  // List of all learned/leveled abilities
         public List<ResourceSaveData> Resources = new();
+        public List<InventoryItemSaveData> InventoryItems = new();
+    }
+
+    /// <summary>
+    /// Save data for an inventory item (weapons, armor, ingots, etc.).
+    /// </summary>
+    [Serializable]
+    public class InventoryItemSaveData
+    {
+        public string ItemId;
+        public int Amount;
     }
 
     /// <summary>

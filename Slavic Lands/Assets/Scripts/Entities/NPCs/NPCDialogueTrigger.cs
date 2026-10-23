@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Data.Interaction;
 using Gameplay.Interaction;
 using Gameplay.Player;
@@ -11,7 +11,9 @@ namespace Entities
     /// </summary>
     public class NPCDialogueTrigger : MonoBehaviour
     {
+        [SerializeField] private string _npcName = "Mještanin";
         [SerializeField] private DialogueDataSO _dialogueData; // The dialogue script assigned to this NPC
+        [SerializeField] private Data.Shop.ShopSO _shopData;   // Optional shop assigned to this NPC
         private static readonly HashSet<NPCDialogueTrigger> ActiveTriggers = new HashSet<NPCDialogueTrigger>();
 
         private readonly HashSet<Collider2D> _playerColliders = new HashSet<Collider2D>();
@@ -31,6 +33,10 @@ namespace Entities
                 DialogueManager.Instance.DialogueSource == gameObject)
                 DialogueManager.Instance.CloseDialogue();
 
+            if (UI.Interaction.NPCInteractionChoiceUI.Instance != null &&
+                UI.Interaction.NPCInteractionChoiceUI.Instance.IsOpen)
+                UI.Interaction.NPCInteractionChoiceUI.Instance.CloseChoices();
+
             _playerColliders.Clear();
         }
 
@@ -39,6 +45,12 @@ namespace Entities
         /// </summary>
         private void OnInteraction()
         {
+            if (UI.Interaction.NPCInteractionChoiceUI.Instance != null && UI.Interaction.NPCInteractionChoiceUI.Instance.IsOpen)
+                return;
+
+            if (Gameplay.Shop.ShopManager.Instance != null && Gameplay.Shop.ShopManager.Instance.IsShopOpen)
+                return;
+
             DialogueManager dialogueManager = DialogueManager.Instance;
             if (dialogueManager == null)
                 return;
@@ -51,7 +63,31 @@ namespace Entities
                 return;
             }
 
-            if (FindClosestInRange() != this || _dialogueData == null)
+            if (FindClosestInRange() != this)
+                return;
+
+            // If NPC offers a shop, show the choice panel (Talk / Shop / Leave)
+            if (_shopData != null && UI.Interaction.NPCInteractionChoiceUI.Instance != null)
+            {
+                UI.Interaction.NPCInteractionChoiceUI.Instance.OpenChoices(
+                    _npcName,
+                    onTalk: () =>
+                    {
+                        if (_dialogueData != null)
+                            dialogueManager.StartDialogue(_dialogueData, gameObject);
+                    },
+                    onShop: () =>
+                    {
+                        if (Gameplay.Shop.ShopManager.Instance != null)
+                            Gameplay.Shop.ShopManager.Instance.OpenShop(_shopData);
+                    },
+                    onLeave: null,
+                    hasShop: true
+                );
+                return;
+            }
+
+            if (_dialogueData == null)
                 return;
 
             dialogueManager.StartDialogue(_dialogueData, gameObject);
@@ -96,6 +132,10 @@ namespace Entities
             if (DialogueManager.Instance != null &&
                 DialogueManager.Instance.DialogueSource == gameObject)
                 DialogueManager.Instance.CloseDialogue();
+
+            if (UI.Interaction.NPCInteractionChoiceUI.Instance != null &&
+                UI.Interaction.NPCInteractionChoiceUI.Instance.IsOpen)
+                UI.Interaction.NPCInteractionChoiceUI.Instance.CloseChoices();
         }
 
         private static NPCDialogueTrigger FindClosestInRange()
@@ -106,7 +146,8 @@ namespace Entities
             foreach (NPCDialogueTrigger trigger in ActiveTriggers)
             {
                 if (trigger == null || trigger._playerColliders.Count == 0 ||
-                    trigger._playerInputSystem == null || trigger._dialogueData == null)
+                    trigger._playerInputSystem == null ||
+                    (trigger._dialogueData == null && trigger._shopData == null))
                     continue;
 
                 float distance = (trigger.transform.position - trigger._playerInputSystem.transform.position).sqrMagnitude;
